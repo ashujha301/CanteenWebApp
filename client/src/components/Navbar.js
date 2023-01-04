@@ -1,27 +1,29 @@
-import React from 'react'
+import React from "react";
+import { Flex } from "theme-ui";
 
-const Navbar = () => {
+const Navbar = ({ label }) => {
   return (
-    <div style={styles.container}>
-    <text style={styles.header}>Canteen Stores Department</text>
-    </div>
-  )
-}
+    <Flex sx={styles.container}>
+      <text style={styles.header}>{label}</text>
+    </Flex>
+  );
+};
 
 export default Navbar;
 
 let styles = {
   container: {
-    backgroundColor: '#1D213C',
+    backgroundColor: "#1D213C",
     height: 100,
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingLeft: [3, 2, 0, 0],
   },
-  header:{
-    color: 'white',
+  header: {
+    color: "white",
     fontSize: 40,
     fontWeight: 600,
   },
-}
+};
