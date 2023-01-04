@@ -47,6 +47,7 @@ let styles = {
     backgroundColor: "#3C79B4",
     height: "100vh",
     flex: 1,
+    overflow: "hidden",
   },
   row: {
     flexDirection: "row",

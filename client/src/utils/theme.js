@@ -53,6 +53,14 @@ export const theme = {
       fontWeight: "bold",
       borderColor: "white",
       backgroundColor: "white",
+      color: "black",
+    },
+    label: {
+      fontSize: 24,
+      fontWeight: "500",
+      color: "white",
+      paddingBottom: 2,
+      paddingTop: 4,
     },
   },
   text: {
