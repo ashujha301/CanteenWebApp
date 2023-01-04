@@ -1,35 +1,35 @@
 /** @jsxImportSource theme-ui */
 import React from "react";
 import { NavLink } from "react-router-dom";
-import Button from "./Button";
+import { Button, Flex, Input } from "theme-ui";
+import Navbar from "./Navbar";
 
 function Login() {
   return (
-    <div style={styles.home}>
-      <img src="../Canteenlogo.png" alt="Canteen Logo" />
-      <form>
-        <label>Phone Number</label>
-        <input type="text"/>
-      </form>
-      <Button label="Login" />
-      <div sx={{ backgroundColor: "lightBlue", height: 100,mt:2 }} />
-      <h1
-      sx={{
-        color: 'lightBlue',
-      }}>
-      Hello
-    </h1>
-    </div>
+    <>
+      <Navbar label="LOGIN" />
+      <Flex
+        sx={{
+          flexDirection: "column",
+          backgroundColor: "blue",
+          flex: 1,
+          alignItems: "center",
+          height: "100vh",
+          overflow: "hidden",
+        }}
+      >
+        <img src="../Canteenlogo.png" alt="Canteen Logo" />
+        <form>
+          <Input type="text" placeholder="Phone Number" />
+        </form>
+        <NavLink to="/details">
+          <Button sx={{ variant: "buttons.secondary", mt: 4 }}>
+            Login/SignUp
+          </Button>
+        </NavLink>
+      </Flex>
+    </>
   );
 }
 
 export default Login;
-
-let styles = {
-  home: {
-    backgroundColor: "#3C79B4",
-    height: "100vh",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-};
