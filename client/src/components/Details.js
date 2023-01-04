@@ -15,6 +15,10 @@ function Details() {
             style={{ height: "50%" }}
           />
           <Flex sx={{ flexDirection: "column", alignItems: "center" }}>
+          <Label>
+              Service Number<Text sx={{ color: "red" }}>*</Text>
+            </Label>
+            <Input type="text" />
             <Label>
               Rank<Text sx={{ color: "red" }}>*</Text>
             </Label>

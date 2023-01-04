@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { Button, Flex, Input } from "theme-ui";
 import Navbar from "./Navbar";
 
-function Login() {
+function Otp() {
   return (
     <>
       <Navbar label="LOGIN" />
@@ -20,11 +20,11 @@ function Login() {
       >
         <img src="../Canteenlogo.png" alt="Canteen Logo" />
         <form>
-          <Input type="text" placeholder="Phone Number" />
+          <Input type="text" placeholder="Enter One Time Password" />
         </form>
-        <NavLink to="/Otp">
+        <NavLink to="/details">
           <Button sx={{ variant: "buttons.secondary", mt: 4 }}>
-            Login/SignUp
+            Enter OTP
           </Button>
         </NavLink>
       </Flex>
@@ -32,4 +32,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Otp;
