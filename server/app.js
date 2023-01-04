@@ -1,11 +1,6 @@
-require("dotenv").config();
-const express = require("express");
+const express = require('express');
 const app = express();
 
+app.use(express.json());
 
-const port = 8005;
-
-app.listen(port,()=>{
-    console.log(`server is running on port number ${port}`);
-
-});
+module.exports = app
