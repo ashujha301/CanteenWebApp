@@ -1,12 +1,11 @@
 /** @jsxImportSource theme-ui */
-import React, { useState } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import { Button, Flex, Input } from "theme-ui";
 import Navbar from "./Navbar";
 import OTPInput, { ResendOTP } from "otp-input-react";
 
-function Otp() {
-  const [OTP, setOTP] = useState("");
+function Otp({ otp, setOtp, onSubmitOTP }) {
   return (
     <>
       <Navbar label="LOGIN" />
@@ -21,28 +20,30 @@ function Otp() {
         }}
       >
         <img src="../Canteenlogo.png" alt="Canteen Logo" />
-        <OTPInput
-          value={OTP}
-          onChange={setOTP}
-          autoFocus
-          OTPLength={4}
-          otpType="number"
-          disabled={false}
-          inputStyles={{
-            height: 50,
-            width: 60,
-            fontSize: 22,
-            fontWeight: "semiBold",
-            fontFamily: "Roboto",
-            marginBottom: 20,
-          }}
-        />
-        <ResendOTP onResendClick={() => console.log("Resend clicked")} />
-        <NavLink to="/details">
-          <Button sx={{ variant: "buttons.secondary", mt: 4 }}>
-            Verify OTP
-          </Button>
-        </NavLink>
+        <form onSubmit={onSubmitOTP}>
+          <OTPInput
+            value={otp}
+            onChange={setOtp(otp)}
+            autoFocus
+            OTPLength={6}
+            otpType="number"
+            disabled={false}
+            inputStyles={{
+              height: 50,
+              width: 60,
+              fontSize: 22,
+              fontWeight: "semiBold",
+              fontFamily: "Roboto",
+              marginBottom: 20,
+            }}
+          />
+          <ResendOTP onResendClick={() => console.log("Resend clicked")} />
+          <NavLink to="/details">
+            <Button sx={{ variant: "buttons.secondary", mt: 4 }} type="submit">
+              Verify OTP
+            </Button>
+          </NavLink>
+        </form>
       </Flex>
     </>
   );
