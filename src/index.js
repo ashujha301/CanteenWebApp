@@ -5,7 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import {theme} from "./utils/theme";
-// import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { ThemeProvider } from "theme-ui";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
