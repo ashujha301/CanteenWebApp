@@ -7,7 +7,6 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
 function Login({ mobile, setMobile, onSignInSubmit }) {
-  console.log("mobile", mobile);
   return (
     <>
       <Navbar label="LOGIN" />
@@ -24,7 +23,11 @@ function Login({ mobile, setMobile, onSignInSubmit }) {
         <img src="../Canteenlogo.png" alt="Canteen Logo" />
         <form
           onSubmit={() => {
-            onSignInSubmit();
+            try {
+              onSignInSubmit();
+            } catch (e) {
+              console.log(e);
+            }
           }}
         >
           <Flex>

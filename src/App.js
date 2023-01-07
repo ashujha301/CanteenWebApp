@@ -1,44 +1,34 @@
-import Maincomp from "./components/Maincomp";
-import Login from "./components/Login";
-import { Routes, Route } from "react-router-dom";
-import Details from "./components/Details";
-import Otp from "./components/Otp";
-import firebaseNew from "./firebase";
-import { useState } from "react";
+import React from "react";
+import firebase from "./firebase";
 
-function App() {
-  const [mobile, setMobile] = useState("");
-  const [otp, setOtp] = useState("");
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   this.setState({
-  //     [name]: value,
-  //   });
-  // };
-  const configureCaptcha = () => {
-    window.recaptchaVerifier = new firebaseNew.auth.RecaptchaVerifier(
+class App extends React.Component {
+  handleChange = (e) => {
+    const { name, value } = e.target;
+    this.setState({
+      [name]: value,
+    });
+  };
+  configureCaptcha = () => {
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
       "sign-in-button",
       {
         size: "invisible",
         callback: (response) => {
           // reCAPTCHA solved, allow signInWithPhoneNumber.
-          onSignInSubmit();
-          console.log("Recaptca varified,response: ", response);
+          this.onSignInSubmit();
+          console.log("Recaptca varified");
         },
         defaultCountry: "IN",
       }
     );
   };
-  const onSignInSubmit = (e) => {
-  console.log("mobile", mobile);
-    console.log("came here")
+  onSignInSubmit = (e) => {
     e.preventDefault();
-    configureCaptcha();
-    const phoneNumber = mobile;
+    this.configureCaptcha();
+    const phoneNumber = "+91" + this.state.mobile;
     console.log(phoneNumber);
     const appVerifier = window.recaptchaVerifier;
-    firebaseNew
+    firebase
       .auth()
       .signInWithPhoneNumber(phoneNumber, appVerifier)
       .then((confirmationResult) => {
@@ -51,12 +41,12 @@ function App() {
       .catch((error) => {
         // Error; SMS not sent
         // ...
-        console.log("SMS not sent", error);
+        console.log("SMS not sent");
       });
   };
-  const onSubmitOTP = (e) => {
+  onSubmitOTP = (e) => {
     e.preventDefault();
-    const code = otp;
+    const code = this.state.otp;
     console.log(code);
     window.confirmationResult
       .confirm(code)
@@ -70,31 +60,37 @@ function App() {
       .catch((error) => {
         // User couldn't sign in (bad verification code?)
         // ...
-        console.log(error)
       });
   };
-  return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<Maincomp />} />
-        <Route
-          path="/login"
-          element={
-            <Login
-              mobile={mobile}
-              setMobile={setMobile}
-              onSubmit={onSignInSubmit}
-            />
-          }
-        />
-        <Route
-          path="/Otp"
-          element={<Otp otp={otp} setOtp={setOtp} onSubmitOTP={onSubmitOTP} />}
-        />
-        <Route path="/details" element={<Details />} />
-      </Routes>
-    </div>
-  );
-}
+  render() {
+    return (
+      <div>
+        <h2>Login Form</h2>
+        <form onSubmit={this.onSignInSubmit}>
+          <div id="sign-in-button"></div>
+          <input
+            type="number"
+            name="mobile"
+            placeholder="Mobile number"
+            required
+            onChange={this.handleChange}
+          />
+          <button type="submit">Submit</button>
+        </form>
 
+        <h2>Enter OTP</h2>
+        <form onSubmit={this.onSubmitOTP}>
+          <input
+            type="number"
+            name="otp"
+            placeholder="OTP Number"
+            required
+            onChange={this.handleChange}
+          />
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    );
+  }
+}
 export default App;
