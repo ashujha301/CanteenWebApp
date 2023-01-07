@@ -12,7 +12,7 @@ const PhoneSignUp = () => {
   const [flag, setFlag] = useState(false);
   const [otp, setOtp] = useState("");
   const [result, setResult] = useState("");
-  const { setUpRecaptcha } = useUserAuth();
+  const { setUpRecaptha } = useUserAuth();
   const navigate = useNavigate();
 
   const getOtp = async (e) => {
@@ -22,7 +22,7 @@ const PhoneSignUp = () => {
     if (number === "" || number === undefined)
       return setError("Please enter a valid phone number!");
     try {
-      const response = await setUpRecaptcha(number);
+      const response = await setUpRecaptha(number);
       setResult(response);
       setFlag(true);
     } catch (err) {
