@@ -6,7 +6,7 @@ import Navbar from "./Navbar";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
-function Login({ mobile, setMobile, onSignInSubmit,onChange }) {
+function Login({ mobile, setMobile, onSignInSubmit }) {
   console.log("mobile", mobile);
   return (
     <>
@@ -22,13 +22,19 @@ function Login({ mobile, setMobile, onSignInSubmit,onChange }) {
         }}
       >
         <img src="../Canteenlogo.png" alt="Canteen Logo" />
-        <form onSubmit={onSignInSubmit}>
+        <form
+          onSubmit={() => {
+            onSignInSubmit();
+          }}
+        >
           <Flex>
             <div id="sign-in-button"></div>
             <PhoneInput
               country={"in"}
               value={mobile}
-              onChange={setMobile(mobile)}
+              onChange={(e) => {
+                setMobile(e);
+              }}
               onlyCountries={["in"]}
               inputProps={{
                 name: "phone",
@@ -45,11 +51,9 @@ function Login({ mobile, setMobile, onSignInSubmit,onChange }) {
               }}
             />
           </Flex>
-          <NavLink to="/Otp">
-            <Button sx={{ variant: "buttons.secondary", mt: 4 }} type="submit">
-              Login/SignUp
-            </Button>
-          </NavLink>
+          <Button sx={{ variant: "buttons.secondary", mt: 4 }} type="submit">
+            Login/SignUp
+          </Button>
         </form>
       </Flex>
     </>

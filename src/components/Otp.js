@@ -3,7 +3,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { Button, Flex, Input } from "theme-ui";
 import Navbar from "./Navbar";
-import OTPInput, { ResendOTP } from "otp-input-react";
+import OTPInput from "otp-input-react";
 
 function Otp({ otp, setOtp, onSubmitOTP }) {
   return (
@@ -20,10 +20,16 @@ function Otp({ otp, setOtp, onSubmitOTP }) {
         }}
       >
         <img src="../Canteenlogo.png" alt="Canteen Logo" />
-        <form onSubmit={onSubmitOTP}>
+        <form
+          onSubmit={() => {
+            onSubmitOTP();
+          }}
+        >
           <OTPInput
             value={otp}
-            onChange={setOtp(otp)}
+            onChange={(e) => {
+              setOtp(e);
+            }}
             autoFocus
             OTPLength={6}
             otpType="number"
@@ -35,14 +41,12 @@ function Otp({ otp, setOtp, onSubmitOTP }) {
               fontWeight: "semiBold",
               fontFamily: "Roboto",
               marginBottom: 20,
+              color: "black",
             }}
           />
-          <ResendOTP onResendClick={() => console.log("Resend clicked")} />
-          <NavLink to="/details">
-            <Button sx={{ variant: "buttons.secondary", mt: 4 }} type="submit">
-              Verify OTP
-            </Button>
-          </NavLink>
+          <Button sx={{ variant: "buttons.secondary", mt: 4 }} type="submit">
+            Verify OTP
+          </Button>
         </form>
       </Flex>
     </>
