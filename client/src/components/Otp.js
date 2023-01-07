@@ -1,10 +1,12 @@
 /** @jsxImportSource theme-ui */
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Button, Flex, Input } from "theme-ui";
 import Navbar from "./Navbar";
+import OTPInput, { ResendOTP } from "otp-input-react";
 
 function Otp() {
+  const [OTP, setOTP] = useState("");
   return (
     <>
       <Navbar label="LOGIN" />
@@ -19,12 +21,26 @@ function Otp() {
         }}
       >
         <img src="../Canteenlogo.png" alt="Canteen Logo" />
-        <form>
-          <Input type="text" placeholder="Enter One Time Password" />
-        </form>
+        <OTPInput
+          value={OTP}
+          onChange={setOTP}
+          autoFocus
+          OTPLength={4}
+          otpType="number"
+          disabled={false}
+          inputStyles={{
+            height: 50,
+            width: 60,
+            fontSize: 22,
+            fontWeight: "semiBold",
+            fontFamily: "Roboto",
+            marginBottom: 20,
+          }}
+        />
+        <ResendOTP onResendClick={() => console.log("Resend clicked")} />
         <NavLink to="/details">
           <Button sx={{ variant: "buttons.secondary", mt: 4 }}>
-            Enter OTP
+            Verify OTP
           </Button>
         </NavLink>
       </Flex>
