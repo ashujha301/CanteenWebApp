@@ -3,12 +3,12 @@ a {
 }
 
 body {
-  width:'100%'
-
+  width: 100%;
 }
 
 .box {
-
+  border: 1px solid #dfdfdf;
+  background-color: #fff;
 }
 
 .button-right {
@@ -18,4 +18,13 @@ body {
 
 #recaptcha-container {
   margin: 20px;
+}
+
+.PhoneInputInput {
+  height: 50px;
+  border-radius: 8px;
+}
+
+.PhoneInput {
+  --PhoneInputCountryFlag-height: 33px;
 }
