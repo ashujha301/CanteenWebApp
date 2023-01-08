@@ -1,16 +1,21 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCkZ7qqzG35tbRDbHyMhKtG-FYZJVfhiEc",
-  authDomain: "otp-login-75569.firebaseapp.com",
-  projectId: "otp-login-75569",
-  storageBucket: "otp-login-75569.appspot.com",
-  messagingSenderId: "967724901724",
-  appId: "1:967724901724:web:0601ad57986a2585d84d99",
+  apiKey: "AIzaSyA1AzIkkca6Byc8W2L5eNfZYt5wKCeUz0M",
+  authDomain: "canteenwebapp-48222.firebaseapp.com",
+  projectId: "canteenwebapp-48222",
+  storageBucket: "canteenwebapp-48222.appspot.com",
+  messagingSenderId: "4763667233",
+  appId: "1:4763667233:web:9f1769290e45f3accc4c60",
+  measurementId: "G-2MHCV8JT59"
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+
 export default app;
+
+export const db = getFirestore(app);
