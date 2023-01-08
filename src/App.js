@@ -1,5 +1,5 @@
-import { Container, Row, Col } from "react-bootstrap";
 import { Routes, Route } from "react-router-dom";
+import { Box } from "theme-ui";
 import "./App.css";
 import Home from "./components/Home";
 import Login from "./components/Login";
@@ -9,26 +9,22 @@ import { UserAuthContextProvider } from "./context/UserAuthContext";
 
 function App() {
   return (
-    <Container style={{ width: "400px" }}>
-      <Row>
-        <Col>
-          <UserAuthContextProvider>
-            <Routes>
-              <Route
-                path="/home"
-                element={
-                  <ProtectedRoute>
-                    <Home />
-                  </ProtectedRoute>
-                }
-              />
-              <Route path="/" element={<Login />} />
-              <Route path="/phonesignup" element={<PhoneSignUp />} />
-            </Routes>
-          </UserAuthContextProvider>
-        </Col>
-      </Row>
-    </Container>
+    <Box>
+      <UserAuthContextProvider>
+        <Routes>
+          <Route
+            path="/home"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/" element={<Login />} />
+          <Route path="/phonesignup" element={<PhoneSignUp />} />
+        </Routes>
+      </UserAuthContextProvider>
+    </Box>
   );
 }
 
