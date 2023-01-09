@@ -40,6 +40,7 @@ const BooksList = ({ getBookId }) => {
             <th>Middle Name</th>
             <th>Last Name</th>
             <th>Slot</th>
+            <th>Time</th>
             <th>Canteen Card Number</th>
             <th>Token </th>
           </tr>
@@ -55,16 +56,10 @@ const BooksList = ({ getBookId }) => {
                 <td>{doc.middlename}</td>
                 <td>{doc.lastname}</td>
                 <td>{doc.slot}</td>
+                <td>{doc.time}</td>
                 <td>{doc.card}</td>
                 <td>{doc.tokens}</td>
                 <td>
-                  <Button
-                    variant="secondary"
-                    className="edit"
-                    onClick={(e) => getBookId(doc.id)}
-                  >
-                    Edit
-                  </Button>
                   <Button
                     variant="danger"
                     className="delete"

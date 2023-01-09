@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+// import { Link, useNavigate } from "react-router-dom";
 import { Form, Alert, InputGroup, Button, ButtonGroup } from "react-bootstrap";
 import BookDataService from "../services/book.services";
 //import token from "./Token";
 
-const Details = ({ id, setId, generateRandomToken,saveTokenToFirestore}) => {
+const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
   const [rank, setRank] = useState("");
   const [servicenumber, setServiceNumber] = useState("");
   const [card, setCard] = useState("");
   const [firstname, setFirstName] = useState("");
   const [middlename, setMiddleName] = useState("");
   const [lastname, setLastname] = useState("");
+  const [time, setTime] = useState("time");
   const [slot, setSlot] = useState("Today");
   const [flag, setFlag] = useState(true);
   const [message, setMessage] = useState({ error: false, msg: "" });
@@ -18,7 +19,13 @@ const Details = ({ id, setId, generateRandomToken,saveTokenToFirestore}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
-    if (firstname === "" || lastname === "" || rank === "" || card === "" || servicenumber === "" ) {
+    if (
+      firstname === "" ||
+      lastname === "" ||
+      rank === "" ||
+      card === "" ||
+      servicenumber === "" || time === ""
+    ) {
       setMessage({ error: true, msg: "All fields are mandatory!" });
       return;
     }
@@ -30,6 +37,7 @@ const Details = ({ id, setId, generateRandomToken,saveTokenToFirestore}) => {
       firstname,
       lastname,
       slot,
+      time
     };
     console.log(newBook);
 
@@ -52,6 +60,7 @@ const Details = ({ id, setId, generateRandomToken,saveTokenToFirestore}) => {
     setMiddleName("");
     setCard("");
     setServiceNumber("");
+    setTime("");
   };
 
   const editHandler = async () => {
@@ -65,7 +74,7 @@ const Details = ({ id, setId, generateRandomToken,saveTokenToFirestore}) => {
       setMiddleName(docSnap.data().middlename);
       setCard(docSnap.data().card);
       setSlot(docSnap.data().status);
-      
+      setCard(docSnap.data().time);
     } catch (err) {
       setMessage({ error: true, msg: err.message });
     }
@@ -83,10 +92,9 @@ const Details = ({ id, setId, generateRandomToken,saveTokenToFirestore}) => {
     saveTokenToFirestore(token);
   };
 
-
   return (
     <>
-      <div >
+      <div>
         {message?.msg && (
           <Alert
             variant={message?.error ? "danger" : "success"}
@@ -98,8 +106,7 @@ const Details = ({ id, setId, generateRandomToken,saveTokenToFirestore}) => {
         )}
 
         <Form onSubmit={handleSubmit}>
-
-        <Form.Group  controlId="formBookTitle">
+          <Form.Group controlId="formBookTitle">
             <InputGroup>
               <InputGroup.Text id="formBookTitle"></InputGroup.Text>
               <Form.Control
@@ -111,7 +118,7 @@ const Details = ({ id, setId, generateRandomToken,saveTokenToFirestore}) => {
             </InputGroup>
           </Form.Group>
 
-          <Form.Group  controlId="formBookTitle">
+          <Form.Group controlId="formBookTitle">
             <InputGroup>
               <InputGroup.Text id="formBookTitle"></InputGroup.Text>
               <Form.Control
@@ -123,8 +130,7 @@ const Details = ({ id, setId, generateRandomToken,saveTokenToFirestore}) => {
             </InputGroup>
           </Form.Group>
 
-
-          <Form.Group  controlId="formBookTitle">
+          <Form.Group controlId="formBookTitle">
             <InputGroup>
               <InputGroup.Text id="formBookTitle"></InputGroup.Text>
               <Form.Control
@@ -136,7 +142,7 @@ const Details = ({ id, setId, generateRandomToken,saveTokenToFirestore}) => {
             </InputGroup>
           </Form.Group>
 
-          <Form.Group  controlId="formBookTitle">
+          <Form.Group controlId="formBookTitle">
             <InputGroup>
               <InputGroup.Text id="formBookTitle"></InputGroup.Text>
               <Form.Control
@@ -148,8 +154,7 @@ const Details = ({ id, setId, generateRandomToken,saveTokenToFirestore}) => {
             </InputGroup>
           </Form.Group>
 
-
-          <Form.Group  controlId="formBookAuthor">
+          <Form.Group controlId="formBookAuthor">
             <InputGroup>
               <InputGroup.Text id="formBookAuthor"></InputGroup.Text>
               <Form.Control
@@ -161,7 +166,7 @@ const Details = ({ id, setId, generateRandomToken,saveTokenToFirestore}) => {
             </InputGroup>
           </Form.Group>
 
-          <Form.Group  controlId="formBookTitle">
+          <Form.Group controlId="formBookTitle">
             <InputGroup>
               <InputGroup.Text id="formBookTitle"></InputGroup.Text>
               <Form.Control
@@ -173,6 +178,20 @@ const Details = ({ id, setId, generateRandomToken,saveTokenToFirestore}) => {
             </InputGroup>
           </Form.Group>
 
+          <Form.Group controlId="formBookTitle">
+            <InputGroup>
+              <InputGroup.Text id="formBookTitle"></InputGroup.Text>
+              <Form.Select aria-label="Basic example">
+                <option>Select Slot Timing</option>
+                <option value={time}>10:00 - 11:00</option>
+                <option value={time}>11:00 - 12:00</option>
+                <option value={time}>12:00 - 13:00</option>
+                <option value={time}>14:00 - 15:00</option>
+                <option value={time}>15:00 - 16:00</option>
+                <option value={time}>16:00 - 16:30</option>
+              </Form.Select>
+            </InputGroup>
+          </Form.Group>
 
           <ButtonGroup aria-label="Basic example">
             <Button
@@ -196,12 +215,10 @@ const Details = ({ id, setId, generateRandomToken,saveTokenToFirestore}) => {
               Tomorrow
             </Button>
           </ButtonGroup>
-          <div >
-            
+          <div>
             <Button variant="primary" type="Submit" onClick={handleClick}>
               Add/ Update
             </Button>
-        
           </div>
         </Form>
       </div>

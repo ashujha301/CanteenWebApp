@@ -2,8 +2,6 @@ import { Routes, Route } from "react-router-dom";
 import { Box } from "theme-ui";
 import "./App.css";
 import Home from "./components/Home";
-import generateRandomToken from "./components/Token";
-import saveTokenToFirestore from "./components/Token"
 import Login from "./components/Login";
 import Details from "./components/Details";
 import PhoneSignUp from "./components/PhoneSignUp";
@@ -40,8 +38,6 @@ function App() {
               <Details
                 id={Id}
                 setId={setId}
-                generateRandomToken={generateRandomToken}
-                saveTokenToFirestore={saveTokenToFirestore}
               />
             }
           />
