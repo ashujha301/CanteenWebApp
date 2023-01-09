@@ -2,6 +2,8 @@ import { Routes, Route } from "react-router-dom";
 import { Box } from "theme-ui";
 import "./App.css";
 import Home from "./components/Home";
+import generateRandomToken from "./components/Token";
+import saveTokenToFirestore from "./components/Token"
 import Login from "./components/Login";
 import Details from "./components/Details";
 import PhoneSignUp from "./components/PhoneSignUp";
@@ -32,8 +34,21 @@ function App() {
           />
           <Route path="/" element={<Login />} />
           <Route path="/phonesignup" element={<PhoneSignUp />} />
-          <Route path="/details" element={<Details id={Id} setId={setId} />} />
-          <Route path="/bookslist" element={<BooksList getId={getIdHandler} />} />
+          <Route
+            path="/details"
+            element={
+              <Details
+                id={Id}
+                setId={setId}
+                generateRandomToken={generateRandomToken}
+                saveTokenToFirestore={saveTokenToFirestore}
+              />
+            }
+          />
+          <Route
+            path="/bookslist"
+            element={<BooksList getId={getIdHandler} />}
+          />
         </Routes>
       </UserAuthContextProvider>
     </Box>

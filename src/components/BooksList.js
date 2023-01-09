@@ -18,6 +18,9 @@ const BooksList = ({ getBookId }) => {
     await BookDataService.deleteBook(id);
     getBooks();
   };
+
+
+  
   return (
     <>
       <div >
@@ -53,6 +56,7 @@ const BooksList = ({ getBookId }) => {
                 <td>{doc.lastname}</td>
                 <td>{doc.slot}</td>
                 <td>{doc.card}</td>
+                <td>{doc.tokens}</td>
                 <td>
                   <Button
                     variant="secondary"

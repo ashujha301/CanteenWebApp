@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Form, Alert, InputGroup, Button, ButtonGroup } from "react-bootstrap";
 import BookDataService from "../services/book.services";
+//import token from "./Token";
 
-const Details = ({ id, setId }) => {
+const Details = ({ id, setId, generateRandomToken,saveTokenToFirestore}) => {
   const [rank, setRank] = useState("");
   const [servicenumber, setServiceNumber] = useState("");
   const [card, setCard] = useState("");
@@ -75,6 +77,13 @@ const Details = ({ id, setId }) => {
       editHandler();
     }
   }, [id]);
+
+  const handleClick = () => {
+    const token = generateRandomToken();
+    saveTokenToFirestore(token);
+  };
+
+
   return (
     <>
       <div >
@@ -156,7 +165,7 @@ const Details = ({ id, setId }) => {
             <InputGroup>
               <InputGroup.Text id="formBookTitle"></InputGroup.Text>
               <Form.Control
-                type="number"
+                type="text"
                 placeholder="Card number"
                 value={card}
                 onChange={(e) => setCard(e.target.value)}
@@ -188,9 +197,11 @@ const Details = ({ id, setId }) => {
             </Button>
           </ButtonGroup>
           <div >
-            <Button variant="primary" type="Submit">
+            
+            <Button variant="primary" type="Submit" onClick={handleClick}>
               Add/ Update
             </Button>
+        
           </div>
         </Form>
       </div>
