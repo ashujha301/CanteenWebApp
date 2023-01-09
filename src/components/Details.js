@@ -11,7 +11,7 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
   const [firstname, setFirstName] = useState("");
   const [middlename, setMiddleName] = useState("");
   const [lastname, setLastname] = useState("");
-  const [time, setTime] = useState("time");
+  const [time, setTime] = useState("");
   const [slot, setSlot] = useState("Today");
   const [flag, setFlag] = useState(true);
   const [message, setMessage] = useState({ error: false, msg: "" });
@@ -74,7 +74,7 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
       setMiddleName(docSnap.data().middlename);
       setCard(docSnap.data().card);
       setSlot(docSnap.data().status);
-      setCard(docSnap.data().time);
+      setTime(docSnap.data().time);
     } catch (err) {
       setMessage({ error: true, msg: err.message });
     }
@@ -181,14 +181,17 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
           <Form.Group controlId="formBookTitle">
             <InputGroup>
               <InputGroup.Text id="formBookTitle"></InputGroup.Text>
-              <Form.Select aria-label="Basic example">
-                <option>Select Slot Timing</option>
-                <option value={time}>10:00 - 11:00</option>
-                <option value={time}>11:00 - 12:00</option>
-                <option value={time}>12:00 - 13:00</option>
-                <option value={time}>14:00 - 15:00</option>
-                <option value={time}>15:00 - 16:00</option>
-                <option value={time}>16:00 - 16:30</option>
+              <Form.Select aria-label="Basic example"  onChange={(e) => {
+                            setTime(e.target.value)
+                        }}>
+                <option> Select Slot Timing</option>
+              
+                <option value="10-11am" onChange={handleSubmit}>10:00 - 11:00</option>
+                <option value="11-12am" onChange={handleSubmit}>11:00 - 12:00</option>
+                <option value="12:00-1pm" onChange={handleSubmit}>12:00 - 13:00</option>
+                <option value="2-3pm" onChange={handleSubmit}>14:00 - 15:00</option>
+                <option value="3-4pm" onChange={handleSubmit}>15:00 - 16:00</option>
+                <option value="4-4:30pm" onChange={handleSubmit}>16:00 - 16:30</option>
               </Form.Select>
             </InputGroup>
           </Form.Group>
@@ -217,7 +220,7 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
           </ButtonGroup>
           <div>
             <Button variant="primary" type="Submit" onClick={handleClick}>
-              Add/ Update
+              BOOK SLOT
             </Button>
           </div>
         </Form>

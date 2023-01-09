@@ -18,10 +18,8 @@ const BooksList = ({ getBookId }) => {
     await BookDataService.deleteBook(id);
     getBooks();
   };
-
-
   
-  return (
+return (
     <>
       <div >
         <Button variant="dark edit" onClick={getBooks}>

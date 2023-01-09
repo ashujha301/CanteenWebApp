@@ -34,6 +34,8 @@ class BookDataService {
     const bookDoc = doc(db, "Canteen_Slots", id);
     return getDoc(bookDoc);
   };
+
+  
   
 }
 
