@@ -8,6 +8,7 @@ import PhoneInput from "react-phone-number-input";
 import { useUserAuth } from "../context/UserAuthContext";
 import { Box } from "theme-ui";
 import Navbar from "./Navbar";
+import Footer from "./footer";
 
 const PhoneSignUp = () => {
   const [error, setError] = useState("");
@@ -134,6 +135,8 @@ const PhoneSignUp = () => {
           </Form>
         </Box>
       </Box>
+      <Footer label="Copyright 2020. All rights reserved.">
+      </Footer>
     </>
   );
 };

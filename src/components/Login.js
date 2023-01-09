@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
+import Footer from "./footer";
 import { Box, Button, Flex, Text } from "theme-ui";
 
 const Login = () => {
@@ -44,6 +45,7 @@ const Login = () => {
           </Flex>
         </div>
       </Box>
+      <Footer label="Copyright 2020. All rights reserved."></Footer>
     </>
   );
 };

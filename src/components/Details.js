@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 // import { Link, useNavigate } from "react-router-dom";
 import { Form, Alert, InputGroup, Button, ButtonGroup } from "react-bootstrap";
 import BookDataService from "../services/book.services";
+import { Box } from "theme-ui";
+import Navbar from "./Navbar";
+import Footer from "./footer";
 //import token from "./Token";
 
 const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
@@ -94,6 +97,29 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
 
   return (
     <>
+    <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          backgroundColor: "blue",
+          height: "100vh",
+          flex: 1,
+          width: "100%",
+        }}
+      >
+        <Navbar label="DETAILS" />
+        <Box
+          sx={{
+            alignSelf: "center",
+            justifyContent: "center",
+            width: ["80%", "60%", "50%", "33%"],
+            flex: 1,
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+       
+          {/* <img src="../Canteenlogo.png" alt="Canteen Logo" /> */}
       <div>
         {message?.msg && (
           <Alert
@@ -108,7 +134,7 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formBookTitle">
             <InputGroup>
-              <InputGroup.Text id="formBookTitle"></InputGroup.Text>
+              {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
               <Form.Control
                 type="text"
                 placeholder="Rank"
@@ -120,7 +146,7 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
 
           <Form.Group controlId="formBookTitle">
             <InputGroup>
-              <InputGroup.Text id="formBookTitle"></InputGroup.Text>
+              {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
               <Form.Control
                 type="number"
                 placeholder="Service Number"
@@ -132,7 +158,7 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
 
           <Form.Group controlId="formBookTitle">
             <InputGroup>
-              <InputGroup.Text id="formBookTitle"></InputGroup.Text>
+              {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
               <Form.Control
                 type="text"
                 placeholder="First Name"
@@ -144,7 +170,7 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
 
           <Form.Group controlId="formBookTitle">
             <InputGroup>
-              <InputGroup.Text id="formBookTitle"></InputGroup.Text>
+              {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
               <Form.Control
                 type="text"
                 placeholder="Middle Name"
@@ -156,7 +182,7 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
 
           <Form.Group controlId="formBookAuthor">
             <InputGroup>
-              <InputGroup.Text id="formBookAuthor"></InputGroup.Text>
+              {/* <InputGroup.Text id="formBookAuthor"></InputGroup.Text> */}
               <Form.Control
                 type="text"
                 placeholder="Last Name"
@@ -168,7 +194,7 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
 
           <Form.Group controlId="formBookTitle">
             <InputGroup>
-              <InputGroup.Text id="formBookTitle"></InputGroup.Text>
+              {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
               <Form.Control
                 type="text"
                 placeholder="Card number"
@@ -180,7 +206,7 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
 
           <Form.Group controlId="formBookTitle">
             <InputGroup>
-              <InputGroup.Text id="formBookTitle"></InputGroup.Text>
+              {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
               <Form.Select aria-label="Basic example"  onChange={(e) => {
                             setTime(e.target.value)
                         }}>
@@ -225,6 +251,9 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
           </div>
         </Form>
       </div>
+      </Box>
+      </Box>
+         <Footer label="Copyright 2020. All rights reserved."></Footer>
     </>
   );
 };
