@@ -7,6 +7,10 @@ import Navbar from "./Navbar";
 import Footer from "./footer";
 //import token from "./Token";
 
+const currentDate = new Date();
+const tomorrow = new Date(currentDate);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
 const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
   const [rank, setRank] = useState("");
   const [servicenumber, setServiceNumber] = useState("");
@@ -18,7 +22,8 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
   const [slot, setSlot] = useState("Today");
   const [flag, setFlag] = useState(true);
   const [message, setMessage] = useState({ error: false, msg: "" });
-
+  
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
@@ -231,7 +236,7 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
                 setFlag(true);
               }}
             >
-              Today
+              {currentDate.toDateString()}
             </Button>
             <Button
               variant="danger"
@@ -241,7 +246,7 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
                 setFlag(false);
               }}
             >
-              Tomorrow
+              {tomorrow.toDateString()}
             </Button>
           </ButtonGroup>
           <div>
