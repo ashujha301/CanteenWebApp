@@ -320,7 +320,7 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
           </div>
         </Box>
       </Box>
-      <Footer label="Copyright 2020. All rights reserved."></Footer>
+      <Footer label="Copyright 2023. All rights reserved."></Footer>
     </>
   );
 };
