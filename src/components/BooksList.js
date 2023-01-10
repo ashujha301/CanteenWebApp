@@ -39,7 +39,7 @@ return (
             <th>First Name</th>
             <th>Middle Name</th>
             <th>Last Name</th>
-            <th>Slot</th>
+            <th>Date</th>
             <th>Time</th>
             <th>Canteen Card Number</th>
             <th>Token </th>
@@ -55,8 +55,8 @@ return (
                 <td>{doc.firstname}</td>
                 <td>{doc.middlename}</td>
                 <td>{doc.lastname}</td>
-                <td>{doc.slot}</td>  
-                <td></td>
+                <td>{doc.date}</td>  
+                {/* <td></td> */}
                 <td>{doc.time}</td>
                 <td>{doc.card}</td>
                 <td>{doc.tokens}</td>

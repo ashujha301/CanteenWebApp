@@ -135,7 +135,7 @@ const PhoneSignUp = () => {
           </Form>
         </Box>
       </Box>
-      <Footer label="Copyright 2020. All rights reserved.">
+      <Footer label="Copyright 2023. All rights reserved.">
       </Footer>
     </>
   );

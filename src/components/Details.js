@@ -19,7 +19,7 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
   const [middlename, setMiddleName] = useState("");
   const [lastname, setLastname] = useState("");
   const [time, setTime] = useState("");
-  const [slot, setSlot] = useState({currentDate,tomorrow});
+  const [date, setDate] = useState("");
   const [flag, setFlag] = useState(true);
   const [message, setMessage] = useState({ error: false, msg: "" });
 
@@ -32,7 +32,8 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
       rank === "" ||
       card === "" ||
       servicenumber === "" ||
-      time === ""
+      time === "" ||
+      date === ""
     ) {
       setMessage({ error: true, msg: "All fields are mandatory!" });
       return;
@@ -44,7 +45,7 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
       middlename,
       firstname,
       lastname,
-      slot,
+      date,
       time,
     };
     console.log(newBook);
@@ -68,6 +69,7 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
     setMiddleName("");
     setCard("");
     setServiceNumber("");
+    setDate("");
     setTime("");
     currentDate("");
     tomorrow("");
@@ -83,7 +85,7 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
       setFirstName(docSnap.data().firstname);
       setMiddleName(docSnap.data().middlename);
       setCard(docSnap.data().card);
-      setSlot(docSnap.data().status);
+      setDate(docSnap.data().date);
       setTime(docSnap.data().time);
     } catch (err) {
       setMessage({ error: true, msg: err.message });
@@ -136,143 +138,138 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
                 {message?.msg}
               </Alert>
             )}
-              <Form onSubmit={handleSubmit}>
-                <Form.Group controlId="formBookTitle">
-                  <InputGroup>
-                    {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
-                    <Form.Control
-                      type="text"
-                      placeholder="Rank"
-                      value={rank}
-                      onChange={(e) => setRank(e.target.value)}
-                    />
-                  </InputGroup>
-                </Form.Group>
+            <Form onSubmit={handleSubmit}>
+              <Form.Group controlId="formBookTitle">
+                <InputGroup>
+                  {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
+                  <Form.Control
+                    type="text"
+                    placeholder="Rank"
+                    value={rank}
+                    onChange={(e) => setRank(e.target.value)}
+                  />
+                </InputGroup>
+              </Form.Group>
 
-                <Form.Group controlId="formBookTitle">
-                  <InputGroup>
-                    {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
-                    <Form.Control
-                      type="number"
-                      placeholder="Service Number"
-                      value={servicenumber}
-                      onChange={(e) => setServiceNumber(e.target.value)}
-                    />
-                  </InputGroup>
-                </Form.Group>
+              <Form.Group controlId="formBookTitle">
+                <InputGroup>
+                  {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
+                  <Form.Control
+                    type="number"
+                    placeholder="Service Number"
+                    value={servicenumber}
+                    onChange={(e) => setServiceNumber(e.target.value)}
+                  />
+                </InputGroup>
+              </Form.Group>
 
-                <Form.Group controlId="formBookTitle">
-                  <InputGroup>
-                    {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
-                    <Form.Control
-                      type="text"
-                      placeholder="First Name"
-                      value={firstname}
-                      onChange={(e) => setFirstName(e.target.value)}
-                    />
-                  </InputGroup>
-                </Form.Group>
+              <Form.Group controlId="formBookTitle">
+                <InputGroup>
+                  {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
+                  <Form.Control
+                    type="text"
+                    placeholder="First Name"
+                    value={firstname}
+                    onChange={(e) => setFirstName(e.target.value)}
+                  />
+                </InputGroup>
+              </Form.Group>
 
-                <Form.Group controlId="formBookTitle">
-                  <InputGroup>
-                    {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
-                    <Form.Control
-                      type="text"
-                      placeholder="Middle Name"
-                      value={middlename}
-                      onChange={(e) => setMiddleName(e.target.value)}
-                    />
-                  </InputGroup>
-                </Form.Group>
+              <Form.Group controlId="formBookTitle">
+                <InputGroup>
+                  {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
+                  <Form.Control
+                    type="text"
+                    placeholder="Middle Name"
+                    value={middlename}
+                    onChange={(e) => setMiddleName(e.target.value)}
+                  />
+                </InputGroup>
+              </Form.Group>
 
-                <Form.Group controlId="formBookAuthor">
-                  <InputGroup>
-                    {/* <InputGroup.Text id="formBookAuthor"></InputGroup.Text> */}
-                    <Form.Control
-                      type="text"
-                      placeholder="Last Name"
-                      value={lastname}
-                      onChange={(e) => setLastname(e.target.value)}
-                    />
-                  </InputGroup>
-                </Form.Group>
+              <Form.Group controlId="formBookAuthor">
+                <InputGroup>
+                  {/* <InputGroup.Text id="formBookAuthor"></InputGroup.Text> */}
+                  <Form.Control
+                    type="text"
+                    placeholder="Last Name"
+                    value={lastname}
+                    onChange={(e) => setLastname(e.target.value)}
+                  />
+                </InputGroup>
+              </Form.Group>
 
-                <Form.Group controlId="formBookTitle">
-                  <InputGroup>
-                    {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
-                    <Form.Control
-                      type="text"
-                      placeholder="Card number"
-                      value={card}
-                      onChange={(e) => setCard(e.target.value)}
-                    />
-                  </InputGroup>
-                </Form.Group>
+              <Form.Group controlId="formBookTitle">
+                <InputGroup>
+                  {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
+                  <Form.Control
+                    type="text"
+                    placeholder="Card number"
+                    value={card}
+                    onChange={(e) => setCard(e.target.value)}
+                  />
+                </InputGroup>
+              </Form.Group>
 
-                <Form.Group controlId="formBookTitle">
-                  <InputGroup>
-                    {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
-                    <Form.Select
-                      aria-label="Basic example"
-                      onChange={(e) => {
-                        setTime(e.target.value);
-                      }}
-                    >
-                      <option> Select Slot Timing</option>
-
-                      <option value="10-11am" onChange={handleSubmit}>
-                        10:00 - 11:00
-                      </option>
-                      <option value="11-12am" onChange={handleSubmit}>
-                        11:00 - 12:00
-                      </option>
-                      <option value="12:00-1pm" onChange={handleSubmit}>
-                        12:00 - 13:00
-                      </option>
-                      <option value="2-3pm" onChange={handleSubmit}>
-                        14:00 - 15:00
-                      </option>
-                      <option value="3-4pm" onChange={handleSubmit}>
-                        15:00 - 16:00
-                      </option>
-                      <option value="4-4:30pm" onChange={handleSubmit}>
-                        16:00 - 16:30
-                      </option>
-                    </Form.Select>
-                  </InputGroup>
-                </Form.Group>
-
-                <ButtonGroup aria-label="Basic example">
-                  <Button
-                    disabled={flag}
-                    variant="success"
-                    onClick={(e) => {
-                      setSlot("");
-                      setFlag(true);
+              <Form.Group controlId="formBookTitle">
+                <InputGroup>
+                  {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
+                  <Form.Select
+                    aria-label="Basic example"
+                    onChange={(e) => {
+                      setTime(e.target.value);
                     }}
                   >
-                    
-                    {currentDate.toDateString()}
-                  </Button>
-                  <Button
-                    variant="danger"
-                    disabled={!flag}
-                    onClick={(e) => {
-                      setSlot("");
-                      setFlag(false);
-                    }}
-                  >
-                    
-                    {tomorrow.toDateString()}
-                  </Button>
-                </ButtonGroup>
-                <div>
-                  <Button variant="primary" type="Submit" onClick={handleClick}>
-                    BOOK SLOT
-                  </Button>
-                </div>
-              </Form>
-          
+                    <option> Select Slot Timing</option>
+
+                    <option value="10-11am" onChange={handleSubmit}>
+                      10:00 - 11:00
+                    </option>
+                    <option value="11-12am" onChange={handleSubmit}>
+                      11:00 - 12:00
+                    </option>
+                    <option value="12:00-1pm" onChange={handleSubmit}>
+                      12:00 - 13:00
+                    </option>
+                    <option value="2-3pm" onChange={handleSubmit}>
+                      14:00 - 15:00
+                    </option>
+                    <option value="3-4pm" onChange={handleSubmit}>
+                      15:00 - 16:00
+                    </option>
+                    <option value="4-4:30pm" onChange={handleSubmit}>
+                      16:00 - 16:30
+                    </option>
+                  </Form.Select>
+                </InputGroup>
+              </Form.Group>
+
+              <ButtonGroup aria-label="Basic example">
+                <Button
+                  variant="success"
+                  disabled={!flag}
+                  value={currentDate.toString().split(" ").slice(0, 4).join(" ")}
+                  onClick={(e) => setDate(e.target.value)}
+                >
+                  {currentDate.toString().split(" ").slice(0, 4).join(" ")}
+                </Button>
+                <Button
+                  variant="danger"
+                  disabled={!flag}
+                  value={tomorrow.toString().split(" ").slice(0, 4).join(" ")}
+                  onClick={(e) => setDate(e.target.value)}
+                >
+                  {tomorrow.toString().split(" ").slice(0, 4).join(" ")}
+                </Button>
+
+              </ButtonGroup>
+
+              <div>
+                <Button variant="primary" type="Submit" onClick={handleClick}>
+                  BOOK SLOT
+                </Button>
+              </div>
+            </Form>
           </div>
         </Box>
       </Box>
