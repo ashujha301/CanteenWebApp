@@ -19,11 +19,9 @@ const BooksList = ({ getBookId }) => {
     getBooks();
   };
 
-
-  
-return (
+  return (
     <>
-      <div >
+      <div>
         <Button variant="dark edit" onClick={getBooks}>
           Refresh List
         </Button>
@@ -42,7 +40,7 @@ return (
             <th>Date</th>
             <th>Time</th>
             <th>Canteen Card Number</th>
-            <th>Token </th>
+            <th>Token</th>
           </tr>
         </thead>
         <tbody>
@@ -55,11 +53,10 @@ return (
                 <td>{doc.firstname}</td>
                 <td>{doc.middlename}</td>
                 <td>{doc.lastname}</td>
-                <td>{doc.date}</td>  
-                {/* <td></td> */}
+                <td>{doc.date}</td>
                 <td>{doc.time}</td>
                 <td>{doc.card}</td>
-                <td>{doc.tokens}</td>
+                <td>{doc.token}</td>
                 <td>
                   <Button
                     variant="danger"

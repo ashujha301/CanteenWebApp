@@ -5,8 +5,8 @@ import BookDataService from "../services/book.services";
 import { Box, Flex } from "theme-ui";
 import Navbar from "./Navbar";
 import Footer from "./footer";
-//import token from "./Token";
 
+//to get current date and tomorrows date
 const currentDate = new Date();
 const tomorrow = new Date(currentDate);
 tomorrow.setDate(tomorrow.getDate() + 1);
@@ -142,12 +142,51 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
               <Form.Group controlId="formBookTitle">
                 <InputGroup>
                   {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
-                  <Form.Control
-                    type="text"
-                    placeholder="Rank"
-                    value={rank}
-                    onChange={(e) => setRank(e.target.value)}
-                  />
+                  <Form.Select
+                    aria-label="Basic example"
+                    onChange={(e) => {
+                      setRank(e.target.value);
+                    }}
+                  >
+                    <option> Select Rank</option>
+
+                    <option value="GP CAPT" onChange={handleSubmit}>
+                      GP CAPT
+                    </option>
+                    <option value="WG CDR" onChange={handleSubmit}>
+                      WG CDR
+                    </option>
+                    <option value="FLT LT" onChange={handleSubmit}>
+                      FLT LT
+                    </option>
+                    <option value="HFL" onChange={handleSubmit}>
+                      HFL
+                    </option>
+                    <option value="HFO" onChange={handleSubmit}>
+                      HFO
+                    </option>
+                    <option value="MWO" onChange={handleSubmit}>
+                      MWO
+                    </option>
+                    <option value="WO" onChange={handleSubmit}>
+                      WO
+                    </option>
+                    <option value="JWO" onChange={handleSubmit}>
+                      JWO
+                    </option>
+                    <option value="SGT" onChange={handleSubmit}>
+                      SGT
+                    </option>
+                    <option value="CPL" onChange={handleSubmit}>
+                      CPL
+                    </option>
+                    <option value="LAC" onChange={handleSubmit}>
+                      LAC
+                    </option>
+                    <option value="AC" onChange={handleSubmit}>
+                      AC
+                    </option>
+                  </Form.Select>
                 </InputGroup>
               </Form.Group>
 
@@ -248,7 +287,11 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
                 <Button
                   variant="success"
                   disabled={!flag}
-                  value={currentDate.toString().split(" ").slice(0, 4).join(" ")}
+                  value={currentDate
+                    .toString()
+                    .split(" ")
+                    .slice(0, 4)
+                    .join(" ")}
                   onClick={(e) => setDate(e.target.value)}
                 >
                   {currentDate.toString().split(" ").slice(0, 4).join(" ")}
@@ -261,11 +304,15 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
                 >
                   {tomorrow.toString().split(" ").slice(0, 4).join(" ")}
                 </Button>
-
               </ButtonGroup>
 
               <div>
-                <Button variant="primary" type="Submit" onClick={handleClick}>
+                <Button
+                  id="book-slot-button"
+                  variant="primary"
+                  type="Submit"
+                  onClick={handleClick}
+                >
                   BOOK SLOT
                 </Button>
               </div>
