@@ -18,6 +18,8 @@ const BooksList = ({ getBookId }) => {
     await BookDataService.deleteBook(id);
     getBooks();
   };
+
+
   
 return (
     <>
@@ -53,7 +55,8 @@ return (
                 <td>{doc.firstname}</td>
                 <td>{doc.middlename}</td>
                 <td>{doc.lastname}</td>
-                <td>{doc.slot}</td>
+                <td>{doc.slot}</td>  
+                <td></td>
                 <td>{doc.time}</td>
                 <td>{doc.card}</td>
                 <td>{doc.tokens}</td>
