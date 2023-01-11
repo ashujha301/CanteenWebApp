@@ -128,7 +128,16 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
           }}
         >
           {/* <img src="../Canteenlogo.png" alt="Canteen Logo" /> */}
-          <div>
+          <Box
+            sx={{
+              alignSelf: "center",
+              justifyContent: "center",
+              flex: 1,
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
             {message?.msg && (
               <Alert
                 variant={message?.error ? "danger" : "success"}
@@ -139,7 +148,7 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
               </Alert>
             )}
             <Form onSubmit={handleSubmit}>
-              <Form.Group controlId="formBookTitle">
+              <Form.Group controlId="formBookTitle" className="mb-3">
                 <InputGroup>
                   {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
                   <Form.Select
@@ -190,7 +199,7 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
                 </InputGroup>
               </Form.Group>
 
-              <Form.Group controlId="formBookTitle">
+              <Form.Group controlId="formBookTitle" className="mb-3">
                 <InputGroup>
                   {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
                   <Form.Control
@@ -202,7 +211,7 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
                 </InputGroup>
               </Form.Group>
 
-              <Form.Group controlId="formBookTitle">
+              <Form.Group controlId="formBookTitle" className="mb-3">
                 <InputGroup>
                   {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
                   <Form.Control
@@ -214,7 +223,7 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
                 </InputGroup>
               </Form.Group>
 
-              <Form.Group controlId="formBookTitle">
+              <Form.Group controlId="formBookTitle" className="mb-3">
                 <InputGroup>
                   {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
                   <Form.Control
@@ -226,7 +235,7 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
                 </InputGroup>
               </Form.Group>
 
-              <Form.Group controlId="formBookAuthor">
+              <Form.Group controlId="formBookAuthor" className="mb-3">
                 <InputGroup>
                   {/* <InputGroup.Text id="formBookAuthor"></InputGroup.Text> */}
                   <Form.Control
@@ -238,7 +247,7 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
                 </InputGroup>
               </Form.Group>
 
-              <Form.Group controlId="formBookTitle">
+              <Form.Group controlId="formBookTitle" className="mb-3">
                 <InputGroup>
                   {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
                   <Form.Control
@@ -250,7 +259,7 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
                 </InputGroup>
               </Form.Group>
 
-              <Form.Group controlId="formBookTitle">
+              <Form.Group controlId="formBookTitle" className="mb-3">
                 <InputGroup>
                   {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
                   <Form.Select
@@ -283,7 +292,7 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
                 </InputGroup>
               </Form.Group>
 
-              <ButtonGroup aria-label="Basic example">
+              <ButtonGroup aria-label="Basic example" className="mb-3">
                 <Button
                   variant="success"
                   disabled={!flag}
@@ -309,7 +318,7 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
               <div>
                 <Button
                   id="book-slot-button"
-                  variant="primary"
+                  variant="warning"
                   type="Submit"
                   onClick={handleClick}
                 >
@@ -317,7 +326,7 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
                 </Button>
               </div>
             </Form>
-          </div>
+          </Box>
         </Box>
       </Box>
       <Footer label="Copyright 2023. All rights reserved."></Footer>
