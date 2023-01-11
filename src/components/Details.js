@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 // import { Link, useNavigate } from "react-router-dom";
 import { Form, Alert, InputGroup, Button, ButtonGroup } from "react-bootstrap";
 import BookDataService from "../services/book.services";
-import { Box, Flex } from "theme-ui";
+import { Box } from "theme-ui";
 import Navbar from "./Navbar";
 import Footer from "./footer";
 import { v4 as uuidv4 } from "uuid";

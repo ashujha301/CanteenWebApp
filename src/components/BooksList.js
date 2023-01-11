@@ -22,7 +22,7 @@ const BooksList = ({ getBookId }) => {
   return (
     <>
       <div>
-        <Button variant="dark edit" onClick={getBooks}>
+        <Button variant="dark edit" onClick={getBooks} style={{ margin: 10 }}>
           Refresh List
         </Button>
       </div>
