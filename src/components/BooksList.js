@@ -10,7 +10,7 @@ const BooksList = ({ getBookId }) => {
 
   const getBooks = async () => {
     const data = await BookDataService.getAllBooks();
-    console.log(data.docs);
+    console.log(data);
     setBooks(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   };
 
@@ -61,7 +61,7 @@ const BooksList = ({ getBookId }) => {
                   <Button
                     variant="danger"
                     className="delete"
-                    onClick={(e) => deleteHandler(doc.id)}
+                    onClick={() => deleteHandler(doc.id)}
                   >
                     Delete
                   </Button>

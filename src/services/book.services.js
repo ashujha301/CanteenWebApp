@@ -33,11 +33,7 @@ class BookDataService {
   getBook = (id) => {
     const bookDoc = doc(db, "Canteen_Slots", id);
     return getDoc(bookDoc);
-  };
-
-
-
-  
+  };  
 }
 
 export default new BookDataService();

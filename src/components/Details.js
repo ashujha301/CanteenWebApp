@@ -5,13 +5,13 @@ import BookDataService from "../services/book.services";
 import { Box, Flex } from "theme-ui";
 import Navbar from "./Navbar";
 import Footer from "./footer";
-
+import { v4 as uuidv4 } from "uuid";
 //to get current date and tomorrows date
 const currentDate = new Date();
 const tomorrow = new Date(currentDate);
 tomorrow.setDate(tomorrow.getDate() + 1);
 
-const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
+const Details = ({ id, setId }) => {
   const [rank, setRank] = useState("");
   const [servicenumber, setServiceNumber] = useState("");
   const [card, setCard] = useState("");
@@ -24,6 +24,7 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
   const [message, setMessage] = useState({ error: false, msg: "" });
 
   const handleSubmit = async (e) => {
+    const token = uuidv4().substring(0, 8).toUpperCase();
     e.preventDefault();
     setMessage("");
     if (
@@ -47,9 +48,8 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
       lastname,
       date,
       time,
+      token,
     };
-    console.log(newBook);
-
     try {
       if (id !== undefined && id !== "") {
         await BookDataService.updateBook(id, newBook);
@@ -57,7 +57,7 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
         setMessage({ error: false, msg: "Updated successfully!" });
       } else {
         await BookDataService.details(newBook);
-        setMessage({ error: false, msg: "added successfully!" });
+        setMessage({ error: false, msg: "Slot booked successfully!" });
       }
     } catch (err) {
       setMessage({ error: true, msg: err.message });
@@ -98,11 +98,6 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
       editHandler();
     }
   }, [id]);
-
-  const handleClick = () => {
-    const token = generateRandomToken();
-    saveTokenToFirestore(token);
-  };
 
   return (
     <>
@@ -316,12 +311,7 @@ const Details = ({ id, setId, generateRandomToken, saveTokenToFirestore }) => {
               </ButtonGroup>
 
               <div>
-                <Button
-                  id="book-slot-button"
-                  variant="warning"
-                  type="Submit"
-                  onClick={handleClick}
-                >
+                <Button id="book-slot-button" variant="warning" type="Submit">
                   BOOK SLOT
                 </Button>
               </div>

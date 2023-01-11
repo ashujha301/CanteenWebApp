@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Alert } from "react-bootstrap";
- import { Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import { useUserAuth } from "../context/UserAuthContext";
@@ -21,7 +21,6 @@ const PhoneSignUp = () => {
 
   const getOtp = async (e) => {
     e.preventDefault();
-    console.log(number);
     setError("");
     if (number === "" || number === undefined)
       return setError("Please enter a valid phone number!");
@@ -30,7 +29,9 @@ const PhoneSignUp = () => {
       setResult(response);
       setFlag(true);
     } catch (err) {
-      setError(err.message);
+      if (err.message === "Firebase: Error (auth/argument-error).")
+        setError("");
+      else setError(err.message);
     }
   };
 
@@ -42,7 +43,9 @@ const PhoneSignUp = () => {
       await result.confirm(otp);
       navigate("/details");
     } catch (err) {
-      setError(err.message);
+      if (err.message === "Firebase: Error (auth/argument-error).")
+        setError("");
+      else setError(err.message);
     }
   };
 
@@ -135,8 +138,7 @@ const PhoneSignUp = () => {
           </Form>
         </Box>
       </Box>
-      <Footer label="Copyright 2023. All rights reserved.">
-      </Footer>
+      <Footer label="Copyright 2023. All rights reserved."></Footer>
     </>
   );
 };

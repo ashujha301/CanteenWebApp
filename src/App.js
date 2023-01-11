@@ -14,7 +14,6 @@ function App() {
   const [Id, setId] = useState("");
 
   const getIdHandler = (id) => {
-    console.log("The ID of document to be edited: ", id);
     setId(id);
   };
 
