@@ -6,6 +6,7 @@ import { Box } from "theme-ui";
 import Navbar from "./Navbar";
 import Footer from "./footer";
 import { v4 as uuidv4 } from "uuid";
+import Modal from "react-modal";
 //to get current date and tomorrows date
 const currentDate = new Date();
 const tomorrow = new Date(currentDate);
@@ -20,13 +21,17 @@ const Details = ({ id, setId }) => {
   const [lastname, setLastname] = useState("");
   const [time, setTime] = useState("");
   const [date, setDate] = useState("");
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [flag, setFlag] = useState(true);
   const [message, setMessage] = useState({ error: false, msg: "" });
 
+  const token = uuidv4().substring(0, 8).toUpperCase();
+
   const handleSubmit = async (e) => {
-    const token = uuidv4().substring(0, 8).toUpperCase();
+    
     e.preventDefault();
     setMessage("");
+
     if (
       firstname === "" ||
       lastname === "" ||
@@ -39,6 +44,7 @@ const Details = ({ id, setId }) => {
       setMessage({ error: true, msg: "All fields are mandatory!" });
       return;
     }
+
     const newBook = {
       rank,
       card,
@@ -52,12 +58,10 @@ const Details = ({ id, setId }) => {
     };
     try {
       if (id !== undefined && id !== "") {
-        await BookDataService.updateBook(id, newBook);
-        setId("");
-        setMessage({ error: false, msg: "Updated successfully!" });
-      } else {
+        
         await BookDataService.details(newBook);
-        setMessage({ error: false, msg: "Slot booked successfully!" });
+        setMessage({ error: false, msg: "Slot booked successfully!" } , setModalIsOpen(true));
+        
       }
     } catch (err) {
       setMessage({ error: true, msg: err.message });
@@ -311,9 +315,17 @@ const Details = ({ id, setId }) => {
               </ButtonGroup>
 
               <div>
-                <Button id="book-slot-button" variant="warning" type="Submit">
+                <Button variant="warning" type="Submit" onChange={handleSubmit}>
                   BOOK SLOT
                 </Button>
+                <Modal
+                  isOpen={modalIsOpen}
+                  onRequestClose={() => setModalIsOpen(false)}
+                >
+                  <h1>Slot Booked succedfully ! </h1>
+                  <p>your token number: {token}</p>
+                  <button onClick={() => setModalIsOpen(false)}>Close</button>
+                </Modal>
               </div>
             </Form>
           </Box>
