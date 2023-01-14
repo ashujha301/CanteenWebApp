@@ -6,8 +6,8 @@ import { Box } from "theme-ui";
 import Navbar from "./Navbar";
 import Footer from "./footer";
 import { v4 as uuidv4 } from "uuid";
-import Modal from "react-modal";
-import { db } from "../firebase";
+// import Modal from "react-modal";
+// import { db } from "../firebase";
 import { useNavigate } from "react-router-dom";
 
 //to get current date and tomorrows date
@@ -24,7 +24,7 @@ const Details = ({ id, setId }) => {
   const [lastname, setLastname] = useState("");
   const [time, setTime] = useState("");
   const [date, setDate] = useState("");
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  // const [modalIsOpen, setModalIsOpen] = useState(false);
   const [flag, setFlag] = useState(true);
   const [message, setMessage] = useState({ error: false, msg: "" });
   const [token, setToken] = useState(
@@ -74,8 +74,8 @@ const Details = ({ id, setId }) => {
           await BookDataService.details(newBook);
           setMessage(
             { error: false, msg: "Slot booked successfully!" },
-            setModalIsOpen(true)
           );
+          navigate('/Home')
         }
       } catch (err) {
         setMessage({ error: true, msg: err.message });
@@ -338,7 +338,7 @@ const Details = ({ id, setId }) => {
                 >
                   BOOK SLOT
                 </Button>
-                <Modal
+                {/* <Modal
                   isOpen={modalIsOpen}
                   onRequestClose={() => setModalIsOpen(false)}
                   style={customStyles}
@@ -349,7 +349,7 @@ const Details = ({ id, setId }) => {
                     setModalIsOpen(false)
                     navigate('/Home')
                   }}>Close</Button>
-                </Modal>
+                </Modal> */}
               </div>
             </Form>
           </Box>
