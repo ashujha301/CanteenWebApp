@@ -7,6 +7,8 @@ import Navbar from "./Navbar";
 import Footer from "./footer";
 import { v4 as uuidv4 } from "uuid";
 import Modal from "react-modal";
+import { db } from "../firebase";
+
 //to get current date and tomorrows date
 const currentDate = new Date();
 const tomorrow = new Date(currentDate);
@@ -23,11 +25,19 @@ const Details = ({ id, setId }) => {
   const [date, setDate] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [flag, setFlag] = useState(true);
+  const [setToken] = useState("");
   const [message, setMessage] = useState({ error: false, msg: "" });
 
+  
+  
   const token = uuidv4().substring(0, 8).toUpperCase();
+  
+ 
 
   const handleSubmit = async (e) => {
+
+    
+
     
     e.preventDefault();
     setMessage("");
@@ -54,11 +64,14 @@ const Details = ({ id, setId }) => {
       lastname,
       date,
       time,
-      token,
+      token
     };
     try {
       if (id !== undefined && id !== "") {
-        
+        await BookDataService.updateBook(id, newBook);
+        setId("");
+        setMessage({ error: false, msg: "Updated successfully!" });
+      } else {
         await BookDataService.details(newBook);
         setMessage({ error: false, msg: "Slot booked successfully!" } , setModalIsOpen(true));
         
@@ -77,6 +90,8 @@ const Details = ({ id, setId }) => {
     setTime("");
     currentDate("");
     tomorrow("");
+  
+    
   };
 
   const editHandler = async () => {
@@ -322,7 +337,7 @@ const Details = ({ id, setId }) => {
                   isOpen={modalIsOpen}
                   onRequestClose={() => setModalIsOpen(false)}
                 >
-                  <h1>Slot Booked succedfully ! </h1>
+                  <h1>Slot Booked successfully! </h1>
                   <p>your token number: {token}</p>
                   <button onClick={() => setModalIsOpen(false)}>Close</button>
                 </Modal>
