@@ -30,7 +30,7 @@ const Login = () => {
                   <Text variant="text.h1">3. BOOK YOUR SLOT</Text>
                   <Text variant="text.h1">4. GENERATE YOUR E TOKEN</Text>
                 </Flex>
-                <Link to="/phonesignup">
+                <Link to="/login">
                   <div>
                     <Button
                       sx={{ variant: "buttons.secondary", mt: 4 }}

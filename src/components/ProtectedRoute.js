@@ -1,12 +1,17 @@
-import React from "react";
-import { Navigate } from "react-router-dom";
+import { useEffect } from "react";
 import { useUserAuth } from "../context/UserAuthContext";
+import { useNavigate } from "react-router-dom";
+
 const ProtectedRoute = ({ children }) => {
   const { user } = useUserAuth();
-  if (!user) {
-    return <Navigate to="/" />;
-  }
-  return children;
-};
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!user) {
+      navigate("/");
+    }
+  }, [user, navigate]);
+
+  return user ? children : null;
+};
 export default ProtectedRoute;

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Table, Button } from "react-bootstrap";
 import BookDataService from "../services/book.services";
 
-const BooksList = ({ getBookId }) => {
+const BooksList = () => {
   const [books, setBooks] = useState([]);
   useEffect(() => {
     getBooks();
@@ -10,7 +10,6 @@ const BooksList = ({ getBookId }) => {
 
   const getBooks = async () => {
     const data = await BookDataService.getAllBooks();
-    console.log(data);
     setBooks(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
   };
 

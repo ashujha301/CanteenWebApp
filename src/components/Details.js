@@ -8,6 +8,7 @@ import Footer from "./footer";
 import { v4 as uuidv4 } from "uuid";
 import Modal from "react-modal";
 import { db } from "../firebase";
+import { useNavigate } from "react-router-dom";
 
 //to get current date and tomorrows date
 const currentDate = new Date();
@@ -29,6 +30,8 @@ const Details = ({ id, setId }) => {
   const [token, setToken] = useState(
     localStorage.getItem("token") || uuidv4().substring(0, 8).toUpperCase()
   );
+  const navigate = useNavigate();
+
 
   // const token = uuidv4().substring(0, 8).toUpperCase();
   useEffect(() => {
@@ -343,7 +346,10 @@ const Details = ({ id, setId }) => {
                 >
                   <h1>Slot Booked successfully! </h1>
                   <h2>Token number: {token}</h2>
-                  <Button variant="danger" onClick={() => setModalIsOpen(false)}>Close</Button>
+                  <Button variant="danger" onClick={() => {
+                    setModalIsOpen(false)
+                    navigate('/Home')
+                  }}>Close</Button>
                 </Modal>
               </div>
             </Form>

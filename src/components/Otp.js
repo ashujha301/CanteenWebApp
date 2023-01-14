@@ -1,7 +1,6 @@
 /** @jsxImportSource theme-ui */
 import React from "react";
-import { NavLink } from "react-router-dom";
-import { Button, Flex, Input } from "theme-ui";
+import { Button, Flex } from "theme-ui";
 import Navbar from "./Navbar";
 import OTPInput from "otp-input-react";
 

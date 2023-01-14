@@ -22,7 +22,15 @@ function App() {
       <UserAuthContextProvider>
         <Routes>
           <Route
-            path="/home"
+            path="/slotlist"
+            element={
+              <ProtectedRoute>
+                <BooksList getId={getIdHandler} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/Home"
             element={
               <ProtectedRoute>
                 <Home />
@@ -30,19 +38,14 @@ function App() {
             }
           />
           <Route path="/" element={<Login />} />
-          <Route path="/phonesignup" element={<PhoneSignUp />} />
+          <Route path="/login" element={<PhoneSignUp />} />
           <Route
             path="/details"
             element={
-              <Details
-                id={Id}
-                setId={setId}
-              />
+              <ProtectedRoute>
+                <Details id={Id} setId={setId} />
+              </ProtectedRoute>
             }
-          />
-          <Route
-            path="/bookslist"
-            element={<BooksList getId={getIdHandler} />}
           />
         </Routes>
       </UserAuthContextProvider>
