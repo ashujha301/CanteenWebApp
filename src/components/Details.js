@@ -25,15 +25,19 @@ const Details = ({ id, setId }) => {
   const [date, setDate] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [flag, setFlag] = useState(true);
-  const [setToken] = useState("");
   const [message, setMessage] = useState({ error: false, msg: "" });
+  const [token, setToken] = useState(
+    localStorage.getItem("token") || uuidv4().substring(0, 8).toUpperCase()
+  );
 
-  const token = uuidv4().substring(0, 8).toUpperCase();
+  // const token = uuidv4().substring(0, 8).toUpperCase();
+  useEffect(() => {
+    // Code that relies on the updated state
+  }, [token]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");
-
     if (
       firstname === "" ||
       lastname === "" ||
@@ -45,33 +49,35 @@ const Details = ({ id, setId }) => {
     ) {
       setMessage({ error: true, msg: "All fields are mandatory!" });
       return;
-    }
-
-    const newBook = {
-      rank,
-      card,
-      servicenumber,
-      middlename,
-      firstname,
-      lastname,
-      date,
-      time,
-      token,
-    };
-    try {
-      if (id !== undefined && id !== "") {
-        await BookDataService.updateBook(id, newBook);
-        setId("");
-        setMessage({ error: false, msg: "Updated successfully!" });
-      } else {
-        await BookDataService.details(newBook);
-        setMessage(
-          { error: false, msg: "Slot booked successfully!" },
-          setModalIsOpen(true)
-        );
+    } else {
+      localStorage.setItem("token", token);
+      const newBook = {
+        rank,
+        card,
+        servicenumber,
+        middlename,
+        firstname,
+        lastname,
+        date,
+        time,
+        token,
+      };
+      try {
+        if (id !== undefined && id !== "") {
+          await BookDataService.updateBook(id, newBook);
+          setId("");
+          setMessage({ error: false, msg: "Updated successfully!" });
+        } else {
+          await BookDataService.details(newBook);
+          setMessage(
+            { error: false, msg: "Slot booked successfully!" },
+            setModalIsOpen(true)
+          );
+          localStorage.removeItem("token");
+        }
+      } catch (err) {
+        setMessage({ error: true, msg: err.message });
       }
-    } catch (err) {
-      setMessage({ error: true, msg: err.message });
     }
 
     setFirstName("");
@@ -84,6 +90,7 @@ const Details = ({ id, setId }) => {
     setTime("");
     currentDate("");
     tomorrow("");
+    setToken("");
   };
 
   const editHandler = async () => {
@@ -104,7 +111,6 @@ const Details = ({ id, setId }) => {
   };
 
   useEffect(() => {
-    console.log("The id here is : ", id);
     if (id !== undefined && id !== "") {
       editHandler();
     }
@@ -337,7 +343,7 @@ const Details = ({ id, setId }) => {
                 >
                   <h1>Slot Booked successfully! </h1>
                   <h2>Token number: {token}</h2>
-                  <button onClick={() => setModalIsOpen(false)}>Close</button>
+                  <Button variant="danger" onClick={() => setModalIsOpen(false)}>Close</Button>
                 </Modal>
               </div>
             </Form>
