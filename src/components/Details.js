@@ -231,7 +231,7 @@ const Details = ({ id, setId }) => {
                   {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
                   <Form.Control
                     type="text"
-                    placeholder="First Name"
+                    placeholder="First Name *"
                     value={firstname}
                     onChange={(e) => setFirstName(e.target.value)}
                   />
@@ -255,7 +255,7 @@ const Details = ({ id, setId }) => {
                   {/* <InputGroup.Text id="formBookAuthor"></InputGroup.Text> */}
                   <Form.Control
                     type="text"
-                    placeholder="Last Name"
+                    placeholder="Last Name *"
                     value={lastname}
                     onChange={(e) => setLastname(e.target.value)}
                   />
@@ -267,7 +267,7 @@ const Details = ({ id, setId }) => {
                   {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
                   <Form.Control
                     type="text"
-                    placeholder="Card number"
+                    placeholder="Card number *"
                     value={card}
                     onChange={(e) => setCard(e.target.value)}
                   />

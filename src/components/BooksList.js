@@ -1,8 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Table, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import { useUserAuth } from "../context/UserAuthContext";
 import BookDataService from "../services/book.services";
 
 const BooksList = () => {
+  const { logOut } = useUserAuth();
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      await logOut();
+      navigate("/");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   const [books, setBooks] = useState([]);
   useEffect(() => {
     getBooks();
@@ -70,6 +82,14 @@ const BooksList = () => {
           })}
         </tbody>
       </Table>
+      <div
+        className="d-grid gap-2"
+        style={{ justifyContent: "flex-end", marginRight: 60 }}
+      >
+        <Button variant="primary" onClick={handleLogout} size="lg">
+          Log out
+        </Button>
+      </div>
     </>
   );
 };

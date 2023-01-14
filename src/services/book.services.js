@@ -11,6 +11,7 @@ import {
 } from "firebase/firestore";
 
 const bookCollectionRef = collection(db, "Canteen_Slots");
+const phoneRef = collection(db, "Admin");
 class BookDataService {
   details = (newBook) => {
     return addDoc(bookCollectionRef, newBook);
@@ -34,6 +35,11 @@ class BookDataService {
     const bookDoc = doc(db, "Canteen_Slots", id);
     return getDoc(bookDoc);
   };  
+
+  getPhone = () => {
+    return getDocs(phoneRef);
+  }
+
 }
 
 export default new BookDataService();

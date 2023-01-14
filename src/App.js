@@ -5,7 +5,9 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import Details from "./components/Details";
 import PhoneSignUp from "./components/PhoneSignUp";
-import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedRoute, {
+  AdminProtectedRoute,
+} from "./components/ProtectedRoute";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
 import BooksList from "./components/BooksList";
 import { useState } from "react";
@@ -24,9 +26,9 @@ function App() {
           <Route
             path="/slotlist"
             element={
-              <ProtectedRoute>
+              <AdminProtectedRoute>
                 <BooksList getId={getIdHandler} />
-              </ProtectedRoute>
+              </AdminProtectedRoute>
             }
           />
           <Route
