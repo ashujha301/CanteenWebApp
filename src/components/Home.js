@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router";
+import { Box } from "theme-ui";
 import { useUserAuth } from "../context/UserAuthContext";
 // import BookDataService from "../services/book.services";
 
 const Home = () => {
+  const token = localStorage.getItem("token");
   // const [books, setBooks] = useState([]);
   // useEffect(() => {
   //   getBooks();
@@ -20,22 +22,35 @@ const Home = () => {
     try {
       await logOut();
       navigate("/");
+      localStorage.removeItem("token");
     } catch (error) {
       console.log(error.message);
     }
   };
 
   return (
-    <>
-      <div className="p-4 box mt-3 text-center">
-        Thank You <br />
+    <Box sx={{ backgroundColor: "lightBlue", height: "100vh" }}>
+      <div
+        className="p-4 box pt-5 text-center"
+        style={{ backgroundColor: "#1D213C" }}
+      >
+        <h1 style={{ color: "white" }}>Thank You </h1>
       </div>
-      <div className="d-grid gap-2">
-        <Button variant="primary" onClick={handleLogout}>
+      <div className="d-grid gap-2 mt-5 text-center">
+        <h1>Your Token Number is:</h1>
+        <h1 className="p-4 box pt-4 text-center">{token}</h1>
+      </div>
+      <div className="d-grid gap-2" style={{ justifyContent: "center" }}>
+        <Button
+          size="lg"
+          className="mt-3"
+          variant="danger"
+          onClick={handleLogout}
+        >
           Log out
         </Button>
       </div>
-    </>
+    </Box>
   );
 };
 

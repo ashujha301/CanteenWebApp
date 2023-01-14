@@ -76,7 +76,6 @@ const Details = ({ id, setId }) => {
             { error: false, msg: "Slot booked successfully!" },
             setModalIsOpen(true)
           );
-          localStorage.removeItem("token");
         }
       } catch (err) {
         setMessage({ error: true, msg: err.message });
