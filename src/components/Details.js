@@ -28,17 +28,9 @@ const Details = ({ id, setId }) => {
   const [setToken] = useState("");
   const [message, setMessage] = useState({ error: false, msg: "" });
 
-  
-  
   const token = uuidv4().substring(0, 8).toUpperCase();
-  
- 
 
   const handleSubmit = async (e) => {
-
-    
-
-    
     e.preventDefault();
     setMessage("");
 
@@ -64,7 +56,7 @@ const Details = ({ id, setId }) => {
       lastname,
       date,
       time,
-      token
+      token,
     };
     try {
       if (id !== undefined && id !== "") {
@@ -73,8 +65,10 @@ const Details = ({ id, setId }) => {
         setMessage({ error: false, msg: "Updated successfully!" });
       } else {
         await BookDataService.details(newBook);
-        setMessage({ error: false, msg: "Slot booked successfully!" } , setModalIsOpen(true));
-        
+        setMessage(
+          { error: false, msg: "Slot booked successfully!" },
+          setModalIsOpen(true)
+        );
       }
     } catch (err) {
       setMessage({ error: true, msg: err.message });
@@ -90,8 +84,6 @@ const Details = ({ id, setId }) => {
     setTime("");
     currentDate("");
     tomorrow("");
-  
-    
   };
 
   const editHandler = async () => {
@@ -330,15 +322,21 @@ const Details = ({ id, setId }) => {
               </ButtonGroup>
 
               <div>
-                <Button variant="warning" type="Submit" onChange={handleSubmit}>
+                <Button
+                  variant="warning"
+                  type="Submit"
+                  onChange={handleSubmit}
+                  id="book-slot-button"
+                >
                   BOOK SLOT
                 </Button>
                 <Modal
                   isOpen={modalIsOpen}
                   onRequestClose={() => setModalIsOpen(false)}
+                  style={customStyles}
                 >
                   <h1>Slot Booked successfully! </h1>
-                  <p>your token number: {token}</p>
+                  <h2>Token number: {token}</h2>
                   <button onClick={() => setModalIsOpen(false)}>Close</button>
                 </Modal>
               </div>
@@ -352,3 +350,14 @@ const Details = ({ id, setId }) => {
 };
 
 export default Details;
+
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
