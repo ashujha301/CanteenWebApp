@@ -32,6 +32,10 @@ const Details = ({ id, setId }) => {
   );
   const navigate = useNavigate();
 
+  const [people, setPeople] = useState(0);
+  const maxPeople = 10;
+
+  
 
   // const token = uuidv4().substring(0, 8).toUpperCase();
   useEffect(() => {
@@ -117,6 +121,8 @@ const Details = ({ id, setId }) => {
       editHandler();
     }
   }, [id]);
+
+  
 
   return (
     <>

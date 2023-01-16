@@ -44,12 +44,15 @@ const Home = () => {
         <h1 className="p-4 box pt-4 text-center" style={{ fontWeight: "bold" }}>
           {token}
         </h1>
+        <h1 style={{ fontWeight: "bold", color: "red" }}>
+          Take Screenshot To Show This Token For Reference !
+        </h1>
       </div>
       <div className="d-grid gap-2" style={{ justifyContent: "center" }}>
         <Button
           size="lg"
           className="mt-3"
-          variant="danger"
+          variant="primary"
           onClick={handleLogout}
         >
           Log out

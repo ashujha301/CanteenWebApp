@@ -10,6 +10,7 @@ import {
   doc,
 } from "firebase/firestore";
 
+
 const bookCollectionRef = collection(db, "Canteen_Slots");
 const phoneRef = collection(db, "Admin");
 class BookDataService {

@@ -22,7 +22,7 @@ const PhoneSignUp = () => {
   const getOtp = async (e) => {
     e.preventDefault();
     setError("");
-    if (number === "" || number === undefined)
+    if (number === "" || number === undefined )
       return setError("Please enter a valid phone number!");
     try {
       const response = await setUpRecaptha(number);

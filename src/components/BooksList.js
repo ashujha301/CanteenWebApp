@@ -30,6 +30,13 @@ const BooksList = () => {
     getBooks();
   };
 
+  const sortedBooks = books.sort((a, b) => {
+    if(a.date !== b.date) {
+        return a.date > b.date ? 1 : -1;
+    }
+    return a.time > b.time ? 1 : -1;
+});
+
   return (
     <>
       <div>
@@ -55,7 +62,7 @@ const BooksList = () => {
           </tr>
         </thead>
         <tbody>
-          {books.map((doc, index) => {
+          {sortedBooks.map((doc, index) => {
             return (
               <tr key={doc.id}>
                 <td>{index + 1}</td>
