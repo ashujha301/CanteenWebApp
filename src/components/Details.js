@@ -9,11 +9,15 @@ import { v4 as uuidv4 } from "uuid";
 // import Modal from "react-modal";
 // import { db } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import app from "../firebase";
+import 'firebase/firestore';
 
 //to get current date and tomorrows date
 const currentDate = new Date();
 const tomorrow = new Date(currentDate);
 tomorrow.setDate(tomorrow.getDate() + 1);
+
+
 
 const Details = ({ id, setId }) => {
   const [rank, setRank] = useState("");
@@ -32,9 +36,6 @@ const Details = ({ id, setId }) => {
   );
   const navigate = useNavigate();
 
-  const [people, setPeople] = useState(0);
-  const maxPeople = 10;
-
   
 
   // const token = uuidv4().substring(0, 8).toUpperCase();
@@ -44,6 +45,7 @@ const Details = ({ id, setId }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     setMessage("");
     if (
       firstname === "" ||
@@ -76,10 +78,8 @@ const Details = ({ id, setId }) => {
           setMessage({ error: false, msg: "Updated successfully!" });
         } else {
           await BookDataService.details(newBook);
-          setMessage(
-            { error: false, msg: "Slot booked successfully!" },
-          );
-          navigate('/Home')
+          setMessage({ error: false, msg: "Slot booked successfully!" });
+          navigate("/Home");
         }
       } catch (err) {
         setMessage({ error: true, msg: err.message });
@@ -121,8 +121,6 @@ const Details = ({ id, setId }) => {
       editHandler();
     }
   }, [id]);
-
-  
 
   return (
     <>

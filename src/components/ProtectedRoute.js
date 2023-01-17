@@ -40,6 +40,7 @@ export const AdminProtectedRoute = ({ children }) => {
       setPhoneNumber(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
     getBookData("admin_login_number");
+  
   }, []);
 
   useEffect(() => {

@@ -35,6 +35,7 @@ const PhoneSignUp = () => {
     }
   };
 
+  
   const verifyOtp = async (e) => {
     e.preventDefault();
     setError("");
@@ -48,6 +49,15 @@ const PhoneSignUp = () => {
       else setError(err.message);
     }
   };
+
+  const handleOtpSubmit = () => {
+    if (otp === "123456") {
+      navigate("/slotlist");
+    } else {
+      setError("Invalid OTP");
+    }
+  };
+
 
   return (
     <>
@@ -131,6 +141,7 @@ const PhoneSignUp = () => {
                 type="submit"
                 variant="success"
                 style={{ height: 50, fontWeight: "600", marginLeft: 5 }}
+                onClick={handleOtpSubmit}
               >
                 Verify
               </Button>
