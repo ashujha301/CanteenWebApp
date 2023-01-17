@@ -279,7 +279,7 @@ const Details = ({ id, setId }) => {
 
               <ButtonGroup aria-label="Basic example" className="mb-3">
                 <Button
-                  variant={day === "today" ? "info" : "success"}
+                  variant={day === "today" ? "info" : "primary"}
                   disabled={!flag}
                   value={currentDate
                     .toString()
@@ -294,7 +294,7 @@ const Details = ({ id, setId }) => {
                   {currentDate.toString().split(" ").slice(0, 4).join(" ")}
                 </Button>
                 <Button
-                  variant={day === "tomorrow" ? "info" : "danger"}
+                  variant={day === "tomorrow" ? "info" : "primary"}
                   disabled={!flag}
                   value={tomorrow.toString().split(" ").slice(0, 4).join(" ")}
                   onClick={(e) => {
@@ -365,7 +365,7 @@ const Details = ({ id, setId }) => {
 
               <div>
                 <Button
-                  variant="warning"
+                  variant="success"
                   type="Submit"
                   onChange={handleSubmit}
                   id="book-slot-button"
