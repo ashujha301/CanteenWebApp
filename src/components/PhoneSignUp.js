@@ -50,15 +50,6 @@ const PhoneSignUp = () => {
     }
   };
 
-  const handleOtpSubmit = () => {
-    if (otp === "123456") {
-      navigate("/slotlist");
-    } else {
-      setError("Invalid OTP");
-    }
-  };
-
-
   return (
     <>
       <Box
@@ -125,6 +116,7 @@ const PhoneSignUp = () => {
                 type="otp"
                 placeholder="Enter OTP"
                 onChange={(e) => setOtp(e.target.value)}
+                
               />
             </Form.Group>
             <div className="button-right">
@@ -141,7 +133,6 @@ const PhoneSignUp = () => {
                 type="submit"
                 variant="success"
                 style={{ height: 50, fontWeight: "600", marginLeft: 5 }}
-                onClick={handleOtpSubmit}
               >
                 Verify
               </Button>
