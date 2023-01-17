@@ -31,6 +31,7 @@ const Details = ({ id, setId }) => {
   const [date, setDate] = useState("");
   // const [modalIsOpen, setModalIsOpen] = useState(false);
   const [flag, setFlag] = useState(true);
+  const [day, setDay] = useState("");
   const [message, setMessage] = useState({ error: false, msg: "" });
   const [token, setToken] = useState(
     localStorage.getItem("token") || uuidv4().substring(0, 8).toUpperCase()
@@ -276,26 +277,30 @@ const Details = ({ id, setId }) => {
                 </InputGroup>
               </Form.Group>
 
-              
-
               <ButtonGroup aria-label="Basic example" className="mb-3">
                 <Button
-                  variant="success"
+                  variant={day === "today" ? "info" : "success"}
                   disabled={!flag}
                   value={currentDate
                     .toString()
                     .split(" ")
                     .slice(0, 4)
                     .join(" ")}
-                  onClick={(e) => setDate(e.target.value)}
+                  onClick={(e) => {
+                    setDate(e.target.value);
+                    setDay("today");
+                  }}
                 >
                   {currentDate.toString().split(" ").slice(0, 4).join(" ")}
                 </Button>
                 <Button
-                  variant="danger"
+                  variant={day === "tomorrow" ? "info" : "danger"}
                   disabled={!flag}
                   value={tomorrow.toString().split(" ").slice(0, 4).join(" ")}
-                  onClick={(e) => setDate(e.target.value)}
+                  onClick={(e) => {
+                    setDate(e.target.value);
+                    setDay("tomorrow");
+                  }}
                 >
                   {tomorrow.toString().split(" ").slice(0, 4).join(" ")}
                 </Button>
