@@ -9,35 +9,47 @@ const Login = () => {
     <>
       <Box sx={{ backgroundColor: "blue" }}>
         <Navbar label="Canteen Stores Department" />
-        <div>
+        <Flex
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            flex: 1,
+            flexDirection: "column",
+            height: "100vh",
+            overflow: "hidden",
+          }}
+        >
+          <img
+            src="../Canteenlogo.png"
+            alt="Canteen Logo"
+            style={{ height: "50%" }}
+          />
           <Flex sx={styles.home}>
-            <Flex sx={styles.row}>
-              <img
-                src="../Canteenlogo.png"
-                alt="Canteen Logo"
-                style={{ height: "50%" }}
-              />
-              <Flex sx={{ flexDirection: "column", alignItems: "center" }}>
-                <Text
-                  variant="text.mainHeader"
-                  sx={{ paddingBottom: [1, 2, 3, 4], paddingTop: [1, 2, 3, 4] }}
-                >
-                  Unit Run Canteen
-                </Text>
-                <Link to="/login">
-                  <div>
-                    <Button
-                      sx={{ variant: "buttons.secondary", mt: 4 }}
-                      type="Submit"
-                    >
-                      Login with Phone
-                    </Button>
-                  </div>
-                </Link>
-              </Flex>
+            <Flex sx={{ flexDirection: "column", alignItems: "center" }}>
+              <Text
+                variant="text.mainHeader"
+                sx={{
+                  paddingBottom: [1, 2, 3, 4],
+                  paddingTop: [1, 2, 3, 4],
+                  color: "navy",
+                  fontFamily: "roboto",
+                }}
+              >
+                Unit Run Canteen
+              </Text>
+              <Link to="/login">
+                <div>
+                  <Button
+                    sx={{ variant: "buttons.secondary", mt: 4 }}
+                    type="Submit"
+                  >
+                    Login with Phone
+                  </Button>
+                </div>
+              </Link>
             </Flex>
           </Flex>
-        </div>
+        </Flex>
       </Box>
       <Footer label="Copyright 2023. All rights reserved."></Footer>
     </>
@@ -49,9 +61,8 @@ export default Login;
 let styles = {
   home: {
     backgroundColor: "#3C79B4",
-    height: "100vh",
     flex: 1,
-    overflow: "hidden",
+    flexDirection: "column",
   },
   row: {
     flexDirection: "row",
