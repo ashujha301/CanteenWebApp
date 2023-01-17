@@ -10,14 +10,15 @@ import { v4 as uuidv4 } from "uuid";
 // import { db } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import app from "../firebase";
-import 'firebase/firestore';
+import "firebase/firestore";
 
 //to get current date and tomorrows date
 const currentDate = new Date();
 const tomorrow = new Date(currentDate);
 tomorrow.setDate(tomorrow.getDate() + 1);
 
-
+//to get current time
+const currentTime = new Date();
 
 const Details = ({ id, setId }) => {
   const [rank, setRank] = useState("");
@@ -35,8 +36,6 @@ const Details = ({ id, setId }) => {
     localStorage.getItem("token") || uuidv4().substring(0, 8).toUpperCase()
   );
   const navigate = useNavigate();
-
-  
 
   // const token = uuidv4().substring(0, 8).toUpperCase();
   useEffect(() => {
@@ -277,38 +276,7 @@ const Details = ({ id, setId }) => {
                 </InputGroup>
               </Form.Group>
 
-              <Form.Group controlId="formBookTitle" className="mb-3">
-                <InputGroup>
-                  {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
-                  <Form.Select
-                    aria-label="Basic example"
-                    onChange={(e) => {
-                      setTime(e.target.value);
-                    }}
-                  >
-                    <option> Select Slot Timing</option>
-
-                    <option value="10-11am" onChange={handleSubmit}>
-                      10:00 - 11:00
-                    </option>
-                    <option value="11-12am" onChange={handleSubmit}>
-                      11:00 - 12:00
-                    </option>
-                    <option value="12:00-1pm" onChange={handleSubmit}>
-                      12:00 - 13:00
-                    </option>
-                    <option value="2-3pm" onChange={handleSubmit}>
-                      14:00 - 15:00
-                    </option>
-                    <option value="3-4pm" onChange={handleSubmit}>
-                      15:00 - 16:00
-                    </option>
-                    <option value="4-4:30pm" onChange={handleSubmit}>
-                      16:00 - 16:30
-                    </option>
-                  </Form.Select>
-                </InputGroup>
-              </Form.Group>
+              
 
               <ButtonGroup aria-label="Basic example" className="mb-3">
                 <Button
@@ -332,6 +300,63 @@ const Details = ({ id, setId }) => {
                   {tomorrow.toString().split(" ").slice(0, 4).join(" ")}
                 </Button>
               </ButtonGroup>
+
+              <Form.Group controlId="formBookTitle" className="mb-3">
+                <InputGroup>
+                  {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
+                  <Form.Select
+                    aria-label="Basic example"
+                    onChange={(e) => {
+                      setTime(e.target.value);
+                    }}
+                  >
+                    <option> Select Slot Timing</option>
+
+                    <option
+                      value="10-11am"
+                      disabled={currentTime > new Date(`${date} 10:00:00`)}
+                      onChange={handleSubmit}
+                    >
+                      10:00 - 11:00
+                    </option>
+                    <option
+                      value="11-12am"
+                      disabled={currentTime > new Date(`${date} 11:00:00`)}
+                      onChange={handleSubmit}
+                    >
+                      11:00 - 12:00
+                    </option>
+                    <option
+                      value="12:00-1pm"
+                      disabled={currentTime > new Date(`${date} 12:00:00`)}
+                      onChange={handleSubmit}
+                    >
+                      12:00 - 13:00
+                    </option>
+                    <option
+                      value="2-3pm"
+                      disabled={currentTime > new Date(`${date} 14:00:00`)}
+                      onChange={handleSubmit}
+                    >
+                      14:00 - 15:00
+                    </option>
+                    <option
+                      value="3-4pm"
+                      disabled={currentTime > new Date(`${date} 15:00:00`)}
+                      onChange={handleSubmit}
+                    >
+                      15:00 - 16:00
+                    </option>
+                    <option
+                      value="4-4:30pm"
+                      disabled={currentTime > new Date(`${date} 16:00:00`)}
+                      onChange={handleSubmit}
+                    >
+                      16:00 - 16:30
+                    </option>
+                  </Form.Select>
+                </InputGroup>
+              </Form.Group>
 
               <div>
                 <Button

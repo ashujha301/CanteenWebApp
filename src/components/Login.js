@@ -24,12 +24,6 @@ const Login = () => {
                 >
                   Unit Run Canteen
                 </Text>
-                <Flex sx={{ flexDirection: "column" }}>
-                  <Text variant="text.h1">1. LOGIN</Text>
-                  <Text variant="text.h1">2. CHECK TIME SLOT</Text>
-                  <Text variant="text.h1">3. BOOK YOUR SLOT</Text>
-                  <Text variant="text.h1">4. GENERATE YOUR E TOKEN</Text>
-                </Flex>
                 <Link to="/login">
                   <div>
                     <Button
