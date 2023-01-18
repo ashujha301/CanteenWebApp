@@ -9,21 +9,25 @@ import { v4 as uuidv4 } from "uuid";
 // import Modal from "react-modal";
 // import { db } from "../firebase";
 import { useNavigate } from "react-router-dom";
-import app from "../firebase";
+import app, { db } from "../firebase";
 import "firebase/firestore";
+import {
+  doc,
+  onSnapshot,
+  collection,
+  query,
+  where,
+  collectionGroup,
+  getDocs,
+} from "firebase/firestore";
+import { async } from "@firebase/util";
 
 //to get current date and tomorrows date
 const currentDate = new Date();
+const today = new Date(currentDate);
+today.setDate(today.getDate() + 1);
 const tomorrow = new Date(currentDate);
-tomorrow.setDate(tomorrow.getDate() + 1);
-
-//to get current time
-const currentTime = new Date();
-
-// set the maximum limit to 40
-
-
-
+tomorrow.setDate(tomorrow.getDate() + 2);
 
 const Details = ({ id, setId }) => {
   const [rank, setRank] = useState("");
@@ -42,14 +46,37 @@ const Details = ({ id, setId }) => {
     localStorage.getItem("token") || uuidv4().substring(0, 8).toUpperCase()
   );
   const navigate = useNavigate();
-  const [slotLimit, setSlotLimit] = useState(2);
-const [peopleInSlot, setPeopleInSlot] = useState({});
-  
+  const slotLimit = 2;
+  const [peopleInSlot, setPeopleInSlot] = useState({});
 
   // const token = uuidv4().substring(0, 8).toUpperCase();
   useEffect(() => {
     // Code that relies on the updated state
   }, [token]);
+  useEffect(() => {
+    const q = query(collection(db, "Canteen_Slots"));
+    const unsub = onSnapshot(q, (querySnapshot) => {
+      // console.log(
+      //   "Data",
+      //   querySnapshot.docs.map((doc) => doc.data())
+      // );
+    });
+  }, []);
+
+  const handleSub = async (e) => {
+    const time1 = e.target.value;
+    console.log("time", time1);
+    const q = query(
+      collection(db, "Canteen_Slots"),
+      where("date", "==", date),
+      where("time", "==", time1)
+    );
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      console.log(doc.id, " => ", doc.data());
+    });
+    console.log("q", querySnapshot.size);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -129,31 +156,6 @@ const [peopleInSlot, setPeopleInSlot] = useState({});
       editHandler();
     }
   }, [id]);
-
-  //to limit the function 
-
-//   const handleSub = (e) => {
-//     const slot = e.target.value;
-//     const slotTime = slot.split("-")[0]; // extract the start time from the slot
-//     const user = app.auth().currentUser;
-//     if (user) {
-//         const currentUserId = user.uid;
-//         app
-//             .collection('Canteen_Slots')
-//             .where('userId', '==', currentUserId)
-//             .where('date', '==', date)
-//             .where('time', '==', slotTime)
-//             .get()
-//             .then((querySnapshot) => {
-//                 const people = querySnapshot.size;
-//                 setPeopleInSlot({...peopleInSlot, [`${date} ${slotTime}`]: people});
-//             })
-//             .catch((error) => {
-//                 console.error("Error getting documents: ", error);
-//             });
-            
-//     }
-// }
 
   return (
     <>
@@ -323,17 +325,13 @@ const [peopleInSlot, setPeopleInSlot] = useState({});
                 <Button
                   variant={day === "today" ? "info" : "warning"}
                   disabled={!flag}
-                  value={currentDate
-                    .toString()
-                    .split(" ")
-                    .slice(0, 4)
-                    .join(" ")}
+                  value={today.toString().split(" ").slice(0, 4).join(" ")}
                   onClick={(e) => {
                     setDate(e.target.value);
                     setDay("today");
                   }}
                 >
-                  {currentDate.toString().split(" ").slice(0, 4).join(" ")}
+                  {today.toString().split(" ").slice(0, 4).join(" ")}
                 </Button>
                 <Button
                   variant={day === "tomorrow" ? "info" : "warning"}
@@ -355,69 +353,27 @@ const [peopleInSlot, setPeopleInSlot] = useState({});
                     aria-label="Basic example"
                     onChange={(e) => {
                       setTime(e.target.value);
-                      //handleSub(e);
+                      handleSub(e);
                     }}
                   >
                     <option> Select Slot Timing</option>
 
-                    <option
-                      value="10-11am"
-                      disabled={
-                        currentTime > new Date(`${date} 10:00:00`) ||
-                        peopleInSlot[`${date} 10:00:00`] >= slotLimit
-                      }
-                      onChange={handleSubmit}
-                    >
+                    <option value="10-11am" onChange={handleSubmit}>
                       10:00 - 11:00
                     </option>
-                    <option
-                      value="11-12am"
-                      disabled={
-                        currentTime > new Date(`${date} 11:00:00`) ||
-                        peopleInSlot[`${date} 11:00:00`] >= slotLimit
-                      }
-                      onChange={handleSubmit}
-                    >
+                    <option value="11-12am" onChange={handleSubmit}>
                       11:00 - 12:00
                     </option>
-                    <option
-                      value="12:00-1pm"
-                      disabled={
-                        currentTime > new Date(`${date} 12:00:00`) ||
-                        peopleInSlot[`${date} 12:00:00`] >= slotLimit
-                      }
-                      onChange={handleSubmit}
-                    >
+                    <option value="12:00-1pm" onChange={handleSubmit}>
                       12:00 - 13:00
                     </option>
-                    <option
-                      value="2-3pm"
-                      disabled={
-                        currentTime > new Date(`${date} 14:00:00`) ||
-                        peopleInSlot[`${date} 13:00:00`] >= slotLimit
-                      }
-                      onChange={handleSubmit}
-                    >
+                    <option value="2-3pm" onChange={handleSubmit}>
                       14:00 - 15:00
                     </option>
-                    <option
-                      value="3-4pm"
-                      disabled={
-                        currentTime > new Date(`${date} 15:00:00`) ||
-                        peopleInSlot[`${date} 15:00:00`] >= slotLimit
-                      }
-                      onChange={handleSubmit}
-                    >
+                    <option value="3-4pm" onChange={handleSubmit}>
                       15:00 - 16:00
                     </option>
-                    <option
-                      value="4-4:30pm"
-                      disabled={
-                        currentTime > new Date(`${date} 16:00:00`) ||
-                        peopleInSlot[`${date} 16:00:00`] >= slotLimit
-                      }
-                      onChange={handleSubmit}
-                    >
+                    <option value="4-4:30pm" onChange={handleSubmit}>
                       16:00 - 16:30
                     </option>
                   </Form.Select>
@@ -433,18 +389,6 @@ const [peopleInSlot, setPeopleInSlot] = useState({});
                 >
                   BOOK SLOT
                 </Button>
-                {/* <Modal
-                  isOpen={modalIsOpen}
-                  onRequestClose={() => setModalIsOpen(false)}
-                  style={customStyles}
-                >
-                  <h1>Slot Booked successfully! </h1>
-                  <h2>Token number: {token}</h2>
-                  <Button variant="danger" onClick={() => {
-                    setModalIsOpen(false)
-                    navigate('/Home')
-                  }}>Close</Button>
-                </Modal> */}
               </div>
             </Form>
           </Box>
@@ -456,14 +400,3 @@ const [peopleInSlot, setPeopleInSlot] = useState({});
 };
 
 export default Details;
-
-const customStyles = {
-  content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-  },
-};

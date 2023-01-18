@@ -63,7 +63,7 @@ const BooksList = () => {
             <th>Last Name</th>
             <th>Date</th>
             <th>Time</th>
-            <th>Canteen Card Number</th>
+            <th>Canteen Card No</th>
             <th>Token</th>
           </tr>
         </thead>
