@@ -15,6 +15,11 @@ const BooksList = () => {
       console.log(error.message);
     }
   };
+
+  const handlePrint = () => {
+    window.print();
+  }
+
   const [books, setBooks] = useState([]);
   useEffect(() => {
     getBooks();
@@ -43,6 +48,7 @@ const BooksList = () => {
         <Button variant="dark edit" onClick={getBooks} style={{ margin: 10 }}>
           Refresh List
         </Button>
+        <Button variant="primary" onClick={handlePrint}>Print</Button>
       </div>
 
       {/* <pre>{JSON.stringify(books, undefined, 2)}</pre>} */}

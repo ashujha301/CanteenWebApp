@@ -20,6 +20,11 @@ tomorrow.setDate(tomorrow.getDate() + 1);
 //to get current time
 const currentTime = new Date();
 
+// set the maximum limit to 40
+
+
+
+
 const Details = ({ id, setId }) => {
   const [rank, setRank] = useState("");
   const [servicenumber, setServiceNumber] = useState("");
@@ -37,6 +42,9 @@ const Details = ({ id, setId }) => {
     localStorage.getItem("token") || uuidv4().substring(0, 8).toUpperCase()
   );
   const navigate = useNavigate();
+  const [slotLimit, setSlotLimit] = useState(2);
+const [peopleInSlot, setPeopleInSlot] = useState({});
+  
 
   // const token = uuidv4().substring(0, 8).toUpperCase();
   useEffect(() => {
@@ -121,6 +129,31 @@ const Details = ({ id, setId }) => {
       editHandler();
     }
   }, [id]);
+
+  //to limit the function 
+
+//   const handleSub = (e) => {
+//     const slot = e.target.value;
+//     const slotTime = slot.split("-")[0]; // extract the start time from the slot
+//     const user = app.auth().currentUser;
+//     if (user) {
+//         const currentUserId = user.uid;
+//         app
+//             .collection('Canteen_Slots')
+//             .where('userId', '==', currentUserId)
+//             .where('date', '==', date)
+//             .where('time', '==', slotTime)
+//             .get()
+//             .then((querySnapshot) => {
+//                 const people = querySnapshot.size;
+//                 setPeopleInSlot({...peopleInSlot, [`${date} ${slotTime}`]: people});
+//             })
+//             .catch((error) => {
+//                 console.error("Error getting documents: ", error);
+//             });
+            
+//     }
+// }
 
   return (
     <>
@@ -313,48 +346,68 @@ const Details = ({ id, setId }) => {
                     aria-label="Basic example"
                     onChange={(e) => {
                       setTime(e.target.value);
+
+                      //handleSub(e);
                     }}
                   >
                     <option> Select Slot Timing</option>
 
                     <option
                       value="10-11am"
-                      disabled={currentTime > new Date(`${date} 10:00:00`)}
+                      disabled={
+                        currentTime > new Date(`${date} 10:00:00`) ||
+                        peopleInSlot[`${date} 10:00:00`] >= slotLimit
+                      }
                       onChange={handleSubmit}
                     >
                       10:00 - 11:00
                     </option>
                     <option
                       value="11-12am"
-                      disabled={currentTime > new Date(`${date} 11:00:00`)}
+                      disabled={
+                        currentTime > new Date(`${date} 11:00:00`) ||
+                        peopleInSlot[`${date} 11:00:00`] >= slotLimit
+                      }
                       onChange={handleSubmit}
                     >
                       11:00 - 12:00
                     </option>
                     <option
                       value="12:00-1pm"
-                      disabled={currentTime > new Date(`${date} 12:00:00`)}
+                      disabled={
+                        currentTime > new Date(`${date} 12:00:00`) ||
+                        peopleInSlot[`${date} 12:00:00`] >= slotLimit
+                      }
                       onChange={handleSubmit}
                     >
                       12:00 - 13:00
                     </option>
                     <option
                       value="2-3pm"
-                      disabled={currentTime > new Date(`${date} 14:00:00`)}
+                      disabled={
+                        currentTime > new Date(`${date} 14:00:00`) ||
+                        peopleInSlot[`${date} 13:00:00`] >= slotLimit
+                      }
                       onChange={handleSubmit}
                     >
                       14:00 - 15:00
                     </option>
                     <option
                       value="3-4pm"
-                      disabled={currentTime > new Date(`${date} 15:00:00`)}
+                      disabled={
+                        currentTime > new Date(`${date} 15:00:00`) ||
+                        peopleInSlot[`${date} 15:00:00`] >= slotLimit
+                      }
                       onChange={handleSubmit}
                     >
                       15:00 - 16:00
                     </option>
                     <option
                       value="4-4:30pm"
-                      disabled={currentTime > new Date(`${date} 16:00:00`)}
+                      disabled={
+                        currentTime > new Date(`${date} 16:00:00`) ||
+                        peopleInSlot[`${date} 16:00:00`] >= slotLimit
+                      }
                       onChange={handleSubmit}
                     >
                       16:00 - 16:30
