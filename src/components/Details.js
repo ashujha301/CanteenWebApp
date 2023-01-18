@@ -11,16 +11,7 @@ import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 import app, { db } from "../firebase";
 import "firebase/firestore";
-import {
-  doc,
-  onSnapshot,
-  collection,
-  query,
-  where,
-  collectionGroup,
-  getDocs,
-} from "firebase/firestore";
-import { async } from "@firebase/util";
+import { collection, query, where, getDocs } from "firebase/firestore";
 
 //to get current date and tomorrows date
 const currentDate = new Date();
@@ -47,21 +38,13 @@ const Details = ({ id, setId }) => {
   );
   const navigate = useNavigate();
   const slotLimit = 2;
-  const [peopleInSlot, setPeopleInSlot] = useState({});
+  const [limit, setLimit] = useState();
+  //const [disable , setDisable] = useState(false);
 
   // const token = uuidv4().substring(0, 8).toUpperCase();
   useEffect(() => {
     // Code that relies on the updated state
   }, [token]);
-  useEffect(() => {
-    const q = query(collection(db, "Canteen_Slots"));
-    const unsub = onSnapshot(q, (querySnapshot) => {
-      // console.log(
-      //   "Data",
-      //   querySnapshot.docs.map((doc) => doc.data())
-      // );
-    });
-  }, []);
 
   const handleSub = async (e) => {
     const time1 = e.target.value;
@@ -75,7 +58,7 @@ const Details = ({ id, setId }) => {
     querySnapshot.forEach((doc) => {
       console.log(doc.id, " => ", doc.data());
     });
-    console.log("q", querySnapshot.size);
+    setLimit(() => querySnapshot.size);
   };
 
   const handleSubmit = async (e) => {
@@ -136,6 +119,7 @@ const Details = ({ id, setId }) => {
 
   const editHandler = async () => {
     setMessage("");
+
     try {
       const docSnap = await BookDataService.getBook(id);
       console.log("the record is :", docSnap.data());
@@ -156,6 +140,11 @@ const Details = ({ id, setId }) => {
       editHandler();
     }
   }, [id]);
+
+  // const disable = () => {
+  //     if (limit > slotLimit) return true;
+  //     else return false;
+  // };
 
   return (
     <>
@@ -354,26 +343,51 @@ const Details = ({ id, setId }) => {
                     onChange={(e) => {
                       setTime(e.target.value);
                       handleSub(e);
+                      console.log("limit", limit);
                     }}
                   >
                     <option> Select Slot Timing</option>
 
-                    <option value="10-11am" onChange={handleSubmit}>
+                    <option
+                      value="10-11am"
+                      onChange={handleSubmit}
+                      //disabled={limit > slotLimit}
+                    >
                       10:00 - 11:00
                     </option>
-                    <option value="11-12am" onChange={handleSubmit}>
+                    <option
+                      value="11-12am"
+                      onChange={handleSubmit}
+                      //disabled={limit > slotLimit}
+                    >
                       11:00 - 12:00
                     </option>
-                    <option value="12:00-1pm" onChange={handleSubmit}>
+                    <option
+                      value="12:00-1pm"
+                      onChange={handleSubmit}
+                      //disabled={limit > slotLimit}
+                    >
                       12:00 - 13:00
                     </option>
-                    <option value="2-3pm" onChange={handleSubmit}>
+                    <option
+                      value="2-3pm"
+                      onChange={handleSubmit}
+                      //disabled={limit > slotLimit}
+                    >
                       14:00 - 15:00
                     </option>
-                    <option value="3-4pm" onChange={handleSubmit}>
+                    <option
+                      value="3-4pm"
+                      onChange={handleSubmit}
+                      //disabled={limit > slotLimit}
+                    >
                       15:00 - 16:00
                     </option>
-                    <option value="4-4:30pm" onChange={handleSubmit}>
+                    <option
+                      value="4-4:30pm"
+                      onChange={handleSubmit}
+                      //disabled={limit > slotLimit}
+                    >
                       16:00 - 16:30
                     </option>
                   </Form.Select>
