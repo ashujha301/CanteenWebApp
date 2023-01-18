@@ -48,7 +48,7 @@ const BooksList = () => {
         <Button variant="dark edit" onClick={getBooks} style={{ margin: 10 }}>
           Refresh List
         </Button>
-        <Button variant="primary" onClick={handlePrint}>Print</Button>
+        <Button variant="dark edit" onClick={handlePrint}>Print</Button>
       </div>
 
       {/* <pre>{JSON.stringify(books, undefined, 2)}</pre>} */}
