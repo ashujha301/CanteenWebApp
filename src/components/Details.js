@@ -22,9 +22,6 @@ const currentTime = new Date();
 
 // set the maximum limit to 40
 
-
-
-
 const Details = ({ id, setId }) => {
   const [rank, setRank] = useState("");
   const [servicenumber, setServiceNumber] = useState("");
@@ -43,8 +40,7 @@ const Details = ({ id, setId }) => {
   );
   const navigate = useNavigate();
   const [slotLimit, setSlotLimit] = useState(2);
-const [peopleInSlot, setPeopleInSlot] = useState({});
-  
+  const [peopleInSlot, setPeopleInSlot] = useState({});
 
   // const token = uuidv4().substring(0, 8).toUpperCase();
   useEffect(() => {
@@ -130,30 +126,30 @@ const [peopleInSlot, setPeopleInSlot] = useState({});
     }
   }, [id]);
 
-  //to limit the function 
+  //to limit the function
 
-//   const handleSub = (e) => {
-//     const slot = e.target.value;
-//     const slotTime = slot.split("-")[0]; // extract the start time from the slot
-//     const user = app.auth().currentUser;
-//     if (user) {
-//         const currentUserId = user.uid;
-//         app
-//             .collection('Canteen_Slots')
-//             .where('userId', '==', currentUserId)
-//             .where('date', '==', date)
-//             .where('time', '==', slotTime)
-//             .get()
-//             .then((querySnapshot) => {
-//                 const people = querySnapshot.size;
-//                 setPeopleInSlot({...peopleInSlot, [`${date} ${slotTime}`]: people});
-//             })
-//             .catch((error) => {
-//                 console.error("Error getting documents: ", error);
-//             });
-            
-//     }
-// }
+  //   const handleSub = (e) => {
+  //     const slot = e.target.value;
+  //     const slotTime = slot.split("-")[0]; // extract the start time from the slot
+  //     const user = app.auth().currentUser;
+  //     if (user) {
+  //         const currentUserId = user.uid;
+  //         app
+  //             .collection('Canteen_Slots')
+  //             .where('userId', '==', currentUserId)
+  //             .where('date', '==', date)
+  //             .where('time', '==', slotTime)
+  //             .get()
+  //             .then((querySnapshot) => {
+  //                 const people = querySnapshot.size;
+  //                 setPeopleInSlot({...peopleInSlot, [`${date} ${slotTime}`]: people});
+  //             })
+  //             .catch((error) => {
+  //                 console.error("Error getting documents: ", error);
+  //             });
+
+  //     }
+  // }
 
   return (
     <>
@@ -210,14 +206,23 @@ const [peopleInSlot, setPeopleInSlot] = useState({});
                   >
                     <option> Select Rank</option>
 
+                    <option value="AIR CMDE" onChange={handleSubmit}>
+                      AIR CMDE
+                    </option>
                     <option value="GP CAPT" onChange={handleSubmit}>
                       GP CAPT
                     </option>
                     <option value="WG CDR" onChange={handleSubmit}>
                       WG CDR
                     </option>
+                    <option value="SQN LDR" onChange={handleSubmit}>
+                      SQN LDR
+                    </option>
                     <option value="FLT LT" onChange={handleSubmit}>
                       FLT LT
+                    </option>
+                    <option value="FLG OFFR" onChange={handleSubmit}>
+                      FLG OFFR
                     </option>
                     <option value="HFL" onChange={handleSubmit}>
                       HFL
@@ -313,7 +318,7 @@ const [peopleInSlot, setPeopleInSlot] = useState({});
               <ButtonGroup aria-label="Basic example" className="mb-3">
                 <Button
                   variant={day === "today" ? "info" : "warning"}
-                  disabled={!flag}
+                  disabled={!flag || currentTime > new Date(`${date} 16:30:00`)}
                   value={currentDate
                     .toString()
                     .split(" ")
@@ -346,7 +351,6 @@ const [peopleInSlot, setPeopleInSlot] = useState({});
                     aria-label="Basic example"
                     onChange={(e) => {
                       setTime(e.target.value);
-
                       //handleSub(e);
                     }}
                   >
