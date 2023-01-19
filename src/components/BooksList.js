@@ -39,6 +39,34 @@ const BooksList = () => {
     getBooks();
   };
 
+
+  function convertTimestamp(timestamp) {
+    var d = new Date((timestamp * 1000)-(7.5 * 60 * 60 * 1000)),	// Convert the passed timestamp to milliseconds
+    
+      hh = d.getHours(),
+      h = hh,
+      min = ('0' + d.getMinutes()).slice(-2),		// Add leading 0.
+      ampm = 'AM',
+      time;
+        
+    if (hh > 12) {
+      h = hh - 12;
+      ampm = 'PM';
+    } else if (hh === 12) {
+      h = 12;
+      ampm = 'PM';
+    } else if (hh == 0) {
+      h = 12;
+    }
+    
+    // ie: 2013-02-18, 8:35 AM	
+    time = h + ':' + min + ' ' + ampm;
+    console.log(d.toLocaleTimeString())
+    return time;
+  }
+
+  
+
   return (
     <>
       <div>
@@ -75,7 +103,7 @@ const BooksList = () => {
                 <td>{doc.middlename}</td>
                 <td>{doc.lastname}</td>
                 <td>{doc.date.split(" ").slice(0, 4).join(" ")}</td>
-                <td>{doc.time}</td>
+                <td>{convertTimestamp(doc.time)}</td>
                 <td>{doc.card}</td>
                 <td>{doc.token}</td>
                 <td>

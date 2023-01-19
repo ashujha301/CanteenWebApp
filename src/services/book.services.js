@@ -9,9 +9,8 @@ import {
   deleteDoc,
   doc,
   orderBy,
-  query
+  query,
 } from "firebase/firestore";
-
 
 const bookCollectionRef = collection(db, "Canteen_Slots");
 const phoneRef = collection(db, "Admin");
@@ -34,8 +33,7 @@ class BookDataService {
     // return getDocs(bookCollectionRef);
     const q = query(
       collection(db, "Canteen_Slots"),
-      orderBy("date","desc")
-      
+      orderBy("date", "desc")
     );
     return getDocs(q);
   };
@@ -43,12 +41,11 @@ class BookDataService {
   getBook = (id) => {
     const bookDoc = doc(db, "Canteen_Slots", id);
     return getDoc(bookDoc);
-  };  
+  };
 
   getPhone = () => {
     return getDocs(phoneRef);
-  }
-
+  };
 }
 
 export default new BookDataService();

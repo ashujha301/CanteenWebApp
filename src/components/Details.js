@@ -349,49 +349,48 @@ const Details = ({ id, setId }) => {
                     onChange={(e) => {
                       handleSub(e);
                       console.log("limit", limit);
-                      console.log(moment('10:00','HH:mm').format("HH:mm A"))
                       
                     }}
                   >
                     <option> Select Slot Timing</option>
 
                     <option
-                      value={moment('10:00','HH:mm').format("HH:mm A").valueOf()}
+                      value={moment('10:00','HH:mm').valueOf()}
                       onChange={handleSubmit}
                       //disabled={limit > slotLimit}
                     >
                       10:00 - 11:00
                     </option>
                     <option
-                       value={moment('11:00','HH:mm').format("HH:mm A").valueOf()}
+                       value={moment('11:00','HH:mm').valueOf()}
                       onChange={handleSubmit}
                       //disabled={limit > slotLimit}
                     >
                       11:00 - 12:00
                     </option>
                     <option
-                      value={moment('12:00','HH:mm').format("HH:mm A").valueOf()}
+                      value={moment('12:00','HH:mm').valueOf()}
                       onChange={handleSubmit}
                       //disabled={limit > slotLimit}
                     >
                       12:00 - 13:00
                     </option>
                     <option
-                       value={moment('14:00','HH:mm').format("HH:mm A").valueOf()}
+                       value={moment('14:00','HH:mm').valueOf()}
                       onChange={handleSubmit}
                       //disabled={limit > slotLimit}
                     >
                       14:00 - 15:00
                     </option>
                     <option
-                      value={moment('15:00','HH:mm').format("HH:mm A").valueOf()}
+                      value={moment('15:00','HH:mm').valueOf()}
                       onChange={handleSubmit}
                       //disabled={limit > slotLimit}
                     >
                       15:00 - 16:00
                     </option>
                     <option
-                      value={moment('16:00','HH:mm').format("HH:mm A").valueOf()}
+                      value={moment('16:00','HH:mm').valueOf()}
                       onChange={handleSubmit}
                       //disabled={limit > slotLimit}
                     >
