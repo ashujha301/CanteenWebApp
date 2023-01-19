@@ -8,6 +8,8 @@ import {
   updateDoc,
   deleteDoc,
   doc,
+  orderBy,
+  query
 } from "firebase/firestore";
 
 
@@ -29,7 +31,13 @@ class BookDataService {
   };
 
   getAllBooks = () => {
-    return getDocs(bookCollectionRef);
+    // return getDocs(bookCollectionRef);
+    const q = query(
+      collection(db, "Canteen_Slots"),
+      orderBy("date","desc")
+      
+    );
+    return getDocs(q);
   };
 
   getBook = (id) => {

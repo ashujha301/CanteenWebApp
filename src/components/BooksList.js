@@ -3,6 +3,10 @@ import { Table, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
 import BookDataService from "../services/book.services";
+import moment from "moment";
+import app, { db } from "../firebase";
+import "firebase/firestore";
+import { collection, query, where, getDocs } from "firebase/firestore";
 
 const BooksList = () => {
   const { logOut } = useUserAuth();
@@ -35,13 +39,6 @@ const BooksList = () => {
     getBooks();
   };
 
-  const sortedBooks = books.sort((a, b) => {
-    if(a.date !== b.date) {
-        return a.date > b.date ? 1 : -1;
-    }
-    return a.time > b.time ? 1 : -1;
-});
-
   return (
     <>
       <div>
@@ -68,7 +65,7 @@ const BooksList = () => {
           </tr>
         </thead>
         <tbody>
-          {sortedBooks.map((doc, index) => {
+          {books.map((doc, index) => {
             return (
               <tr key={doc.id}>
                 <td>{index + 1}</td>
@@ -77,7 +74,7 @@ const BooksList = () => {
                 <td>{doc.firstname}</td>
                 <td>{doc.middlename}</td>
                 <td>{doc.lastname}</td>
-                <td>{doc.date}</td>
+                <td>{doc.date.split(" ").slice(0, 4).join(" ")}</td>
                 <td>{doc.time}</td>
                 <td>{doc.card}</td>
                 <td>{doc.token}</td>

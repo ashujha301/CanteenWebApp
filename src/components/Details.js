@@ -5,6 +5,7 @@ import BookDataService from "../services/book.services";
 import { Box } from "theme-ui";
 import Navbar from "./Navbar";
 import Footer from "./footer";
+import moment from "moment/moment";
 import { v4 as uuidv4 } from "uuid";
 // import Modal from "react-modal";
 // import { db } from "../firebase";
@@ -314,7 +315,7 @@ const Details = ({ id, setId }) => {
                 <Button
                   variant={day === "today" ? "info" : "warning"}
                   disabled={!flag}
-                  value={today.toString().split(" ").slice(0, 4).join(" ")}
+                  value={today}
                   onClick={(e) => {
                     setDate(e.target.value);
                     setDay("today");
@@ -325,7 +326,7 @@ const Details = ({ id, setId }) => {
                 <Button
                   variant={day === "tomorrow" ? "info" : "warning"}
                   disabled={!flag}
-                  value={tomorrow.toString().split(" ").slice(0, 4).join(" ")}
+                  value={tomorrow}
                   onClick={(e) => {
                     setDate(e.target.value);
                     setDay("tomorrow");
@@ -339,52 +340,54 @@ const Details = ({ id, setId }) => {
                 <InputGroup>
                   {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
                   <Form.Select
-                    aria-label="Basic example"
+                    aria-label="Timestamp Selector"
                     onChange={(e) => {
                       setTime(e.target.value);
                       handleSub(e);
                       console.log("limit", limit);
+                      console.log(moment('10:00','HH:mm').format("HH:mm A"))
+                      
                     }}
                   >
                     <option> Select Slot Timing</option>
 
                     <option
-                      value="10-11am"
+                      value={moment('10:00','HH:mm').format("HH:mm A").valueOf()}
                       onChange={handleSubmit}
                       //disabled={limit > slotLimit}
                     >
                       10:00 - 11:00
                     </option>
                     <option
-                      value="11-12am"
+                       value={moment('11:00','HH:mm').format("HH:mm A").valueOf()}
                       onChange={handleSubmit}
                       //disabled={limit > slotLimit}
                     >
                       11:00 - 12:00
                     </option>
                     <option
-                      value="12:00-1pm"
+                      value={moment('12:00','HH:mm').format("HH:mm A").valueOf()}
                       onChange={handleSubmit}
                       //disabled={limit > slotLimit}
                     >
                       12:00 - 13:00
                     </option>
                     <option
-                      value="2-3pm"
+                       value={moment('14:00','HH:mm').format("HH:mm A").valueOf()}
                       onChange={handleSubmit}
                       //disabled={limit > slotLimit}
                     >
                       14:00 - 15:00
                     </option>
                     <option
-                      value="3-4pm"
+                      value={moment('15:00','HH:mm').format("HH:mm A").valueOf()}
                       onChange={handleSubmit}
                       //disabled={limit > slotLimit}
                     >
                       15:00 - 16:00
                     </option>
                     <option
-                      value="4-4:30pm"
+                      value={moment('16:00','HH:mm').format("HH:mm A").valueOf()}
                       onChange={handleSubmit}
                       //disabled={limit > slotLimit}
                     >
