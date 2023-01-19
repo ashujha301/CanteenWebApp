@@ -43,24 +43,6 @@ const Details = ({ id, setId }) => {
   //const [disable , setDisable] = useState(false);
 
   // const token = uuidv4().substring(0, 8).toUpperCase();
-  useEffect(() => {
-    // Code that relies on the updated state
-  }, [token]);
-
-  const handleSub = async (e) => {
-    const time1 = e.target.value;
-    console.log("time", time1);
-    const q = query(
-      collection(db, "Canteen_Slots"),
-      where("date", "==", date),
-      where("time", "==", time1)
-    );
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      console.log(doc.id, " => ", doc.data());
-    });
-    setLimit(() => querySnapshot.size);
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -135,6 +117,11 @@ const Details = ({ id, setId }) => {
       setMessage({ error: true, msg: err.message });
     }
   };
+  let querySnapshot;
+
+  const handleSub = async (e) => {
+    setTime(e.target.value);
+  };
 
   useEffect(() => {
     if (id !== undefined && id !== "") {
@@ -146,6 +133,24 @@ const Details = ({ id, setId }) => {
   //     if (limit > slotLimit) return true;
   //     else return false;
   // };
+
+  useEffect(() => {
+    const newFunction = async () => {
+      const q = query(
+        collection(db, "Canteen_Slots"),
+        where("date", "==", date),
+        where("time", "==", time)
+      );
+      querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, " => ", doc.data());
+      });
+      console.log(querySnapshot.size);
+      setLimit(querySnapshot?.size);
+    };
+    newFunction();
+    // Code that relies on the updated state
+  }, [time]);
 
   return (
     <>
@@ -342,7 +347,6 @@ const Details = ({ id, setId }) => {
                   <Form.Select
                     aria-label="Timestamp Selector"
                     onChange={(e) => {
-                      setTime(e.target.value);
                       handleSub(e);
                       console.log("limit", limit);
                       console.log(moment('10:00','HH:mm').format("HH:mm A"))
