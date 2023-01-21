@@ -3,10 +3,16 @@ import { Table, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
 import BookDataService from "../services/book.services";
-import moment from "moment";
-import app, { db } from "../firebase";
+// import moment from "moment";
+// import app, { db } from "../firebase";
 import "firebase/firestore";
-import { collection, query, where, getDocs } from "firebase/firestore";
+// import {
+//   collection,
+//   query,
+//   where,
+//   getDocs,
+//   collectionGroup,
+// } from "firebase/firestore";
 
 const BooksList = () => {
   const { logOut } = useUserAuth();
@@ -22,7 +28,7 @@ const BooksList = () => {
 
   const handlePrint = () => {
     window.print();
-  }
+  };
 
   const [books, setBooks] = useState([]);
   useEffect(() => {
@@ -39,33 +45,28 @@ const BooksList = () => {
     getBooks();
   };
 
-
   function convertTimestamp(timestamp) {
-    var d = new Date((timestamp * 1000)-(7.5 * 60 * 60 * 1000)),	// Convert the passed timestamp to milliseconds
-    
+    var d = new Date(timestamp * 1000 - 7.5 * 60 * 60 * 1000), // Convert the passed timestamp to milliseconds
       hh = d.getHours(),
       h = hh,
-      min = ('0' + d.getMinutes()).slice(-2),		// Add leading 0.
-      ampm = 'AM',
+      min = ("0" + d.getMinutes()).slice(-2), // Add leading 0.
+      ampm = "AM",
       time;
-        
+
     if (hh > 12) {
       h = hh - 12;
-      ampm = 'PM';
+      ampm = "PM";
     } else if (hh === 12) {
       h = 12;
-      ampm = 'PM';
+      ampm = "PM";
     } else if (hh == 0) {
       h = 12;
     }
-    
-    // ie: 2013-02-18, 8:35 AM	
-    time = h + ':' + min + ' ' + ampm;
-    console.log(d.toLocaleTimeString())
+
+    // ie: 2013-02-18, 8:35 AM
+    time = h + ":" + min + " " + ampm;
     return time;
   }
-
-  
 
   return (
     <>
@@ -73,7 +74,9 @@ const BooksList = () => {
         <Button variant="dark edit" onClick={getBooks} style={{ margin: 10 }}>
           Refresh List
         </Button>
-        <Button variant="dark edit" onClick={handlePrint}>Print</Button>
+        <Button variant="dark edit" onClick={handlePrint}>
+          Print
+        </Button>
       </div>
 
       {/* <pre>{JSON.stringify(books, undefined, 2)}</pre>} */}
@@ -94,6 +97,10 @@ const BooksList = () => {
         </thead>
         <tbody>
           {books.map((doc, index) => {
+            const date = new Date(
+              doc.date.seconds * 1000 + doc.date.nanoseconds / 1000000
+            );
+            console.log(date);
             return (
               <tr key={doc.id}>
                 <td>{index + 1}</td>
@@ -102,8 +109,8 @@ const BooksList = () => {
                 <td>{doc.firstname}</td>
                 <td>{doc.middlename}</td>
                 <td>{doc.lastname}</td>
-                <td>{doc.date.split(" ").slice(0, 4).join(" ")}</td>
-                <td>{convertTimestamp(doc.time)}</td>
+                <td>{date.toDateString()}</td>
+                <td>{doc.time}:00</td>
                 <td>{doc.card}</td>
                 <td>{doc.token}</td>
                 <td>

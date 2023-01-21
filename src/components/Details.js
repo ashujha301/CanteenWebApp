@@ -69,7 +69,7 @@ const Details = ({ id, setId }) => {
         firstname,
         lastname,
         date,
-        time,
+        time: Number(time),
         token,
       };
       try {
@@ -322,7 +322,7 @@ const Details = ({ id, setId }) => {
                   disabled={!flag}
                   value={today}
                   onClick={(e) => {
-                    setDate(e.target.value);
+                    setDate(new Date(e.target.value));
                     setDay("today");
                   }}
                 >
@@ -333,7 +333,7 @@ const Details = ({ id, setId }) => {
                   disabled={!flag}
                   value={tomorrow}
                   onClick={(e) => {
-                    setDate(e.target.value);
+                    setDate(new Date(e.target.value));
                     setDay("tomorrow");
                   }}
                 >
@@ -349,48 +349,47 @@ const Details = ({ id, setId }) => {
                     onChange={(e) => {
                       handleSub(e);
                       console.log("limit", limit);
-                      
                     }}
                   >
                     <option> Select Slot Timing</option>
 
                     <option
-                      value={moment('10:00','HH:mm').valueOf()}
+                      value={10}
                       onChange={handleSubmit}
                       //disabled={limit > slotLimit}
                     >
                       10:00 - 11:00
                     </option>
                     <option
-                       value={moment('11:00','HH:mm').valueOf()}
+                      value={11}
                       onChange={handleSubmit}
                       //disabled={limit > slotLimit}
                     >
                       11:00 - 12:00
                     </option>
                     <option
-                      value={moment('12:00','HH:mm').valueOf()}
+                      value={12}
                       onChange={handleSubmit}
                       //disabled={limit > slotLimit}
                     >
                       12:00 - 13:00
                     </option>
                     <option
-                       value={moment('14:00','HH:mm').valueOf()}
+                      value={14}
                       onChange={handleSubmit}
                       //disabled={limit > slotLimit}
                     >
                       14:00 - 15:00
                     </option>
                     <option
-                      value={moment('15:00','HH:mm').valueOf()}
+                      value={15}
                       onChange={handleSubmit}
                       //disabled={limit > slotLimit}
                     >
                       15:00 - 16:00
                     </option>
                     <option
-                      value={moment('16:00','HH:mm').valueOf()}
+                      value={16}
                       onChange={handleSubmit}
                       //disabled={limit > slotLimit}
                     >
