@@ -6,7 +6,7 @@ import { Button } from "react-bootstrap";
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
 import { useUserAuth } from "../context/UserAuthContext";
-import { Box } from "theme-ui";
+import { Box, Flex, Image } from "theme-ui";
 import Navbar from "./Navbar";
 import Footer from "./footer";
 
@@ -22,7 +22,7 @@ const PhoneSignUp = () => {
   const getOtp = async (e) => {
     e.preventDefault();
     setError("");
-    if (number === "" || number === undefined )
+    if (number === "" || number === undefined)
       return setError("Please enter a valid phone number!");
     try {
       const response = await setUpRecaptha(number);
@@ -35,7 +35,6 @@ const PhoneSignUp = () => {
     }
   };
 
-  
   const verifyOtp = async (e) => {
     e.preventDefault();
     setError("");
@@ -73,7 +72,25 @@ const PhoneSignUp = () => {
             flexDirection: "column",
           }}
         >
-          <img src="../Canteenlogo.png" alt="Canteen Logo" />
+          <Flex
+            sx={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+              paddingTop: [60, 40, 30, 20],
+            }}
+          >
+            <Image
+              src="../afslogoeng.png"
+              alt="Canteen Logo 1"
+              sx={{ height: [250, 350, 350, 450], flex: 1 }}
+            />
+            <Image
+              src="../afslogohindi.png"
+              alt="Canteen Logo 2"
+              sx={{ height: [250, 350, 350, 450], flex: 1 }}
+            />
+          </Flex>
           <h2 style={{ color: "white", paddingBottom: 20 }}>Sign In</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={getOtp} style={{ display: !flag ? "block" : "none" }}>
@@ -116,7 +133,6 @@ const PhoneSignUp = () => {
                 type="otp"
                 placeholder="Enter OTP"
                 onChange={(e) => setOtp(e.target.value)}
-                
               />
             </Form.Group>
             <div className="button-right">
