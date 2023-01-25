@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./footer";
 import { Box, Button, Flex, Text } from "theme-ui";
+import { left } from "styled-system";
 
 const Login = () => {
   return (
@@ -19,11 +20,21 @@ const Login = () => {
             overflow: "hidden",
           }}
         >
+          <Flex sx={{ flexDirection: "row" }}>
           <img
-            src="../Canteenlogo.png"
-            alt="Canteen Logo"
-            style={{ height: "50%" }}
+            
+            src="../afslogoeng.png"
+            alt="Canteen Logo 1"
+            style={{ height: "50%"}}
           />
+          <img
+            
+            src="../afslogohindi.png"
+            alt="Canteen Logo 2"
+            style={{ height: "50%" , flex: 1}}
+          />
+          </Flex>
+          
           <Flex sx={styles.home}>
             <Flex sx={{ flexDirection: "column", alignItems: "center" }}>
               <Text
@@ -37,6 +48,7 @@ const Login = () => {
               >
                 Unit Run Canteen
               </Text>
+
               <Link to="/login">
                 <div>
                   <Button

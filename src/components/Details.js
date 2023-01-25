@@ -12,7 +12,13 @@ import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 import app, { db } from "../firebase";
 import "firebase/firestore";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  Timestamp,
+} from "firebase/firestore";
 
 //to get current date and tomorrows date
 const currentDate = new Date();
@@ -39,7 +45,7 @@ const Details = ({ id, setId }) => {
   );
   const navigate = useNavigate();
   const slotLimit = 2;
-  const [limit, setLimit] = useState();
+  const [limit, setLimit] = useState("");
   //const [disable , setDisable] = useState(false);
 
   // const token = uuidv4().substring(0, 8).toUpperCase();
@@ -68,7 +74,7 @@ const Details = ({ id, setId }) => {
         middlename,
         firstname,
         lastname,
-        date,
+        date: date,
         time: Number(time),
         token,
       };
@@ -135,22 +141,25 @@ const Details = ({ id, setId }) => {
   // };
 
   useEffect(() => {
+    let count = 0;
     const newFunction = async () => {
       const q = query(
         collection(db, "Canteen_Slots"),
-        where("date", "==", date),
-        where("time", "==", time)
+        where("time", "==", Number(time))
       );
-      querySnapshot = await getDocs(q);
+      const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
-        console.log(doc.id, " => ", doc.data());
+        if (
+          new Date(doc.data().date.seconds * 1000).toDateString() ===
+          new Date(date).toDateString()
+        )
+          count++;
       });
-      console.log(querySnapshot.size);
-      setLimit(querySnapshot?.size);
+      setLimit(count);
     };
     newFunction();
     // Code that relies on the updated state
-  }, [time]);
+  }, [time, date]);
 
   return (
     <>
@@ -318,9 +327,10 @@ const Details = ({ id, setId }) => {
 
               <ButtonGroup aria-label="Basic example" className="mb-3">
                 <Button
-                  variant={day === "today" ? "info" : "warning"}
-                  disabled={!flag}
+                  variant={day === "today" ? "success" : "warning"}
+                  disabled={!flag || today.toString().split(" ")[0] === "Tue"}
                   value={today}
+                  style={{width: "250px"}}
                   onClick={(e) => {
                     setDate(new Date(e.target.value));
                     setDay("today");
@@ -329,9 +339,12 @@ const Details = ({ id, setId }) => {
                   {today.toString().split(" ").slice(0, 4).join(" ")}
                 </Button>
                 <Button
-                  variant={day === "tomorrow" ? "info" : "warning"}
-                  disabled={!flag}
+                  variant={day === "tomorrow" ? "success" : "danger"}
+                  disabled={
+                    !flag || tomorrow.toString().split(" ")[0] === "Tue"
+                  }
                   value={tomorrow}
+                  style={{width: "250px"}}
                   onClick={(e) => {
                     setDate(new Date(e.target.value));
                     setDay("tomorrow");
@@ -403,6 +416,7 @@ const Details = ({ id, setId }) => {
                 <Button
                   variant="success"
                   type="Submit"
+                  style={{width: "200px"}}
                   onChange={handleSubmit}
                   id="book-slot-button"
                 >
