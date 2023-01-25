@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 // import { Link, useNavigate } from "react-router-dom";
 import { Form, Alert, InputGroup, Button, ButtonGroup } from "react-bootstrap";
 import BookDataService from "../services/book.services";
-import { Box } from "theme-ui";
+import { Box, Flex } from "theme-ui";
 import Navbar from "./Navbar";
 import Footer from "./footer";
 import moment from "moment/moment";
@@ -264,7 +264,6 @@ const Details = ({ id, setId }) => {
                   </Form.Select>
                 </InputGroup>
               </Form.Group>
-
               <Form.Group controlId="formBookTitle" className="mb-3">
                 <InputGroup>
                   {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
@@ -276,7 +275,6 @@ const Details = ({ id, setId }) => {
                   />
                 </InputGroup>
               </Form.Group>
-
               <Form.Group controlId="formBookTitle" className="mb-3">
                 <InputGroup>
                   {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
@@ -288,7 +286,6 @@ const Details = ({ id, setId }) => {
                   />
                 </InputGroup>
               </Form.Group>
-
               <Form.Group controlId="formBookTitle" className="mb-3">
                 <InputGroup>
                   {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
@@ -300,7 +297,6 @@ const Details = ({ id, setId }) => {
                   />
                 </InputGroup>
               </Form.Group>
-
               <Form.Group controlId="formBookAuthor" className="mb-3">
                 <InputGroup>
                   {/* <InputGroup.Text id="formBookAuthor"></InputGroup.Text> */}
@@ -312,7 +308,6 @@ const Details = ({ id, setId }) => {
                   />
                 </InputGroup>
               </Form.Group>
-
               <Form.Group controlId="formBookTitle" className="mb-3">
                 <InputGroup>
                   {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
@@ -324,13 +319,16 @@ const Details = ({ id, setId }) => {
                   />
                 </InputGroup>
               </Form.Group>
-
-              <ButtonGroup aria-label="Basic example" className="mb-3">
+              <ButtonGroup
+                aria-label="Basic example"
+                className="mb-3"
+                style={{ width: "100%" }}
+              >
                 <Button
                   variant={day === "today" ? "success" : "warning"}
                   disabled={!flag || today.toString().split(" ")[0] === "Tue"}
                   value={today}
-                  style={{width: "250px"}}
+                  style={{ flex: 1 }}
                   onClick={(e) => {
                     setDate(new Date(e.target.value));
                     setDay("today");
@@ -344,7 +342,7 @@ const Details = ({ id, setId }) => {
                     !flag || tomorrow.toString().split(" ")[0] === "Tue"
                   }
                   value={tomorrow}
-                  style={{width: "250px"}}
+                  style={{ flex: 1 }}
                   onClick={(e) => {
                     setDate(new Date(e.target.value));
                     setDay("tomorrow");
@@ -353,7 +351,6 @@ const Details = ({ id, setId }) => {
                   {tomorrow.toString().split(" ").slice(0, 4).join(" ")}
                 </Button>
               </ButtonGroup>
-
               <Form.Group controlId="formBookTitle" className="mb-3">
                 <InputGroup>
                   {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
@@ -411,18 +408,25 @@ const Details = ({ id, setId }) => {
                   </Form.Select>
                 </InputGroup>
               </Form.Group>
-
-              <div>
+              <Flex
+                sx={{
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
                 <Button
                   variant="success"
                   type="Submit"
-                  style={{width: "200px"}}
+                  style={{
+                    width: "50%",
+                  }}
                   onChange={handleSubmit}
                   id="book-slot-button"
                 >
                   BOOK SLOT
                 </Button>
-              </div>
+              </Flex>
             </Form>
           </Box>
         </Box>

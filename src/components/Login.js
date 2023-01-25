@@ -9,7 +9,7 @@ const Login = () => {
   return (
     <>
       <Box sx={{ backgroundColor: "blue" }}>
-        <Navbar label="Canteen Stores Department" />
+        <Navbar label="AF Canteen Bamrauli" />
         <Flex
           style={{
             alignItems: "center",
