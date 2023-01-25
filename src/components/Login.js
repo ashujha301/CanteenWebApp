@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./footer";
-import { Box, Button, Flex, Text } from "theme-ui";
+import { Box, Button, Flex, Text, Image } from "theme-ui";
 import { left } from "styled-system";
 
 const Login = () => {
@@ -20,21 +20,26 @@ const Login = () => {
             overflow: "hidden",
           }}
         >
-          <Flex sx={{ flexDirection: "row" }}>
-          <img
-            
-            src="../afslogoeng.png"
-            alt="Canteen Logo 1"
-            style={{ height: "50%"}}
-          />
-          <img
-            
-            src="../afslogohindi.png"
-            alt="Canteen Logo 2"
-            style={{ height: "50%" , flex: 1}}
-          />
+          <Flex
+            sx={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+              paddingTop: [60, 40, 30, 20],
+            }}
+          >
+            <Image
+              src="../afslogoeng.png"
+              alt="Canteen Logo 1"
+              sx={{ height: [250, 350, 350, 450], flex: 1 }}
+            />
+            <Image
+              src="../afslogohindi.png"
+              alt="Canteen Logo 2"
+              sx={{ height: [250, 350, 350, 450], flex: 1 }}
+            />
           </Flex>
-          
+
           <Flex sx={styles.home}>
             <Flex sx={{ flexDirection: "column", alignItems: "center" }}>
               <Text
