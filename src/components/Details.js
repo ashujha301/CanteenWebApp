@@ -72,6 +72,8 @@ const Details = ({ id, setId }) => {
       return;
     } else {
       localStorage.setItem("token", token);
+      localStorage.setItem("time", time);
+      localStorage.setItem("date", date);
       const newBook = {
         rank,
         card,

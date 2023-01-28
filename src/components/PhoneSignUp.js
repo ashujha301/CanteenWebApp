@@ -133,6 +133,7 @@ const PhoneSignUp = () => {
                 type="otp"
                 placeholder="Enter OTP"
                 onChange={(e) => setOtp(e.target.value)}
+                autoComplete="off"
               />
             </Form.Group>
             <div className="button-right">
