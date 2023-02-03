@@ -39,6 +39,7 @@ const Details = ({ id, setId }) => {
   // const [modalIsOpen, setModalIsOpen] = useState(false);
   const [flag, setFlag] = useState(true);
   const [day, setDay] = useState("");
+  const [selectedButton, setSelectedButton] = useState("");
   const [message, setMessage] = useState({ error: false, msg: "" });
   const [token, setToken] = useState(
     localStorage.getItem("token") || uuidv4().substring(0, 8).toUpperCase()
@@ -49,6 +50,10 @@ const Details = ({ id, setId }) => {
   //const [disable , setDisable] = useState(false);
 
   // const token = uuidv4().substring(0, 8).toUpperCase();
+
+  const handleButtonClick = (value) => {
+    setSelectedButton(value);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -161,6 +166,29 @@ const Details = ({ id, setId }) => {
     // Code that relies on the updated state
   }, [time, date]);
 
+
+  //to check if card already exist
+//   const todayTimestamp = app.firestore.Timestamp.fromDate(new Date());
+// const tomorrowTimestamp = app.firestore.Timestamp.fromDate(new Date(new Date().setDate(new Date().getDate()+1)));
+
+// const checkBooking = async (date, day) => {
+//   let bookingsRef = null;
+//   if(day === 'today'){
+//     bookingsRef = app.firestore().collection("bookings").where("date", "==", todayTimestamp).where("card", "==", card);
+//   }else{
+//     bookingsRef = app.firestore().collection("bookings").where("date", "==", tomorrowTimestamp).where("card", "==", card);
+//   }
+//   bookingsRef.get().then(snapshot => {
+//     if (snapshot.empty) {
+//       setDate(date);
+//       setDay(day);
+//     } else {
+//       setFlag(false);
+//       alert("This card number is already booked for "+day);
+//     }
+//   });
+//}
+
   return (
     <>
       <Box
@@ -205,7 +233,35 @@ const Details = ({ id, setId }) => {
               </Alert>
             )}
             <Form onSubmit={handleSubmit}>
-              <Form.Group controlId="formBookTitle" className="mb-3">
+
+
+            <ButtonGroup
+                aria-label="Basic example"
+                className="mb-3"
+                style={{ width: "100%" }}
+              >
+                <Button
+                  variant={selectedButton === "SERVING" ? "success" : "warning"}
+                  style={{ flex: 1 }}
+                  onClick={(e) => {
+                    handleButtonClick('SERVING')
+                  }}
+                >
+                  SERVING
+                </Button>
+                <Button
+                  variant={selectedButton === "NON_SERVING" ? "success" : "danger"}
+                 
+                  style={{ flex: 1 }}
+                  onClick={(e) => {
+                    handleButtonClick('NON_SERVING')
+                  }}
+                >
+                NON SERVING
+                </Button>
+              </ButtonGroup>
+
+              {selectedButton === 'SERVING' &&  (<Form.Group controlId="formBookTitle" className="mb-3">
                 <InputGroup>
                   {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
                   <Form.Select
@@ -263,8 +319,9 @@ const Details = ({ id, setId }) => {
                     </option>
                   </Form.Select>
                 </InputGroup>
-              </Form.Group>
-              <Form.Group controlId="formBookTitle" className="mb-3">
+              </Form.Group> ) }
+
+              {selectedButton === 'SERVING' &&  (<Form.Group controlId="formBookTitle" className="mb-3">
                 <InputGroup>
                   {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
                   <Form.Control
@@ -274,40 +331,20 @@ const Details = ({ id, setId }) => {
                     onChange={(e) => setServiceNumber(e.target.value)}
                   />
                 </InputGroup>
-              </Form.Group>
+              </Form.Group>)}
+              
               <Form.Group controlId="formBookTitle" className="mb-3">
                 <InputGroup>
                   {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
                   <Form.Control
                     type="text"
-                    placeholder="First Name *"
+                    placeholder="Name *"
                     value={firstname}
                     onChange={(e) => setFirstName(e.target.value)}
                   />
                 </InputGroup>
               </Form.Group>
-              <Form.Group controlId="formBookTitle" className="mb-3">
-                <InputGroup>
-                  {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
-                  <Form.Control
-                    type="text"
-                    placeholder="Middle Name"
-                    value={middlename}
-                    onChange={(e) => setMiddleName(e.target.value)}
-                  />
-                </InputGroup>
-              </Form.Group>
-              <Form.Group controlId="formBookAuthor" className="mb-3">
-                <InputGroup>
-                  {/* <InputGroup.Text id="formBookAuthor"></InputGroup.Text> */}
-                  <Form.Control
-                    type="text"
-                    placeholder="Last Name *"
-                    value={lastname}
-                    onChange={(e) => setLastname(e.target.value)}
-                  />
-                </InputGroup>
-              </Form.Group>
+
               <Form.Group controlId="formBookTitle" className="mb-3">
                 <InputGroup>
                   {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
@@ -319,6 +356,7 @@ const Details = ({ id, setId }) => {
                   />
                 </InputGroup>
               </Form.Group>
+
               <ButtonGroup
                 aria-label="Basic example"
                 className="mb-3"
@@ -326,7 +364,7 @@ const Details = ({ id, setId }) => {
               >
                 <Button
                   variant={day === "today" ? "success" : "warning"}
-                  disabled={!flag || today.toString().split(" ")[0] === "Tue"}
+                  disabled={!flag || today.toString().split(" ")[0] === "Thu"}
                   value={today}
                   style={{ flex: 1 }}
                   onClick={(e) => {
@@ -339,7 +377,7 @@ const Details = ({ id, setId }) => {
                 <Button
                   variant={day === "tomorrow" ? "success" : "danger"}
                   disabled={
-                    !flag || tomorrow.toString().split(" ")[0] === "Tue"
+                    !flag || tomorrow.toString().split(" ")[0] === "Thu"
                   }
                   value={tomorrow}
                   style={{ flex: 1 }}
@@ -351,7 +389,32 @@ const Details = ({ id, setId }) => {
                   {tomorrow.toString().split(" ").slice(0, 4).join(" ")}
                 </Button>
               </ButtonGroup>
-              <Form.Group controlId="formBookTitle" className="mb-3">
+
+              {selectedButton === 'SERVING' &&  (<Form.Group controlId="formBookTitle" className="mb-3">
+                <InputGroup>
+                  {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
+                  <Form.Select
+                    aria-label="Timestamp Selector"
+                    onChange={(e) => {
+                      handleSub(e);
+                      console.log("limit", limit);
+                    }}
+                  >
+                    <option> Select Slot Timing</option>
+
+                    <option
+                      value={10}
+                      onChange={handleSubmit}
+                      //disabled={limit > slotLimit}
+                    >
+                      10:00 - 11:00
+                    </option>
+                    
+                  </Form.Select>
+                </InputGroup>
+              </Form.Group>)}
+
+              {selectedButton === 'NON_SERVING' &&  (<Form.Group controlId="formBookTitle" className="mb-3">
                 <InputGroup>
                   {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
                   <Form.Select
@@ -407,7 +470,9 @@ const Details = ({ id, setId }) => {
                     </option>
                   </Form.Select>
                 </InputGroup>
-              </Form.Group>
+              </Form.Group>)}
+
+
               <Flex
                 sx={{
                   flex: 1,

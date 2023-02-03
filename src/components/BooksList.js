@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Table, Button } from "react-bootstrap";
+import { Table, Button, InputGroup, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
 import BookDataService from "../services/book.services";
 // import moment from "moment";
 // import app, { db } from "../firebase";
 import "firebase/firestore";
+import { Input } from "theme-ui";
 // import {
 //   collection,
 //   query,
@@ -77,8 +78,15 @@ const BooksList = () => {
         <Button variant="dark edit" onClick={handlePrint}>
           Print
         </Button>
-      </div>
+        <InputGroup>
+          <Input 
+          type="text" 
+          placeholder="ENTER STOCK CHECK DATE HERE"
+          >
 
+          </Input>
+        </InputGroup>
+      </div>
       {/* <pre>{JSON.stringify(books, undefined, 2)}</pre>} */}
       <Table striped bordered hover size="sm">
         <thead>
@@ -86,9 +94,7 @@ const BooksList = () => {
             <th>#</th>
             <th>Rank</th>
             <th>Service Number</th>
-            <th>First Name</th>
-            <th>Middle Name</th>
-            <th>Last Name</th>
+            <th>Name</th>
             <th>Date</th>
             <th>Time</th>
             <th>Canteen Card No</th>
@@ -107,8 +113,6 @@ const BooksList = () => {
                 <td>{doc.rank}</td>
                 <td>{doc.servicenumber}</td>
                 <td>{doc.firstname}</td>
-                <td>{doc.middlename}</td>
-                <td>{doc.lastname}</td>
                 <td>{date.toDateString()}</td>
                 <td>{doc.time}:00</td>
                 <td>{doc.card}</td>

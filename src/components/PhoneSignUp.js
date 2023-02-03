@@ -83,12 +83,12 @@ const PhoneSignUp = () => {
             <Image
               src="../afslogoeng.png"
               alt="Canteen Logo 1"
-              sx={{ height: [250, 350, 350, 450], flex: 1 }}
+              sx={{ height: [350, 350, 350, 350], flex: 1 }}
             />
             <Image
               src="../afslogohindi.png"
               alt="Canteen Logo 2"
-              sx={{ height: [250, 350, 350, 450], flex: 1 }}
+              sx={{ height: [350, 350, 350, 350], flex: 1 }}
             />
           </Flex>
           <h2 style={{ color: "white", paddingBottom: 20 }}>Sign In</h2>
