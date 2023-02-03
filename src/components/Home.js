@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router";
-import { Box, Flex } from "theme-ui";
+import { Box } from "theme-ui";
 import { useUserAuth } from "../context/UserAuthContext";
 
 const Home = () => {
@@ -55,7 +55,7 @@ const Home = () => {
         <h1>Your Token Number is:</h1>
         <h1
           className="p-4 box pt-4 text-center"
-          style={{ fontWeight: "bold", fontFamily: "cursive" }}
+          style={{ fontWeight: "bold", fontFamily: "roboto" }}
         >
           {token}
         </h1>

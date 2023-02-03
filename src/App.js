@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { Box } from "theme-ui";
 import "./App.css";
 import Home from "./components/Home";
@@ -10,14 +10,31 @@ import ProtectedRoute, {
 } from "./components/ProtectedRoute";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
 import BooksList from "./components/BooksList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
+  let navigate = useNavigate();
+  const location = useLocation();
   const [Id, setId] = useState("");
 
   const getIdHandler = (id) => {
     setId(id);
   };
+
+  useEffect(() => {
+    if (location.pathname === "/Home") {
+      const unlisten = window.addEventListener("popstate", (e) => {
+        navigate("/", { replace: true });
+        localStorage.removeItem("token");
+        localStorage.removeItem("time");
+        localStorage.removeItem("date");
+        window.location.reload();
+      });
+      return () => {
+        unlisten();
+      };
+    }
+  }, [navigate, location]);
 
   return (
     <Box>

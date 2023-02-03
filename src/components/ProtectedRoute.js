@@ -23,7 +23,7 @@ const ProtectedRoute = ({ children }) => {
 
   useEffect(() => {
     if (!user) {
-      navigate("/");
+      navigate("/", { replace: true });
     }
   }, [user, navigate]);
 
@@ -45,7 +45,7 @@ export const AdminProtectedRoute = ({ children }) => {
 
   useEffect(() => {
     if (phoneNumber[0]?.phone && user?.phoneNumber !== phoneNumber[0]?.phone) {
-      navigate("/");
+      navigate("/", { replace: true });
     }
   }, [user, navigate, phoneNumber]);
 

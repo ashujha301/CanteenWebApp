@@ -62,35 +62,37 @@ const PhoneSignUp = () => {
         }}
       >
         <Navbar label="LOGIN" />
-        <Box
-          sx={{
-            alignSelf: "center",
-            justifyContent: "center",
-            width: ["80%", "60%", "50%", "33%"],
-            flex: 1,
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
           <Flex
             sx={{
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "center",
               paddingTop: [60, 40, 30, 20],
+            alignSelf: "center",
             }}
           >
             <Image
               src="../afslogoeng.png"
               alt="Canteen Logo 1"
-              sx={{ height: [350, 350, 350, 350], flex: 1 }}
+            sx={{ height: [250, 250, 350, 350], flex: 1 }}
             />
             <Image
               src="../afslogohindi.png"
               alt="Canteen Logo 2"
-              sx={{ height: [350, 350, 350, 350], flex: 1 }}
+            sx={{ height: [250, 250, 350, 350], flex: 1 }}
             />
           </Flex>
+        <Box
+          sx={{
+            alignSelf: "center",
+            width: ["80%", "60%", "50%", "33%"],
+            flex: 1,
+            display: "flex",
+            flexDirection: "column",
+            paddingTop: [20, 40, 60, 80],
+            paddingBottom: 20,
+          }}
+        >
           <h2 style={{ color: "white", paddingBottom: 20 }}>Sign In</h2>
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={getOtp} style={{ display: !flag ? "block" : "none" }}>

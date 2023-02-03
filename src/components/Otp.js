@@ -14,7 +14,7 @@ function Otp({ otp, setOtp, onSubmitOTP }) {
           backgroundColor: "blue",
           flex: 1,
           alignItems: "center",
-          height: "100vh",
+          height: "97.6vh",
           overflow: "hidden",
         }}
       >

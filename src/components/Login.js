@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./footer";
 import { Box, Button, Flex, Text, Image } from "theme-ui";
-import { left } from "styled-system";
 
 const Login = () => {
   return (
