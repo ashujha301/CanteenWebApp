@@ -32,8 +32,6 @@ const Details = ({ id, setId }) => {
   const [servicenumber, setServiceNumber] = useState("");
   const [card, setCard] = useState("");
   const [firstname, setFirstName] = useState("");
-  const [middlename, setMiddleName] = useState("");
-  const [lastname, setLastname] = useState("");
   const [time, setTime] = useState("");
   const [date, setDate] = useState("");
   // const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -61,10 +59,9 @@ const Details = ({ id, setId }) => {
     setMessage("");
     if (
       firstname === "" ||
-      lastname === "" ||
       rank === "" ||
-      card === "" ||
       servicenumber === "" ||
+      card === "" ||
       time === "" ||
       date === ""
     ) {
@@ -78,9 +75,7 @@ const Details = ({ id, setId }) => {
         rank,
         card,
         servicenumber,
-        middlename,
         firstname,
-        lastname,
         date: date,
         time: Number(time),
         token,
@@ -101,9 +96,9 @@ const Details = ({ id, setId }) => {
     }
 
     setFirstName("");
-    setLastname("");
+    
     setRank("");
-    setMiddleName("");
+    
     setCard("");
     setServiceNumber("");
     setDate("");
@@ -122,7 +117,6 @@ const Details = ({ id, setId }) => {
       setRank(docSnap.data().rank);
       setServiceNumber(docSnap.data().servicenumber);
       setFirstName(docSnap.data().firstname);
-      setMiddleName(docSnap.data().middlename);
       setCard(docSnap.data().card);
       setDate(docSnap.data().date);
       setTime(docSnap.data().time);
@@ -323,17 +317,67 @@ const Details = ({ id, setId }) => {
                 </InputGroup>
               </Form.Group> ) }
 
-              {selectedButton === 'SERVING' &&  (<Form.Group controlId="formBookTitle" className="mb-3">
+              {selectedButton === 'NON_SERVING' &&  (<Form.Group controlId="formBookTitle" className="mb-3">
+                <InputGroup>
+                  {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
+                  <Form.Select
+                    aria-label="Basic example"
+                    onChange={(e) => {
+                      setRank(e.target.value);
+                    }}
+                  >
+                    <option> Select Rank</option>
+
+                    
+                    <option value="GP CAPT" onChange={handleSubmit}>
+                      GP CAPT
+                    </option>
+                    <option value="WG CDR" onChange={handleSubmit}>
+                      WG CDR
+                    </option>
+                    <option value="SQN LDR" onChange={handleSubmit}>
+                      SQN LDR
+                    </option>
+                    <option value="FLT LT" onChange={handleSubmit}>
+                      FLT LT
+                    </option>
+                    <option value="FLG OFFR" onChange={handleSubmit}>
+                      FLG OFFR
+                    </option>
+                    <option value="HFL" onChange={handleSubmit}>
+                      HFL
+                    </option>
+                    <option value="HFO" onChange={handleSubmit}>
+                      HFO
+                    </option>
+                    <option value="MWO" onChange={handleSubmit}>
+                      MWO
+                    </option>
+                    <option value="WO" onChange={handleSubmit}>
+                      WO
+                    </option>
+                    <option value="JWO" onChange={handleSubmit}>
+                      JWO
+                    </option>
+                    <option value="SGT" onChange={handleSubmit}>
+                      SGT
+                    </option>
+                  
+                  </Form.Select>
+                </InputGroup>
+              </Form.Group> ) }
+
+              <Form.Group controlId="formBookTitle" className="mb-3">
                 <InputGroup>
                   {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
                   <Form.Control
                     type="number"
-                    placeholder="Service Number"
+                    placeholder="Service Number *"
                     value={servicenumber}
                     onChange={(e) => setServiceNumber(e.target.value)}
                   />
                 </InputGroup>
-              </Form.Group>)}
+              </Form.Group>
               
               <Form.Group controlId="formBookTitle" className="mb-3">
                 <InputGroup>
@@ -417,6 +461,7 @@ const Details = ({ id, setId }) => {
               </Form.Group>)}
 
               {selectedButton === 'NON_SERVING' &&  (<Form.Group controlId="formBookTitle" className="mb-3">
+                
                 <InputGroup>
                   {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
                   <Form.Select
