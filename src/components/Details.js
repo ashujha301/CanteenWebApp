@@ -5,7 +5,6 @@ import BookDataService from "../services/book.services";
 import { Box, Flex } from "theme-ui";
 import Navbar from "./Navbar";
 import Footer from "./footer";
-import moment from "moment/moment";
 import { v4 as uuidv4 } from "uuid";
 // import Modal from "react-modal";
 // import { db } from "../firebase";
@@ -13,13 +12,7 @@ import { useNavigate } from "react-router-dom";
 import app, { db } from "../firebase";
 
 import "firebase/firestore";
-import {
-  collection,
-  query,
-  where,
-  getDocs,
-  Timestamp,
-} from "firebase/firestore";
+import { collection, query, where, getDocs } from "firebase/firestore";
 
 //to get current date and tomorrows date
 const currentDate = new Date();
@@ -47,6 +40,32 @@ const Details = ({ id, setId }) => {
   const slotLimit = 2;
   const [limit, setLimit] = useState("");
   //const [disable , setDisable] = useState(false);
+  const ranks = [
+    "AIR CMDE",
+    "GP CAPT",
+    "WG CDR",
+    "SQN LDR",
+    "FLT LT",
+    "FLG OFFR",
+    "HFL",
+    "HFO",
+    "MWO",
+    "WO",
+    "JWO",
+    "SGT",
+    "CPL",
+    "LAC",
+    "AC",
+  ];
+
+  const times = [
+    { time: "10:00 - 11:00", value: 10 },
+    { time: "11:00 - 12:00", value: 11 },
+    { time: "12:00 - 13:00", value: 12 },
+    { time: "14:00 - 15:00", value: 14 },
+    { time: "15:00 - 16:00", value: 15 },
+    { time: "16:00 - 16:30", value: 16 },
+  ];
 
   // const token = uuidv4().substring(0, 8).toUpperCase();
 
@@ -97,9 +116,9 @@ const Details = ({ id, setId }) => {
     }
 
     setFirstName("");
-    
+
     setRank("");
-    
+
     setCard("");
     setServiceNumber("");
     setDate("");
@@ -166,34 +185,36 @@ const Details = ({ id, setId }) => {
   //card input
   const handleCardChange = (e) => {
     let value = e.target.value;
-    value = value.toUpperCase().replace(/[^A-Z0-9]/g, '').substr(0, 19);
+    value = value
+      .toUpperCase()
+      .replace(/[^A-Z0-9]/g, "")
+      .substr(0, 19);
     const firstTwo = value.substr(0, 2);
-    const rest = value.substr(2).replace(/(.{4})/g, '$1 ');
+    const rest = value.substr(2).replace(/(.{4})/g, "$1 ");
     setCard(firstTwo + rest);
   };
-
-
+  const isSaturday = date.toString().split(" ")[0] === "Sat" || "Sun";
   //to check if card already exist
-//   const todayTimestamp = app.firestore.Timestamp.fromDate(new Date());
-// const tomorrowTimestamp = app.firestore.Timestamp.fromDate(new Date(new Date().setDate(new Date().getDate()+1)));
+  //   const todayTimestamp = app.firestore.Timestamp.fromDate(new Date());
+  // const tomorrowTimestamp = app.firestore.Timestamp.fromDate(new Date(new Date().setDate(new Date().getDate()+1)));
 
-// const checkBooking = async (date, day) => {
-//   let bookingsRef = null;
-//   if(day === 'today'){
-//     bookingsRef = app.firestore().collection("bookings").where("date", "==", todayTimestamp).where("card", "==", card);
-//   }else{
-//     bookingsRef = app.firestore().collection("bookings").where("date", "==", tomorrowTimestamp).where("card", "==", card);
-//   }
-//   bookingsRef.get().then(snapshot => {
-//     if (snapshot.empty) {
-//       setDate(date);
-//       setDay(day);
-//     } else {
-//       setFlag(false);
-//       alert("This card number is already booked for "+day);
-//     }
-//   });
-//}
+  // const checkBooking = async (date, day) => {
+  //   let bookingsRef = null;
+  //   if(day === 'today'){
+  //     bookingsRef = app.firestore().collection("bookings").where("date", "==", todayTimestamp).where("card", "==", card);
+  //   }else{
+  //     bookingsRef = app.firestore().collection("bookings").where("date", "==", tomorrowTimestamp).where("card", "==", card);
+  //   }
+  //   bookingsRef.get().then(snapshot => {
+  //     if (snapshot.empty) {
+  //       setDate(date);
+  //       setDay(day);
+  //     } else {
+  //       setFlag(false);
+  //       alert("This card number is already booked for "+day);
+  //     }
+  //   });
+  //}
 
   return (
     <>
@@ -218,7 +239,6 @@ const Details = ({ id, setId }) => {
             flexDirection: "column",
           }}
         >
-          
           <Box
             sx={{
               alignSelf: "center",
@@ -239,9 +259,7 @@ const Details = ({ id, setId }) => {
               </Alert>
             )}
             <Form onSubmit={handleSubmit}>
-
-
-            <ButtonGroup
+              <ButtonGroup
                 aria-label="Basic example"
                 className="mb-3"
                 style={{ width: "100%" }}
@@ -250,148 +268,68 @@ const Details = ({ id, setId }) => {
                   variant={selectedButton === "SERVING" ? "success" : "warning"}
                   style={{ flex: 1 }}
                   onClick={(e) => {
-                    handleButtonClick('SERVING')
+                    handleButtonClick("SERVING");
                   }}
                 >
                   SERVING
                 </Button>
                 <Button
                   variant={selectedButton === "VETERANS" ? "success" : "danger"}
-                 
                   style={{ flex: 1 }}
                   onClick={(e) => {
-                    handleButtonClick('VETERANS')
+                    handleButtonClick("VETERANS");
                   }}
                 >
-                VETERANS
+                  VETERANS
                 </Button>
               </ButtonGroup>
 
-              {selectedButton === 'SERVING' && (<Form.Group controlId="formBookTitle" className="mb-3">
-                <InputGroup>
-                 
-                  <Form.Select
-                    aria-label="Basic example"
-                    onChange={(e) => {
-                      setRank(e.target.value);
-                    }}
-                  >
-                    <option> Select Rank</option>
+              {selectedButton === "SERVING" && (
+                <Form.Group controlId="formBookTitle" className="mb-3">
+                  <InputGroup>
+                    <Form.Select
+                      aria-label="Basic example"
+                      onChange={(e) => {
+                        setRank(e.target.value);
+                      }}
+                    >
+                      <option> Select Rank</option>
+                      {ranks.map((rank) => {
+                        return (
+                          <option value="rank" onChange={handleSubmit}>
+                            {rank}
+                          </option>
+                        );
+                      })}
+                    </Form.Select>
+                  </InputGroup>
+                </Form.Group>
+              )}
 
-                    <option value="AIR CMDE" onChange={handleSubmit}>
-                      AIR CMDE
-                    </option>
-                    <option value="GP CAPT" onChange={handleSubmit}>
-                      GP CAPT
-                    </option>
-                    <option value="WG CDR" onChange={handleSubmit}>
-                      WG CDR
-                    </option>
-                    <option value="SQN LDR" onChange={handleSubmit}>
-                      SQN LDR
-                    </option>
-                    <option value="FLT LT" onChange={handleSubmit}>
-                      FLT LT
-                    </option>
-                    <option value="FLG OFFR" onChange={handleSubmit}>
-                      FLG OFFR
-                    </option>
-                    <option value="HFL" onChange={handleSubmit}>
-                      HFL
-                    </option>
-                    <option value="HFO" onChange={handleSubmit}>
-                      HFO
-                    </option>
-                    <option value="MWO" onChange={handleSubmit}>
-                      MWO
-                    </option>
-                    <option value="WO" onChange={handleSubmit}>
-                      WO
-                    </option>
-                    <option value="JWO" onChange={handleSubmit}>
-                      JWO
-                    </option>
-                    <option value="SGT" onChange={handleSubmit}>
-                      SGT
-                    </option>
-                    <option value="CPL" onChange={handleSubmit}>
-                      CPL
-                    </option>
-                    <option value="LAC" onChange={handleSubmit}>
-                      LAC
-                    </option>
-                    <option value="AC" onChange={handleSubmit}>
-                      AC
-                    </option>
-                  </Form.Select>
-                </InputGroup>
-              </Form.Group> ) }
-
-              {selectedButton === 'VETERANS' &&  (<Form.Group controlId="formBookTitle" className="mb-3">
-                <InputGroup>
-                  
-                  <Form.Select
-                    aria-label="Basic example"
-                    onChange={(e) => {
-                      setRank(e.target.value);
-                    }}
-                  >
-                    <option> Select Rank</option>
-
-                    
-                    <option value="AIR CMDE" onChange={handleSubmit}>
-                      AIR CMDE
-                    </option>
-                    <option value="GP CAPT" onChange={handleSubmit}>
-                      GP CAPT
-                    </option>
-                    <option value="WG CDR" onChange={handleSubmit}>
-                      WG CDR
-                    </option>
-                    <option value="SQN LDR" onChange={handleSubmit}>
-                      SQN LDR
-                    </option>
-                    <option value="FLT LT" onChange={handleSubmit}>
-                      FLT LT
-                    </option>
-                    <option value="FLG OFFR" onChange={handleSubmit}>
-                      FLG OFFR
-                    </option>
-                    <option value="HFL" onChange={handleSubmit}>
-                      HFL
-                    </option>
-                    <option value="HFO" onChange={handleSubmit}>
-                      HFO
-                    </option>
-                    <option value="MWO" onChange={handleSubmit}>
-                      MWO
-                    </option>
-                    <option value="WO" onChange={handleSubmit}>
-                      WO
-                    </option>
-                    <option value="JWO" onChange={handleSubmit}>
-                      JWO
-                    </option>
-                    <option value="SGT" onChange={handleSubmit}>
-                      SGT
-                    </option>
-                    <option value="CPL" onChange={handleSubmit}>
-                      CPL
-                    </option>
-                    <option value="LAC" onChange={handleSubmit}>
-                      LAC
-                    </option>
-                    <option value="AC" onChange={handleSubmit}>
-                      AC
-                    </option>
-                  
-                  </Form.Select>
-                </InputGroup>
-              </Form.Group> ) }
+              {selectedButton === "VETERANS" && (
+                <Form.Group controlId="formBookTitle" className="mb-3">
+                  <InputGroup>
+                    <Form.Select
+                      aria-label="Basic example"
+                      onChange={(e) => {
+                        setRank(e.target.value);
+                      }}
+                    >
+                      <option> Select Rank</option>
+                      {ranks.map((rank) => {
+                        return (
+                          <option value="rank" onChange={handleSubmit}>
+                            {rank}
+                          </option>
+                        );
+                      })}
+                    </Form.Select>
+                  </InputGroup>
+                </Form.Group>
+              )}
 
               <Form.Group controlId="formBookTitle" className="mb-3">
                 <InputGroup>
-                  
                   <Form.Control
                     type="number"
                     placeholder="Service Number *"
@@ -400,10 +338,9 @@ const Details = ({ id, setId }) => {
                   />
                 </InputGroup>
               </Form.Group>
-              
+
               <Form.Group controlId="formBookTitle" className="mb-3">
                 <InputGroup>
-                 
                   <Form.Control
                     type="text"
                     placeholder="Name *"
@@ -415,7 +352,6 @@ const Details = ({ id, setId }) => {
 
               <Form.Group controlId="formBookTitle" className="mb-3">
                 <InputGroup>
-                  
                   <Form.Control
                     type="text"
                     placeholder="Card number *"
@@ -458,89 +394,56 @@ const Details = ({ id, setId }) => {
                 </Button>
               </ButtonGroup>
 
-              {selectedButton === 'SERVING' &&  (<Form.Group controlId="formBookTitle" className="mb-3">
-                <InputGroup>
-                 
-                  <Form.Select
-                    aria-label="Timestamp Selector"
-                    onChange={(e) => {
-                      handleSub(e);
-                      console.log("limit", limit);
-                    }}
-                  >
-                    <option> Select Slot Timing</option>
+              {selectedButton === "SERVING" && (
+                <Form.Group controlId="formBookTitle" className="mb-3">
+                  <InputGroup>
+                    <Form.Select
+                      aria-label="Timestamp Selector"
+                      onChange={(e) => {
+                        handleSub(e);
+                      }}
+                    >
+                      <option> Select Slot Timing</option>
 
-                    <option
-                      value={10}
-                      onChange={handleSubmit}
-                      //disabled={limit > slotLimit}
-                    >
-                      10:00 - 11:00
-                    </option>
-                    
-                  </Form.Select>
-                </InputGroup>
-              </Form.Group>)}
+                      {!isSaturday ? (
+                        <option value={10} onChange={handleSubmit}>
+                          10:00 - 11:00
+                        </option>
+                      ) : (
+                        times.map((time) => {
+                          return (
+                            <option value={time.value} onChange={handleSubmit}>
+                              {time.time}
+                            </option>
+                          );
+                        })
+                      )}
+                    </Form.Select>
+                  </InputGroup>
+                </Form.Group>
+              )}
 
-              {selectedButton === 'VETERANS' &&  (<Form.Group controlId="formBookTitle" className="mb-3">
-                
-                <InputGroup>
-                 
-                  <Form.Select
-                    aria-label="Timestamp Selector"
-                    onChange={(e) => {
-                      handleSub(e);
-                      console.log("limit", limit);
-                    }}
-                  >
-                    <option> Select Slot Timing</option>
-
-                    <option
-                      value={10}
-                      onChange={handleSubmit}
-                      //disabled={limit > slotLimit}
+              {selectedButton === "VETERANS" && (
+                <Form.Group controlId="formBookTitle" className="mb-3">
+                  <InputGroup>
+                    <Form.Select
+                      aria-label="Timestamp Selector"
+                      onChange={(e) => {
+                        handleSub(e);
+                      }}
                     >
-                      10:00 - 11:00
-                    </option>
-                    <option
-                      value={11}
-                      onChange={handleSubmit}
-                      //disabled={limit > slotLimit}
-                    >
-                      11:00 - 12:00
-                    </option>
-                    <option
-                      value={12}
-                      onChange={handleSubmit}
-                      //disabled={limit > slotLimit}
-                    >
-                      12:00 - 13:00
-                    </option>
-                    <option
-                      value={14}
-                      onChange={handleSubmit}
-                      //disabled={limit > slotLimit}
-                    >
-                      14:00 - 15:00
-                    </option>
-                    <option
-                      value={15}
-                      onChange={handleSubmit}
-                      //disabled={limit > slotLimit}
-                    >
-                      15:00 - 16:00
-                    </option>
-                    <option
-                      value={16}
-                      onChange={handleSubmit}
-                      //disabled={limit > slotLimit}
-                    >
-                      16:00 - 16:30
-                    </option>
-                  </Form.Select>
-                </InputGroup>
-              </Form.Group>)}
-
+                      <option> Select Slot Timing</option>
+                      {times.map((time) => {
+                        return (
+                          <option value={time.value} onChange={handleSubmit}>
+                            {time.time}
+                          </option>
+                        );
+                      })}
+                    </Form.Select>
+                  </InputGroup>
+                </Form.Group>
+              )}
 
               <Flex
                 sx={{
