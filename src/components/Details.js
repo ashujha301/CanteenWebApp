@@ -67,6 +67,12 @@ const Details = ({ id, setId }) => {
     { time: "16:00 - 16:30", value: 16 },
   ];
 
+  const times2 = [
+    { time: "10:00 - 11:00", value: 10 },
+    { time: "11:00 - 12:00", value: 11 },
+    { time: "12:00 - 13:00", value: 12 },
+  ];
+
   // const token = uuidv4().substring(0, 8).toUpperCase();
 
   const handleButtonClick = (value) => {
@@ -193,7 +199,7 @@ const Details = ({ id, setId }) => {
     const rest = value.substr(2).replace(/(.{4})/g, "$1 ");
     setCard(firstTwo + rest);
   };
-  const isSaturday = date.toString().split(" ")[0] === "Sat" || "Sun";
+  const isSaturday = date.toString().split(" ")[0] === "Sun" || date.toString().split(" ")[0] === "Sat" ;
   //to check if card already exist
   //   const todayTimestamp = app.firestore.Timestamp.fromDate(new Date());
   // const tomorrowTimestamp = app.firestore.Timestamp.fromDate(new Date(new Date().setDate(new Date().getDate()+1)));
@@ -409,8 +415,10 @@ const Details = ({ id, setId }) => {
                         <option value={10} onChange={handleSubmit}>
                           10:00 - 11:00
                         </option>
+                        
+                        
                       ) : (
-                        times.map((time) => {
+                        times2.map((time) => {
                           return (
                             <option value={time.value} onChange={handleSubmit}>
                               {time.time}
