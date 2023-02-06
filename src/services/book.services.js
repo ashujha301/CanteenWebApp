@@ -47,6 +47,11 @@ class BookDataService {
   getPhone = () => {
     return getDocs(phoneRef);
   };
+
+  updateStock = (id, updatedBook) => {
+    const bookDoc = doc(db, "Admin", id);
+    return updateDoc(bookDoc, updatedBook);
+  };
 }
 
 export default new BookDataService();

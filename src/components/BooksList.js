@@ -15,10 +15,8 @@ import { Input } from "theme-ui";
 //   collectionGroup,
 // } from "firebase/firestore";
 
-
-
-const BooksList = () => {
-  const [stockcheck,setStockcheck] = useState("");
+const BooksList = ({ id, setId }) => {
+  const [stockcheck, setStockcheck] = useState("");
   const { logOut } = useUserAuth();
   const navigate = useNavigate();
   const handleLogout = async () => {
@@ -39,7 +37,6 @@ const BooksList = () => {
     getBooks();
   }, []);
 
-
   const getBooks = async () => {
     const data = await BookDataService.getAllBooks();
     setBooks(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
@@ -48,6 +45,15 @@ const BooksList = () => {
   const deleteHandler = async (id) => {
     await BookDataService.deleteBook(id);
     getBooks();
+  };
+
+  const onSaveStock = async (id, newBook) => {
+    try {
+      const obj = { new: newBook };
+      await BookDataService.updateStock(id, obj);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   function convertTimestamp(timestamp) {
@@ -82,15 +88,25 @@ const BooksList = () => {
         <Button variant="dark edit" onClick={handlePrint}>
           Print
         </Button>
-        <p style={{ color: "green", fontSize: "20" }}><b>Stock Check Date</b></p>
+        <p style={{ color: "green", fontSize: "20" }}>
+          <b>Stock Check Date</b>
+        </p>
         <InputGroup>
-        <Form.Control
-                    type="text"
-                    placeholder="Stock Check Date Enter Here in Format:- Sat Jan 05 2023"
-                    value={stockcheck}
-                    onChange={setStockcheck}
-                  />
-                </InputGroup>
+          <Form.Control
+            type="text"
+            placeholder="Stock Check Date Enter Here in Format:- Sat Jan 05 2023"
+            onChange={(e) => setStockcheck(e.target.value)}
+          />
+        </InputGroup>
+        <Button
+          type="submit"
+          onClick={(e) => {
+            e.preventDefault();
+            onSaveStock("stockDate", stockcheck);
+          }}
+        >
+          Save
+        </Button>
       </div>
       <br></br>
       <hr></hr>
@@ -113,7 +129,6 @@ const BooksList = () => {
             const date = new Date(
               doc.date.seconds * 1000 + doc.date.nanoseconds / 1000000
             );
-            console.log(date);
             return (
               <tr key={doc.id}>
                 <td>{index + 1}</td>
