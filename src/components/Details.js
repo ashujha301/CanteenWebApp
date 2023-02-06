@@ -11,6 +11,7 @@ import { v4 as uuidv4 } from "uuid";
 // import { db } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import app, { db } from "../firebase";
+
 import "firebase/firestore";
 import {
   collection,
@@ -162,6 +163,15 @@ const Details = ({ id, setId }) => {
     // Code that relies on the updated state
   }, [time, date]);
 
+  //card input
+  const handleCardChange = (e) => {
+    let value = e.target.value;
+    value = value.toUpperCase().replace(/[^A-Z0-9]/g, '').substr(0, 19);
+    const firstTwo = value.substr(0, 2);
+    const rest = value.substr(2).replace(/(.{4})/g, '$1 ');
+    setCard(firstTwo + rest);
+  };
+
 
   //to check if card already exist
 //   const todayTimestamp = app.firestore.Timestamp.fromDate(new Date());
@@ -208,7 +218,7 @@ const Details = ({ id, setId }) => {
             flexDirection: "column",
           }}
         >
-          {/* <img src="../Canteenlogo.png" alt="Canteen Logo" /> */}
+          
           <Box
             sx={{
               alignSelf: "center",
@@ -246,20 +256,20 @@ const Details = ({ id, setId }) => {
                   SERVING
                 </Button>
                 <Button
-                  variant={selectedButton === "NON_SERVING" ? "success" : "danger"}
+                  variant={selectedButton === "VETERANS" ? "success" : "danger"}
                  
                   style={{ flex: 1 }}
                   onClick={(e) => {
-                    handleButtonClick('NON_SERVING')
+                    handleButtonClick('VETERANS')
                   }}
                 >
-                NON SERVING
+                VETERANS
                 </Button>
               </ButtonGroup>
 
-              {selectedButton === 'SERVING' &&  (<Form.Group controlId="formBookTitle" className="mb-3">
+              {selectedButton === 'SERVING' && (<Form.Group controlId="formBookTitle" className="mb-3">
                 <InputGroup>
-                  {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
+                 
                   <Form.Select
                     aria-label="Basic example"
                     onChange={(e) => {
@@ -317,9 +327,9 @@ const Details = ({ id, setId }) => {
                 </InputGroup>
               </Form.Group> ) }
 
-              {selectedButton === 'NON_SERVING' &&  (<Form.Group controlId="formBookTitle" className="mb-3">
+              {selectedButton === 'VETERANS' &&  (<Form.Group controlId="formBookTitle" className="mb-3">
                 <InputGroup>
-                  {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
+                  
                   <Form.Select
                     aria-label="Basic example"
                     onChange={(e) => {
@@ -329,6 +339,9 @@ const Details = ({ id, setId }) => {
                     <option> Select Rank</option>
 
                     
+                    <option value="AIR CMDE" onChange={handleSubmit}>
+                      AIR CMDE
+                    </option>
                     <option value="GP CAPT" onChange={handleSubmit}>
                       GP CAPT
                     </option>
@@ -362,6 +375,15 @@ const Details = ({ id, setId }) => {
                     <option value="SGT" onChange={handleSubmit}>
                       SGT
                     </option>
+                    <option value="CPL" onChange={handleSubmit}>
+                      CPL
+                    </option>
+                    <option value="LAC" onChange={handleSubmit}>
+                      LAC
+                    </option>
+                    <option value="AC" onChange={handleSubmit}>
+                      AC
+                    </option>
                   
                   </Form.Select>
                 </InputGroup>
@@ -369,7 +391,7 @@ const Details = ({ id, setId }) => {
 
               <Form.Group controlId="formBookTitle" className="mb-3">
                 <InputGroup>
-                  {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
+                  
                   <Form.Control
                     type="number"
                     placeholder="Service Number *"
@@ -381,7 +403,7 @@ const Details = ({ id, setId }) => {
               
               <Form.Group controlId="formBookTitle" className="mb-3">
                 <InputGroup>
-                  {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
+                 
                   <Form.Control
                     type="text"
                     placeholder="Name *"
@@ -393,7 +415,7 @@ const Details = ({ id, setId }) => {
 
               <Form.Group controlId="formBookTitle" className="mb-3">
                 <InputGroup>
-                  {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
+                  
                   <Form.Control
                     type="text"
                     placeholder="Card number *"
@@ -438,7 +460,7 @@ const Details = ({ id, setId }) => {
 
               {selectedButton === 'SERVING' &&  (<Form.Group controlId="formBookTitle" className="mb-3">
                 <InputGroup>
-                  {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
+                 
                   <Form.Select
                     aria-label="Timestamp Selector"
                     onChange={(e) => {
@@ -460,10 +482,10 @@ const Details = ({ id, setId }) => {
                 </InputGroup>
               </Form.Group>)}
 
-              {selectedButton === 'NON_SERVING' &&  (<Form.Group controlId="formBookTitle" className="mb-3">
+              {selectedButton === 'VETERANS' &&  (<Form.Group controlId="formBookTitle" className="mb-3">
                 
                 <InputGroup>
-                  {/* <InputGroup.Text id="formBookTitle"></InputGroup.Text> */}
+                 
                   <Form.Select
                     aria-label="Timestamp Selector"
                     onChange={(e) => {

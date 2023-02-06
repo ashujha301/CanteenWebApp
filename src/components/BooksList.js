@@ -15,7 +15,10 @@ import { Input } from "theme-ui";
 //   collectionGroup,
 // } from "firebase/firestore";
 
+
+
 const BooksList = () => {
+  const [stockcheck,setStockcheck] = useState("");
   const { logOut } = useUserAuth();
   const navigate = useNavigate();
   const handleLogout = async () => {
@@ -35,6 +38,7 @@ const BooksList = () => {
   useEffect(() => {
     getBooks();
   }, []);
+
 
   const getBooks = async () => {
     const data = await BookDataService.getAllBooks();
@@ -60,7 +64,7 @@ const BooksList = () => {
     } else if (hh === 12) {
       h = 12;
       ampm = "PM";
-    } else if (hh == 0) {
+    } else if (hh === 0) {
       h = 12;
     }
 
@@ -78,15 +82,18 @@ const BooksList = () => {
         <Button variant="dark edit" onClick={handlePrint}>
           Print
         </Button>
+        <p style={{ color: "green", fontSize: "20" }}><b>Stock Check Date</b></p>
         <InputGroup>
-          <Input 
-          type="text" 
-          placeholder="ENTER STOCK CHECK DATE HERE"
-          >
-
-          </Input>
-        </InputGroup>
+        <Form.Control
+                    type="text"
+                    placeholder="Stock Check Date Enter Here in Format:- Sat Jan 05 2023"
+                    value={stockcheck}
+                    onChange={setStockcheck}
+                  />
+                </InputGroup>
       </div>
+      <br></br>
+      <hr></hr>
       {/* <pre>{JSON.stringify(books, undefined, 2)}</pre>} */}
       <Table striped bordered hover size="sm">
         <thead>
