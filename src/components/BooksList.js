@@ -7,6 +7,9 @@ import BookDataService from "../services/book.services";
 // import app, { db } from "../firebase";
 import "firebase/firestore";
 import { Input } from "theme-ui";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 // import {
 //   collection,
 //   query,
@@ -92,11 +95,10 @@ const BooksList = ({ id, setId }) => {
           <b>Stock Check Date</b>
         </p>
         <InputGroup>
-          <Form.Control
-            type="text"
-            placeholder="Stock Check Date Enter Here in Format:- Sat Jan 05 2023"
-            onChange={(e) => setStockcheck(e.target.value)}
-          />
+        <DatePicker
+          selected={stockcheck}
+          onChange={date => setStockcheck(date)}
+        />
         </InputGroup>
         <Button
           type="submit"
