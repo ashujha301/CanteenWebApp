@@ -14,6 +14,10 @@ import app, { db } from "../firebase";
 import "firebase/firestore";
 import { collection, query, where, getDocs } from "firebase/firestore";
 
+//firebase admin collection 
+
+
+
 //to get current date and tomorrows date
 const currentDate = new Date();
 const today = new Date(currentDate);
@@ -67,10 +71,18 @@ const Details = ({ id, setId }) => {
     { time: "16:00 - 16:30", value: 16 },
   ];
 
-  const times2 = [
-    { time: "10:00 - 11:00", value: 10 },
+  const times3 = [
     { time: "11:00 - 12:00", value: 11 },
     { time: "12:00 - 13:00", value: 12 },
+    { time: "14:00 - 15:00", value: 14 },
+    { time: "15:00 - 16:00", value: 15 },
+    { time: "16:00 - 16:30", value: 16 },
+  ];
+
+  const times2 = [
+    { time: "14:00 - 15:00", value: 14 },
+    { time: "15:00 - 16:00", value: 15 },
+    { time: "16:00 - 16:30", value: 16 },
   ];
 
   // const token = uuidv4().substring(0, 8).toUpperCase();
@@ -188,18 +200,26 @@ const Details = ({ id, setId }) => {
     // Code that relies on the updated state
   }, [time, date]);
 
+
+
   //card input
-  const handleCardChange = (e) => {
-    let value = e.target.value;
-    value = value
-      .toUpperCase()
-      .replace(/[^A-Z0-9]/g, "")
-      .substr(0, 19);
-    const firstTwo = value.substr(0, 2);
-    const rest = value.substr(2).replace(/(.{4})/g, "$1 ");
-    setCard(firstTwo + rest);
-  };
-  const isSaturday = date.toString().split(" ")[0] === "Sun" || date.toString().split(" ")[0] === "Sat" ;
+  // const handleCardChange = (e) => {
+  //   let value = e.target.value;
+  //   value = value
+  //     .toUpperCase()
+  //     .replace(/[^A-Z0-9]/g, "")
+  //     .substr(0, 19);
+  //   const firstTwo = value.substr(0, 2);
+  //   const rest = value.substr(2).replace(/(.{4})/g, "$1 ");
+  //   setCard(firstTwo + rest);
+  // };
+
+  const isSaturday =
+    date.toString().split(" ")[0] === "Sat"
+
+  //firebase stockDate data
+  
+
   //to check if card already exist
   //   const todayTimestamp = app.firestore.Timestamp.fromDate(new Date());
   // const tomorrowTimestamp = app.firestore.Timestamp.fromDate(new Date(new Date().setDate(new Date().getDate()+1)));
@@ -400,7 +420,7 @@ const Details = ({ id, setId }) => {
                 </Button>
               </ButtonGroup>
 
-              {selectedButton === "SERVING" && (
+              {selectedButton === "VETERANS" && (
                 <Form.Group controlId="formBookTitle" className="mb-3">
                   <InputGroup>
                     <Form.Select
@@ -411,27 +431,33 @@ const Details = ({ id, setId }) => {
                     >
                       <option> Select Slot Timing</option>
 
-                      {!isSaturday ? (
-                        <option value={10} onChange={handleSubmit}>
-                          10:00 - 11:00
-                        </option>
-                        
-                        
-                      ) : (
-                        times2.map((time) => {
-                          return (
-                            <option value={time.value} onChange={handleSubmit}>
-                              {time.time}
-                            </option>
-                          );
-                        })
-                      )}
+                      {!isSaturday
+                        ? times3.map((time) => {
+                            return (
+                              <option
+                                value={time.value}
+                                onChange={handleSubmit}
+                              >
+                                {time.time}
+                              </option>
+                            );
+                          })
+                        : times2.map((time) => {
+                            return (
+                              <option
+                                value={time.value}
+                                onChange={handleSubmit}
+                              >
+                                {time.time}
+                              </option>
+                            );
+                          })}
                     </Form.Select>
                   </InputGroup>
                 </Form.Group>
               )}
 
-              {selectedButton === "VETERANS" && (
+              {selectedButton === "SERVING" && (
                 <Form.Group controlId="formBookTitle" className="mb-3">
                   <InputGroup>
                     <Form.Select

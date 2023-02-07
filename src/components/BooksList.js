@@ -91,28 +91,7 @@ const BooksList = ({ id, setId }) => {
         <Button variant="dark edit" onClick={handlePrint}>
           Print
         </Button>
-        <p style={{ color: "green", fontSize: "20" }}>
-          <b>Stock Check Date</b>
-        </p>
-        <InputGroup>
-        <DatePicker
-          selected={stockcheck}
-          onChange={date => setStockcheck(date)}
-        />
-        </InputGroup>
-        <Button
-          type="submit"
-          onClick={(e) => {
-            e.preventDefault();
-            onSaveStock("stockDate", stockcheck);
-          }}
-        >
-          Save
-        </Button>
       </div>
-      <br></br>
-      <hr></hr>
-      {/* <pre>{JSON.stringify(books, undefined, 2)}</pre>} */}
       <Table striped bordered hover size="sm">
         <thead>
           <tr>
@@ -155,10 +134,29 @@ const BooksList = ({ id, setId }) => {
           })}
         </tbody>
       </Table>
+
       <div
         className="d-grid gap-2"
         style={{ justifyContent: "flex-end", marginRight: 60 }}
       >
+        <p style={{ color: "green", fontSize: "20" }}>
+          <b>Stock Check Date</b>
+        </p>
+        <InputGroup>
+          <DatePicker
+            selected={stockcheck}
+            onChange={(date) => setStockcheck(date)}
+          />
+        </InputGroup>
+        <Button
+          type="submit"
+          onClick={(e) => {
+            e.preventDefault();
+            onSaveStock("stockDate", stockcheck);
+          }}
+        >
+          Save
+        </Button>
         <Button variant="primary" onClick={handleLogout} size="lg">
           Log out
         </Button>
