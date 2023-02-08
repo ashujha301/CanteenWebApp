@@ -179,6 +179,7 @@ const Details = ({ id, setId }) => {
   //     else return false;
   // };
 
+
   useEffect(() => {
     let count = 0;
     const newFunction = async () => {
@@ -322,7 +323,7 @@ const Details = ({ id, setId }) => {
                       <option> Select Rank</option>
                       {ranks.map((rank) => {
                         return (
-                          <option value="rank" onChange={handleSubmit}>
+                          <option value={rank} onChange={handleSubmit}>
                             {rank}
                           </option>
                         );
@@ -344,7 +345,7 @@ const Details = ({ id, setId }) => {
                       <option> Select Rank</option>
                       {ranks.map((rank) => {
                         return (
-                          <option value="rank" onChange={handleSubmit}>
+                          <option value={rank} onChange={handleSubmit}>
                             {rank}
                           </option>
                         );
