@@ -8,9 +8,9 @@ const firebaseConfig = {
   authDomain: "canteenwebapp-48222.firebaseapp.com",
   projectId: "canteenwebapp-48222",
   storageBucket: "canteenwebapp-48222.appspot.com",
-  messagingSenderId: "4763667233",
-  appId: "1:4763667233:web:9f1769290e45f3accc4c60",
-  measurementId: "G-2MHCV8JT59"
+  // messagingSenderId: "4763667233",
+  // appId: "1:4763667233:web:9f1769290e45f3accc4c60",
+  // measurementId: "G-2MHCV8JT59"
 };
 
 // Initialize Firebase
