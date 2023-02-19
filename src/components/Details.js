@@ -1,22 +1,17 @@
 import React, { useState, useEffect } from "react";
-// import { Link, useNavigate } from "react-router-dom";
 import { Form, Alert, InputGroup, Button, ButtonGroup } from "react-bootstrap";
 import BookDataService from "../services/book.services";
 import { Box, Flex } from "theme-ui";
 import Navbar from "./Navbar";
 import Footer from "./footer";
 import { v4 as uuidv4 } from "uuid";
-// import Modal from "react-modal";
-// import { db } from "../firebase";
 import { useNavigate } from "react-router-dom";
-import app, { db } from "../firebase";
+import { db } from "../firebase";
 
 import "firebase/firestore";
 import { collection, query, where, getDocs } from "firebase/firestore";
 
-//firebase admin collection 
-
-
+//firebase admin collection
 
 //to get current date and tomorrows date
 const currentDate = new Date();
@@ -40,10 +35,10 @@ const Details = ({ id, setId }) => {
   const [token, setToken] = useState(
     localStorage.getItem("token") || uuidv4().substring(0, 8).toUpperCase()
   );
+  const [stockDate, setStockDate] = useState("");
   const navigate = useNavigate();
-  const slotLimit = 2;
+  // const slotLimit = 2;
   const [limit, setLimit] = useState("");
-  //const [disable , setDisable] = useState(false);
   const ranks = [
     "AIR CMDE",
     "GP CAPT",
@@ -84,8 +79,6 @@ const Details = ({ id, setId }) => {
     { time: "15:00 - 16:00", value: 15 },
     { time: "16:00 - 16:30", value: 16 },
   ];
-
-  // const token = uuidv4().substring(0, 8).toUpperCase();
 
   const handleButtonClick = (value) => {
     setSelectedButton(value);
@@ -134,9 +127,7 @@ const Details = ({ id, setId }) => {
     }
 
     setFirstName("");
-
     setRank("");
-
     setCard("");
     setServiceNumber("");
     setDate("");
@@ -151,7 +142,6 @@ const Details = ({ id, setId }) => {
 
     try {
       const docSnap = await BookDataService.getBook(id);
-      console.log("the record is :", docSnap.data());
       setRank(docSnap.data().rank);
       setServiceNumber(docSnap.data().servicenumber);
       setFirstName(docSnap.data().firstname);
@@ -162,7 +152,6 @@ const Details = ({ id, setId }) => {
       setMessage({ error: true, msg: err.message });
     }
   };
-  let querySnapshot;
 
   const handleSub = async (e) => {
     setTime(e.target.value);
@@ -174,11 +163,16 @@ const Details = ({ id, setId }) => {
     }
   }, [id]);
 
-  // const disable = () => {
-  //     if (limit > slotLimit) return true;
-  //     else return false;
-  // };
-
+  useEffect(() => {
+    const getBookData = async (id) => {
+      const data = await BookDataService.getPhone(id);
+      const q = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      setStockDate(
+        new Date(q[1]?.new.seconds * 1000 + q[1]?.new.nanoseconds / 1000000)
+      );
+    };
+    getBookData("stockDate");
+  }, []);
 
   useEffect(() => {
     let count = 0;
@@ -201,47 +195,7 @@ const Details = ({ id, setId }) => {
     // Code that relies on the updated state
   }, [time, date]);
 
-
-
-  //card input
-  // const handleCardChange = (e) => {
-  //   let value = e.target.value;
-  //   value = value
-  //     .toUpperCase()
-  //     .replace(/[^A-Z0-9]/g, "")
-  //     .substr(0, 19);
-  //   const firstTwo = value.substr(0, 2);
-  //   const rest = value.substr(2).replace(/(.{4})/g, "$1 ");
-  //   setCard(firstTwo + rest);
-  // };
-
-  const isSaturday =
-    date.toString().split(" ")[0] === "Sat"
-
-  //firebase stockDate data
-  
-
-  //to check if card already exist
-  //   const todayTimestamp = app.firestore.Timestamp.fromDate(new Date());
-  // const tomorrowTimestamp = app.firestore.Timestamp.fromDate(new Date(new Date().setDate(new Date().getDate()+1)));
-
-  // const checkBooking = async (date, day) => {
-  //   let bookingsRef = null;
-  //   if(day === 'today'){
-  //     bookingsRef = app.firestore().collection("bookings").where("date", "==", todayTimestamp).where("card", "==", card);
-  //   }else{
-  //     bookingsRef = app.firestore().collection("bookings").where("date", "==", tomorrowTimestamp).where("card", "==", card);
-  //   }
-  //   bookingsRef.get().then(snapshot => {
-  //     if (snapshot.empty) {
-  //       setDate(date);
-  //       setDay(day);
-  //     } else {
-  //       setFlag(false);
-  //       alert("This card number is already booked for "+day);
-  //     }
-  //   });
-  //}
+  const isSaturday = date.toString().split(" ")[0] === "Sat";
 
   return (
     <>
@@ -395,7 +349,12 @@ const Details = ({ id, setId }) => {
               >
                 <Button
                   variant={day === "today" ? "success" : "warning"}
-                  disabled={!flag || today.toString().split(" ")[0] === "Thu"}
+                  disabled={
+                    !flag ||
+                    today.toString().split(" ")[0] === "Thu" ||
+                    today.toString().split(" ").slice(0, 4).join(" ") ===
+                      stockDate.toString().split(" ").slice(0, 4).join(" ")
+                  }
                   value={today}
                   style={{ flex: 1 }}
                   onClick={(e) => {
@@ -408,7 +367,10 @@ const Details = ({ id, setId }) => {
                 <Button
                   variant={day === "tomorrow" ? "success" : "danger"}
                   disabled={
-                    !flag || tomorrow.toString().split(" ")[0] === "Thu"
+                    !flag ||
+                    tomorrow.toString().split(" ")[0] === "Thu" ||
+                    tomorrow.toString().split(" ").slice(0, 4).join(" ") ===
+                      stockDate.toString().split(" ").slice(0, 4).join(" ")
                   }
                   value={tomorrow}
                   style={{ flex: 1 }}

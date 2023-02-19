@@ -1,22 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Table, Button, InputGroup, Form } from "react-bootstrap";
+import React, { forwardRef, useEffect, useState } from "react";
+import { Table, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
 import BookDataService from "../services/book.services";
-// import moment from "moment";
-// import app, { db } from "../firebase";
 import "firebase/firestore";
-import { Input } from "theme-ui";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
-// import {
-//   collection,
-//   query,
-//   where,
-//   getDocs,
-//   collectionGroup,
-// } from "firebase/firestore";
+import { Flex, Grid, Text } from "theme-ui";
 
 const BooksList = ({ id, setId }) => {
   const [stockcheck, setStockcheck] = useState("");
@@ -58,40 +48,73 @@ const BooksList = ({ id, setId }) => {
       console.log(error);
     }
   };
-
-  function convertTimestamp(timestamp) {
-    var d = new Date(timestamp * 1000 - 7.5 * 60 * 60 * 1000), // Convert the passed timestamp to milliseconds
-      hh = d.getHours(),
-      h = hh,
-      min = ("0" + d.getMinutes()).slice(-2), // Add leading 0.
-      ampm = "AM",
-      time;
-
-    if (hh > 12) {
-      h = hh - 12;
-      ampm = "PM";
-    } else if (hh === 12) {
-      h = 12;
-      ampm = "PM";
-    } else if (hh === 0) {
-      h = 12;
-    }
-
-    // ie: 2013-02-18, 8:35 AM
-    time = h + ":" + min + " " + ampm;
-    return time;
-  }
+  const CustomInput = forwardRef(({ value, onClick }, ref) => (
+    <Button
+      variant="dark edit"
+      style={{ width: 120, height: 40 }}
+      onClick={onClick}
+      ref={ref}
+    >
+      {value}
+    </Button>
+  ));
 
   return (
     <>
-      <div>
-        <Button variant="dark edit" onClick={getBooks} style={{ margin: 10 }}>
-          Refresh List
-        </Button>
-        <Button variant="dark edit" onClick={handlePrint}>
-          Print
-        </Button>
-      </div>
+      <Grid columns={3} gap={3}>
+        <Flex>
+          <Button
+            variant="dark edit"
+            onClick={getBooks}
+            style={{ width: 120, height: 40, margin: 10 }}
+          >
+            Refresh List
+          </Button>
+          <Button
+            variant="dark edit"
+            onClick={handlePrint}
+            style={{ width: 120, height: 40, margin: 10 }}
+          >
+            Print
+          </Button>
+        </Flex>
+        <Grid columns={3} gap={0} sx={{ alignItems: "center" }}>
+          <Text style={{ color: "black", fontSize: "20", fontWeight: "bold" }}>
+            Stock Check Date
+          </Text>
+          <DatePicker
+            selected={stockcheck}
+            onChange={(date) => setStockcheck(date)}
+            customInput={<CustomInput />}
+            dateFormat="dd/MM/yyyy"
+          />
+          <Button
+            type="submit"
+            onClick={(e) => {
+              e.preventDefault();
+              onSaveStock("stockDate", stockcheck);
+            }}
+            style={{ width: 120, height: 40 }}
+            variant="primary"
+          >
+            Save
+          </Button>
+        </Grid>
+        <div
+          className="d-grid gap-2"
+          style={{ justifyContent: "flex-end", marginRight: 60 }}
+        >
+          <Button
+            variant="primary"
+            onClick={handleLogout}
+            size="md"
+            style={{ width: 120, height: 40, margin: 10 }}
+          >
+            Log out
+          </Button>
+        </div>
+      </Grid>
+
       <Table striped bordered hover size="sm">
         <thead>
           <tr>
@@ -134,33 +157,6 @@ const BooksList = ({ id, setId }) => {
           })}
         </tbody>
       </Table>
-
-      <div
-        className="d-grid gap-2"
-        style={{ justifyContent: "flex-end", marginRight: 60 }}
-      >
-        <p style={{ color: "green", fontSize: "20" }}>
-          <b>Stock Check Date</b>
-        </p>
-        <InputGroup>
-          <DatePicker
-            selected={stockcheck}
-            onChange={(date) => setStockcheck(date)}
-          />
-        </InputGroup>
-        <Button
-          type="submit"
-          onClick={(e) => {
-            e.preventDefault();
-            onSaveStock("stockDate", stockcheck);
-          }}
-        >
-          Save
-        </Button>
-        <Button variant="primary" onClick={handleLogout} size="lg">
-          Log out
-        </Button>
-      </div>
     </>
   );
 };
