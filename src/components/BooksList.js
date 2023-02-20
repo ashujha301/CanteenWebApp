@@ -61,7 +61,7 @@ const BooksList = ({ id, setId }) => {
 
   return (
     <>
-      <Grid columns={3} gap={3}>
+      <Grid columns={[1,1,3]} gap={3}>
         <Flex>
           <Button
             variant="dark edit"
@@ -78,7 +78,7 @@ const BooksList = ({ id, setId }) => {
             Print
           </Button>
         </Flex>
-        <Grid columns={3} gap={0} sx={{ alignItems: "center" }}>
+        <Grid columns={[1,1,3]} gap={2} sx={{ alignItems: "center" }}>
           <Text style={{ color: "black", fontSize: "20", fontWeight: "bold" }}>
             Stock Check Date
           </Text>
