@@ -33,8 +33,7 @@ class BookDataService {
     // return getDocs(bookCollectionRef);
     const q = query(
       collection(db, "Canteen_Slots"),
-      orderBy("date", "desc"),
-      orderBy("time", "asc")
+      orderBy("time", "desc")
     );
     return getDocs(q);
   };

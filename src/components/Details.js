@@ -6,10 +6,10 @@ import Navbar from "./Navbar";
 import Footer from "./footer";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
-import { db } from "../firebase";
+// import { db } from "../firebase";
 
 import "firebase/firestore";
-import { collection, query, where, getDocs } from "firebase/firestore";
+// import { collection, query, where, getDocs } from "firebase/firestore";
 
 //firebase admin collection
 
@@ -38,7 +38,8 @@ const Details = ({ id, setId }) => {
   const [stockDate, setStockDate] = useState("");
   const navigate = useNavigate();
   // const slotLimit = 2;
-  const [limit, setLimit] = useState("");
+  // const [limit, setLimit] = useState("");
+  const dateObj = new Date(date);
   const ranks = [
     "AIR CMDE",
     "GP CAPT",
@@ -58,26 +59,180 @@ const Details = ({ id, setId }) => {
   ];
 
   const times = [
-    { time: "10:00 - 11:00", value: 10 },
-    { time: "11:00 - 12:00", value: 11 },
-    { time: "12:00 - 13:00", value: 12 },
-    { time: "14:00 - 15:00", value: 14 },
-    { time: "15:00 - 16:00", value: 15 },
-    { time: "16:00 - 16:30", value: 16 },
+    {
+      time: "10:00 - 11:00",
+      value: new Date(
+        dateObj.getFullYear(),
+        dateObj.getMonth(),
+        dateObj.getDate(),
+        10,
+        0,
+        0,
+        0
+      ),
+    },
+    {
+      time: "11:00 - 12:00",
+      value: new Date(
+        dateObj.getFullYear(),
+        dateObj.getMonth(),
+        dateObj.getDate(),
+        11,
+        0,
+        0,
+        0
+      ),
+    },
+    {
+      time: "12:00 - 13:00",
+      value: new Date(
+        dateObj.getFullYear(),
+        dateObj.getMonth(),
+        dateObj.getDate(),
+        12,
+        0,
+        0,
+        0
+      ),
+    },
+    {
+      time: "14:00 - 15:00",
+      value: new Date(
+        dateObj.getFullYear(),
+        dateObj.getMonth(),
+        dateObj.getDate(),
+        14,
+        0,
+        0,
+        0
+      ),
+    },
+    {
+      time: "15:00 - 16:00",
+      value: new Date(
+        dateObj.getFullYear(),
+        dateObj.getMonth(),
+        dateObj.getDate(),
+        15,
+        0,
+        0,
+        0
+      ),
+    },
+    {
+      time: "16:00 - 16:30",
+      value: new Date(
+        dateObj.getFullYear(),
+        dateObj.getMonth(),
+        dateObj.getDate(),
+        16,
+        0,
+        0,
+        0
+      ),
+    },
   ];
 
   const times3 = [
-    { time: "11:00 - 12:00", value: 11 },
-    { time: "12:00 - 13:00", value: 12 },
-    { time: "14:00 - 15:00", value: 14 },
-    { time: "15:00 - 16:00", value: 15 },
-    { time: "16:00 - 16:30", value: 16 },
+    {
+      time: "11:00 - 12:00",
+      value: new Date(
+        dateObj.getFullYear(),
+        dateObj.getMonth(),
+        dateObj.getDate(),
+        11,
+        0,
+        0,
+        0
+      ),
+    },
+    {
+      time: "12:00 - 13:00",
+      value: new Date(
+        dateObj.getFullYear(),
+        dateObj.getMonth(),
+        dateObj.getDate(),
+        12,
+        0,
+        0,
+        0
+      ),
+    },
+    {
+      time: "14:00 - 15:00",
+      value: new Date(
+        dateObj.getFullYear(),
+        dateObj.getMonth(),
+        dateObj.getDate(),
+        14,
+        0,
+        0,
+        0
+      ),
+    },
+    {
+      time: "15:00 - 16:00",
+      value: new Date(
+        dateObj.getFullYear(),
+        dateObj.getMonth(),
+        dateObj.getDate(),
+        15,
+        0,
+        0,
+        0
+      ),
+    },
+    {
+      time: "16:00 - 16:30",
+      value: new Date(
+        dateObj.getFullYear(),
+        dateObj.getMonth(),
+        dateObj.getDate(),
+        16,
+        0,
+        0,
+        0
+      ),
+    },
   ];
 
   const times2 = [
-    { time: "14:00 - 15:00", value: 14 },
-    { time: "15:00 - 16:00", value: 15 },
-    { time: "16:00 - 16:30", value: 16 },
+    {
+      time: "14:00 - 15:00",
+      value: new Date(
+        dateObj.getFullYear(),
+        dateObj.getMonth(),
+        dateObj.getDate(),
+        14,
+        0,
+        0,
+        0
+      ),
+    },
+    {
+      time: "15:00 - 16:00",
+      value: new Date(
+        dateObj.getFullYear(),
+        dateObj.getMonth(),
+        dateObj.getDate(),
+        15,
+        0,
+        0,
+        0
+      ),
+    },
+    {
+      time: "16:00 - 16:30",
+      value: new Date(
+        dateObj.getFullYear(),
+        dateObj.getMonth(),
+        dateObj.getDate(),
+        16,
+        0,
+        0,
+        0
+      ),
+    },
   ];
 
   const handleButtonClick = (value) => {
@@ -108,7 +263,7 @@ const Details = ({ id, setId }) => {
         servicenumber,
         firstname,
         date: date,
-        time: Number(time),
+        time: time,
         token,
       };
       try {
@@ -154,7 +309,7 @@ const Details = ({ id, setId }) => {
   };
 
   const handleSub = async (e) => {
-    setTime(e.target.value);
+    setTime(new Date(e.target.value));
   };
 
   useEffect(() => {
@@ -173,27 +328,6 @@ const Details = ({ id, setId }) => {
     };
     getBookData("stockDate");
   }, []);
-
-  useEffect(() => {
-    let count = 0;
-    const newFunction = async () => {
-      const q = query(
-        collection(db, "Canteen_Slots"),
-        where("time", "==", Number(time))
-      );
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        if (
-          new Date(doc.data().date.seconds * 1000).toDateString() ===
-          new Date(date).toDateString()
-        )
-          count++;
-      });
-      setLimit(count);
-    };
-    newFunction();
-    // Code that relies on the updated state
-  }, [time, date]);
 
   const isSaturday = date.toString().split(" ")[0] === "Sat";
 

@@ -6,7 +6,7 @@ import { useUserAuth } from "../context/UserAuthContext";
 
 const Home = () => {
   const token = localStorage.getItem("token");
-  const time = localStorage.getItem("time");
+  const time1 = localStorage.getItem("time");
   const date = localStorage.getItem("date");
   const { logOut } = useUserAuth();
   const navigate = useNavigate();
@@ -21,14 +21,7 @@ const Home = () => {
       console.log(error.message);
     }
   };
-  const getTimeSlot = (time1) => {
-    const time2 = time1 + 1;
-    if (time1 < 16) {
-      return `${time1}:00 - ${time2}:00`;
-    } else {
-      return `${time1}:00 - ${time1}:30`;
-    }
-  };
+  const time = new Date(time1).toLocaleTimeString();
 
   return (
     <Box sx={{ backgroundColor: "lightBlue", height: "100vh", flex: 1 }}>
@@ -80,7 +73,7 @@ const Home = () => {
           <h2 style={{ fontWeight: "bold", fontFamily: "monospace" }}>
             {new Date(date).toDateString()}
             <br />
-            {getTimeSlot(Number(time))}
+            {time.substring(0, 5)}
           </h2>
         </Box>
       </div>

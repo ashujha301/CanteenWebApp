@@ -31,7 +31,9 @@ function App() {
         window.location.reload();
       });
       return () => {
-        unlisten();
+        if (typeof unlisten === "function") {
+          unlisten();
+        }
       };
     }
   }, [navigate, location]);

@@ -133,6 +133,9 @@ const BooksList = ({ id, setId }) => {
             const date = new Date(
               doc.date.seconds * 1000 + doc.date.nanoseconds / 1000000
             );
+            const time = new Date(
+              doc.time.seconds * 1000 + doc.time.nanoseconds / 1000000
+            );
             return (
               <tr key={doc.id}>
                 <td>{index + 1}</td>
@@ -140,7 +143,7 @@ const BooksList = ({ id, setId }) => {
                 <td>{doc.servicenumber}</td>
                 <td>{doc.firstname}</td>
                 <td>{date.toDateString()}</td>
-                <td>{doc.time}:00</td>
+                <td>{time.toLocaleTimeString().split(':')[0].toString() +":" + time.toLocaleTimeString().split(':')[1].toString()}</td>
                 <td>{doc.card}</td>
                 <td>{doc.token}</td>
                 <td>
