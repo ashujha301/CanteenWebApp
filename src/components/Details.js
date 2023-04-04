@@ -367,7 +367,7 @@ const Details = ({ id, setId }) => {
         }}
       >
         <Navbar label="DETAILS" />
-        <Marquee className="blink"
+        <Marquee 
         style={{ fontSize: "2rem", color: "red" , marginTop: "40px"}}
         loop={0}
         speed={120}
