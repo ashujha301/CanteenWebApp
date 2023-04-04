@@ -6,6 +6,8 @@ import Navbar from "./Navbar";
 import Footer from "./footer";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
+import Marquee from "react-fast-marquee";
+
 // import { db } from "../firebase";
 
 import "firebase/firestore";
@@ -36,6 +38,7 @@ const Details = ({ id, setId }) => {
     localStorage.getItem("token") || uuidv4().substring(0, 8).toUpperCase()
   );
   const [stockDate, setStockDate] = useState("");
+  const [newmsg, setNewMsg] = useState("");
   const navigate = useNavigate();
   // const slotLimit = 2;
   // const [limit, setLimit] = useState("");
@@ -329,7 +332,27 @@ const Details = ({ id, setId }) => {
     getBookData("stockDate");
   }, []);
 
+  useEffect(() => {
+    const getBookData = async (id) => {
+      const data = await BookDataService.getPhone(id);
+      const m = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      const filteredData = m.filter((obj) => obj.id === "msg");
+      if (filteredData.length > 0) {
+        setNewMsg(filteredData[0]);
+      } else {
+        setNewMsg("Default value");
+      }
+    };
+    getBookData("newmsg");
+  }, []);
+
   const isSaturday = date.toString().split(" ")[0] === "Sat";
+
+  useEffect(() => {
+    console.log("stockDate", stockDate);
+  }, [stockDate]);
+  console.log("date", today);
+  console.log("msg = ", newmsg);
 
   return (
     <>
@@ -344,6 +367,15 @@ const Details = ({ id, setId }) => {
         }}
       >
         <Navbar label="DETAILS" />
+        <Marquee className="blink"
+        style={{ fontSize: "2rem", color: "red" , marginTop: "40px"}}
+        loop={0}
+        speed={120}
+        gradient="false"
+        gradientWidth={0}
+        >
+         {newmsg.new}
+        </Marquee>
         <Box
           sx={{
             alignSelf: "center",

@@ -1,15 +1,17 @@
 import React, { forwardRef, useEffect, useState } from "react";
-import { Table, Button } from "react-bootstrap";
+import { Table, Button, InputGroup } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
 import BookDataService from "../services/book.services";
 import "firebase/firestore";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Flex, Grid, Text } from "theme-ui";
+import { Flex, Grid, Input, Text } from "theme-ui";
+import Cookies from "js-cookie";
 
 const BooksList = ({ id, setId }) => {
   const [stockcheck, setStockcheck] = useState("");
+  const [message, setMessage] = useState("");
   const { logOut } = useUserAuth();
   const navigate = useNavigate();
   const handleLogout = async () => {
@@ -61,8 +63,10 @@ const BooksList = ({ id, setId }) => {
 
   return (
     <>
+    
       <Grid columns={[1,1,3]} gap={3}>
         <Flex>
+          
           <Button
             variant="dark edit"
             onClick={getBooks}
@@ -77,6 +81,7 @@ const BooksList = ({ id, setId }) => {
           >
             Print
           </Button>
+          
         </Flex>
         <Grid columns={[1,1,3]} gap={2} sx={{ alignItems: "center" }}>
           <Text style={{ color: "black", fontSize: "20", fontWeight: "bold" }}>
@@ -99,7 +104,9 @@ const BooksList = ({ id, setId }) => {
           >
             Save
           </Button>
+          
         </Grid>
+        
         <div
           className="d-grid gap-2"
           style={{ justifyContent: "flex-end", marginRight: 60 }}
@@ -114,6 +121,24 @@ const BooksList = ({ id, setId }) => {
           </Button>
         </div>
       </Grid>
+ 
+
+      <Input
+          type="text"
+          placeholder="Enter Your Message here"
+          onChange={(e)=>setMessage(e.target.value)}
+          />
+          <Button
+            type="submit"
+            onClick={(e) => {
+              e.preventDefault();
+              onSaveStock("msg", message);
+            }}
+            style={{ width: 120, height: 40 }}
+            variant="primary"
+          >
+            Save
+          </Button>
 
       <Table striped bordered hover size="sm">
         <thead>

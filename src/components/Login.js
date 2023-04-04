@@ -19,6 +19,7 @@ const Login = () => {
             overflow: "hidden",
           }}
         >
+          
           <Flex
             sx={{
               flexDirection: "row",
@@ -27,6 +28,7 @@ const Login = () => {
               paddingTop: [60, 40, 30, 20],
             }}
           >
+            
             <Image
               src="../afslogoeng.png"
               alt="Canteen Logo 1"
@@ -89,4 +91,6 @@ let styles = {
     flexWrap: "wrap",
     paddingLeft: [3, 2, 0, 0],
   },
+
+  
 };
