@@ -348,12 +348,6 @@ const Details = ({ id, setId }) => {
 
   const isSaturday = date.toString().split(" ")[0] === "Sat";
 
-  useEffect(() => {
-    console.log("stockDate", stockDate);
-  }, [stockDate]);
-  console.log("date", today);
-  console.log("msg = ", newmsg);
-
   return (
     <>
       <Box
@@ -367,14 +361,17 @@ const Details = ({ id, setId }) => {
         }}
       >
         <Navbar label="DETAILS" />
-        <Marquee 
-        style={{ fontSize: "2rem", color: "red" , marginTop: "40px"}}
-        loop={0}
-        speed={120}
-        gradient="false"
-        gradientWidth={0}
+        <Marquee
+          className="blink"
+          style={{ fontSize: "2rem", color: "red", marginTop: "40px" }}
+          loop={0}
+          speed={120}
+          gradient="false"
+          gradientWidth={0}
+          delay={2}
         >
-         {newmsg.new}
+          {newmsg.new}
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </Marquee>
         <Box
           sx={{
