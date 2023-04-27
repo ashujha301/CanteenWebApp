@@ -347,6 +347,7 @@ const Details = ({ id, setId }) => {
   }, []);
 
   const isSaturday = date.toString().split(" ")[0] === "Sat";
+  const height=window.innerHeight;
 
   return (
     <>
@@ -355,9 +356,7 @@ const Details = ({ id, setId }) => {
           display: "flex",
           flexDirection: "column",
           backgroundColor: "blue",
-          height: "100vh",
-          flex: 1,
-          width: "100%",
+          minHeight: height > 800 ? "98vh" : 800,
         }}
       >
         <Navbar label="DETAILS" />
@@ -628,7 +627,7 @@ const Details = ({ id, setId }) => {
           </Box>
         </Box>
       </Box>
-      <Footer label="Copyright 2023. All rights reserved."></Footer>
+      <Footer label="Copyright 2023. All rights reserved." ></Footer>
     </>
   );
 };

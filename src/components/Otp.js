@@ -5,6 +5,7 @@ import Navbar from "./Navbar";
 import OTPInput from "otp-input-react";
 
 function Otp({ otp, setOtp, onSubmitOTP }) {
+  const height = window.innerHeight;
   return (
     <>
       <Navbar label="LOGIN" />
@@ -14,8 +15,7 @@ function Otp({ otp, setOtp, onSubmitOTP }) {
           backgroundColor: "blue",
           flex: 1,
           alignItems: "center",
-          height: "97.6vh",
-          overflow: "hidden",
+          minHeight: height > 800 ? "96.8vh" : 800,
         }}
       >
         <img src="../Canteenlogo.png" alt="Canteen Logo" />

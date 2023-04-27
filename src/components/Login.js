@@ -5,6 +5,7 @@ import Footer from "./footer";
 import { Box, Button, Flex, Text, Image } from "theme-ui";
 
 const Login = () => {
+  const height = window.innerHeight;
   return (
     <>
       <Box sx={{ backgroundColor: "blue" }}>
@@ -15,11 +16,9 @@ const Login = () => {
             justifyContent: "center",
             flex: 1,
             flexDirection: "column",
-            height: "100vh",
-            overflow: "hidden",
+            minHeight: height > 800 ? "86vh" : 800,
           }}
         >
-          
           <Flex
             sx={{
               flexDirection: "row",
@@ -28,16 +27,15 @@ const Login = () => {
               paddingTop: [60, 40, 30, 20],
             }}
           >
-            
             <Image
               src="../afslogoeng.png"
               alt="Canteen Logo 1"
-              sx={{ height: [250, 350, 350, 450], flex: 1 }}
+              sx={{ height: [250, 350, 350, 400], flex: 1 }}
             />
             <Image
               src="../afslogohindi.png"
               alt="Canteen Logo 2"
-              sx={{ height: [250, 350, 350, 450], flex: 1 }}
+              sx={{ height: [250, 350, 350, 400], flex: 1 }}
             />
           </Flex>
 
@@ -91,6 +89,4 @@ let styles = {
     flexWrap: "wrap",
     paddingLeft: [3, 2, 0, 0],
   },
-
-  
 };

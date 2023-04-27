@@ -18,6 +18,7 @@ const PhoneSignUp = () => {
   const [result, setResult] = useState("");
   const { setUpRecaptha } = useUserAuth();
   const navigate = useNavigate();
+  const height = window.innerHeight;
 
   const getOtp = async (e) => {
     e.preventDefault();
@@ -56,32 +57,30 @@ const PhoneSignUp = () => {
           display: "flex",
           flexDirection: "column",
           backgroundColor: "blue",
-          height: "100vh",
-          flex: 1,
-          width: "100%",
+          minHeight: height > 800 ? "96.8vh" : 800,
         }}
       >
         <Navbar label="LOGIN" />
-          <Flex
-            sx={{
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
-              paddingTop: [60, 40, 30, 20],
+        <Flex
+          sx={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            paddingTop: [60, 40, 30, 20],
             alignSelf: "center",
-            }}
-          >
-            <Image
-              src="../afslogoeng.png"
-              alt="Canteen Logo 1"
+          }}
+        >
+          <Image
+            src="../afslogoeng.png"
+            alt="Canteen Logo 1"
             sx={{ height: [250, 250, 350, 350], flex: 1 }}
-            />
-            <Image
-              src="../afslogohindi.png"
-              alt="Canteen Logo 2"
+          />
+          <Image
+            src="../afslogohindi.png"
+            alt="Canteen Logo 2"
             sx={{ height: [250, 250, 350, 350], flex: 1 }}
-            />
-          </Flex>
+          />
+        </Flex>
         <Box
           sx={{
             alignSelf: "center",
