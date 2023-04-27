@@ -326,7 +326,7 @@ const Details = ({ id, setId }) => {
       const data = await BookDataService.getPhone(id);
       const q = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
       setStockDate(
-        new Date(q[1]?.new.seconds * 1000 + q[1]?.new.nanoseconds / 1000000)
+        new Date(q[2]?.new.seconds * 1000 + q[2]?.new.nanoseconds / 1000000)
       );
     };
     getBookData("stockDate");
@@ -365,10 +365,10 @@ const Details = ({ id, setId }) => {
           className="blink"
           style={{ fontSize: "2rem", color: "red", marginTop: "40px" }}
           loop={0}
-          speed={120}
+          speed={80}
           gradient="false"
           gradientWidth={0}
-          delay={2}
+          delay={1}
         >
           {newmsg.new}
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
