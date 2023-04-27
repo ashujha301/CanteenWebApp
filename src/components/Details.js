@@ -364,7 +364,7 @@ const Details = ({ id, setId }) => {
           className="blink"
           style={{ fontSize: "2rem", color: "red", marginTop: "40px" }}
           loop={0}
-          speed={80}
+          speed={70}
           gradient="false"
           gradientWidth={0}
           delay={1}
