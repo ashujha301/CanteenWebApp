@@ -13,6 +13,7 @@ export const theme = {
       navy: "#1D213C",
       blue: "#3C79B4",
       lightBlue: "#BAE2EE",
+      grad:"rgba(57, 158, 255, 1)",
       black: "#252525",
       white: "#FFF",
       grey: "rgba(0, 0, 0, 0.47)",

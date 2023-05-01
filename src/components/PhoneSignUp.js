@@ -9,6 +9,7 @@ import { useUserAuth } from "../context/UserAuthContext";
 import { Box, Flex, Image } from "theme-ui";
 import Navbar from "./Navbar";
 import Footer from "./footer";
+import { alpha } from "@theme-ui/color";
 
 const PhoneSignUp = () => {
   const [error, setError] = useState("");
@@ -56,7 +57,13 @@ const PhoneSignUp = () => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          backgroundColor: "blue",
+          backgroundImage: (t) => `
+          linear-gradient(
+          to bottom,
+          ${alpha("grad", 1)(t)},
+          ${alpha("navy", 1)(t)}
+          )
+          `,
           minHeight: height > 800 ? "96.8vh" : 800,
         }}
       >

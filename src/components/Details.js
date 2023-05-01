@@ -7,6 +7,7 @@ import Footer from "./footer";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 import Marquee from "react-fast-marquee";
+import { alpha } from "@theme-ui/color";
 
 // import { db } from "../firebase";
 
@@ -355,7 +356,13 @@ const Details = ({ id, setId }) => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          backgroundColor: "blue",
+          backgroundImage: (t) => `
+          linear-gradient(
+          to bottom,
+          ${alpha("grad", 1)(t)},
+          ${alpha("navy", 1)(t)}
+          )
+          `,
           minHeight: height > 800 ? "98vh" : 800,
         }}
       >

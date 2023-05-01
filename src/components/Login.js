@@ -3,12 +3,23 @@ import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./footer";
 import { Box, Button, Flex, Text, Image } from "theme-ui";
+import { alpha } from "@theme-ui/color";
 
 const Login = () => {
   const height = window.innerHeight;
   return (
     <>
-      <Box sx={{ backgroundColor: "blue" }}>
+      <Box
+        sx={{
+          backgroundImage: (t) => `
+          linear-gradient(
+          to bottom,
+          ${alpha("grad", 1)(t)},
+          ${alpha("navy", 1)(t)}
+          )
+          `,
+        }}
+      >
         <Navbar label="AF Canteen Bamrauli" />
         <Flex
           style={{
@@ -46,7 +57,7 @@ const Login = () => {
                 sx={{
                   paddingBottom: [1, 2, 3, 4],
                   paddingTop: [1, 2, 3, 4],
-                  color: "navy",
+                  color: "lightBlue",
                   fontFamily: "roboto",
                 }}
               >
@@ -76,7 +87,6 @@ export default Login;
 
 let styles = {
   home: {
-    backgroundColor: "#3C79B4",
     flex: 1,
     flexDirection: "column",
   },
